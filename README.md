@@ -1,9 +1,13 @@
-# Venus OS hosted web app
+# Venus OS React Dashboard
 
-#### Single Phase Screenshot
-![screenshot](/victron-webapp-screenshot.png?raw=true)
+## Credits:
+Many thanks to Victron Energy BV for building this project. I intend to integrate other non-victron based third party services and equipment into 
+this project and I do not expect some of this will make it upstream for various reasons and I do not with to be slowed down waiting for my changes
+to be accepted upstream.  For these reasons, this project is diverging from the original project located here:
+- [Venus HTML5 App](https://github.com/victronenergy/venus-html5-app)
 
-#### Multi-Phase hybrid grid-tied with ESS Screenshot
+
+#### Screenshot of Multi-Phase hybrid grid-tied System with ESS, Tesla vehicle integration, Tibber.com integration, CerbomoticzGX Integration
 
 ![screenshot](/victron-webapp-screenshot2.png?raw=true)
 
