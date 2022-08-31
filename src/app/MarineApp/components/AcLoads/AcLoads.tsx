@@ -17,7 +17,7 @@ const AcLoads = observer(() => {
   const showAsList = phases > 1
 
   const isVisible = !!(current && voltage && power && phases)
-  let phaseTotals = power.reduce((a, b) => a + b, 0)
+  let phaseTotals = power.reduce((p, n) => (p && n ? p + n : p))
 
   useVisibilityNotifier({
     widgetName: WIDGET_TYPES.AC_LOADS,
@@ -34,14 +34,17 @@ const AcLoads = observer(() => {
           subTitle={<Translate value="common.nrOfPhases" phases={phases} />}
           child={false}
         >
-          {voltage.slice(0, phases).map((v, i) => (
-            <ListRow key={i}>
-              <span className="value value__phase">L{i + 1}</span>
-              <NumericValue value={v} unit="V" />
-              <NumericValue value={current[i]} unit="A" precision={1} />
-              <NumericValue value={power[i]} unit={"W"} />
-            </ListRow>
-          ))}
+          {voltage.slice(0, phases).map(
+            (v, i) =>
+              v && (
+                <ListRow key={i}>
+                  <span className="value value__phase">L{i + 1}</span>
+                  <NumericValue value={v} unit="V" />
+                  <NumericValue value={current[i]} unit="A" precision={1} />
+                  <NumericValue value={power[i]} unit={"W"} />
+                </ListRow>
+              )
+          )}
         </ListViewWithTotals>
       </ColumnContainer>
     ) : (
