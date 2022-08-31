@@ -1,9 +1,9 @@
-import React from "react";
-import { Translate } from "react-i18nify";
+import React from "react"
+import { Translate } from "react-i18nify"
 
-import Fade from "../../../../components/Fade";
+import Fade from "../../../../components/Fade"
 
-import "./Connecting.scss";
+import "./Connecting.scss"
 
 const Connecting = ({ viewUnmounting }) => (
   <main>
@@ -20,6 +20,6 @@ const Connecting = ({ viewUnmounting }) => (
       </div>
     </Fade>
   </main>
-);
+)
 
-export default Connecting;
+export default Connecting

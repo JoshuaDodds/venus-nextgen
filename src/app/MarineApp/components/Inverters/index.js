@@ -1,1 +1,1 @@
-export { default } from "./Inverters";
+export { default } from "./Inverters"

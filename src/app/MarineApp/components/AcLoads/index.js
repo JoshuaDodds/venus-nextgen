@@ -1,1 +1,1 @@
-export { default } from "./AcLoads";
+export { default } from "./AcLoads"

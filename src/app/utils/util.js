@@ -1,4 +1,4 @@
-import { VEBUS_SYSTEM_STATE } from "./constants";
+import { VEBUS_SYSTEM_STATE } from "./constants"
 
 /**
  * @typedef {object} Topic
@@ -20,76 +20,74 @@ import { VEBUS_SYSTEM_STATE } from "./constants";
  * @returns {Topic}
  */
 export const parseTopic = (topic) => {
-  const parts = topic.split("/");
-  const dbusPathParts = parts.splice(4);
-  const isAcIn = dbusPathParts[0] === "Ac" && dbusPathParts[1] === "In";
+  const parts = topic.split("/")
+  const dbusPathParts = parts.splice(4)
+  const isAcIn = dbusPathParts[0] === "Ac" && dbusPathParts[1] === "In"
   return {
     type: parts[0],
     portalId: parts[1],
     serviceType: parts[2],
     deviceInstance: parts[3] === "+" ? "+" : parseInt(parts[3]),
-    dbusPath:
-      "/" +
-      (isAcIn ? dbusPathParts.splice(3).join("/") : dbusPathParts.join("/")),
-  };
-};
+    dbusPath: "/" + (isAcIn ? dbusPathParts.splice(3).join("/") : dbusPathParts.join("/")),
+  }
+}
 
 export const getParameterByName = (name, url) => {
-  if (!url) url = window.location.href;
-  name = name.replace(/[[\]]/g, "\\$&");
+  if (!url) url = window.location.href
+  name = name.replace(/[[\]]/g, "\\$&")
   var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-    results = regex.exec(url);
-  if (!results) return null;
-  if (!results[2]) return "";
-  return decodeURIComponent(results[2].replace(/\+/g, " "));
-};
+    results = regex.exec(url)
+  if (!results) return null
+  if (!results[2]) return ""
+  return decodeURIComponent(results[2].replace(/\+/g, " "))
+}
 
 export const flatten = (arrays) => {
-  return [].concat(...arrays);
-};
+  return [].concat(...arrays)
+}
 
 // keys from common translations
 export const systemStateFormatter = (value) => {
   switch (value) {
     case VEBUS_SYSTEM_STATE.OFF:
-      return "off";
+      return "off"
     case VEBUS_SYSTEM_STATE.LOW_POWER:
-      return "lowPower";
+      return "lowPower"
     case VEBUS_SYSTEM_STATE.FAULT_CONDITION:
-      return "fault";
+      return "fault"
     case VEBUS_SYSTEM_STATE.BULK_CHARGING:
-      return "bulkCharging";
+      return "bulkCharging"
     case VEBUS_SYSTEM_STATE.ABSORPTION_CHARGINNG:
-      return "absorptionCharging";
+      return "absorptionCharging"
     case VEBUS_SYSTEM_STATE.FLOAT_CHARGING:
-      return "floatCharging";
+      return "floatCharging"
     case VEBUS_SYSTEM_STATE.STORAGE_MODE:
-      return "storageMode";
+      return "storageMode"
     case VEBUS_SYSTEM_STATE.EQUALISATION_CHARGING:
-      return "equalisationCharging";
+      return "equalisationCharging"
     case VEBUS_SYSTEM_STATE.PASSTHRU:
-      return "passthru";
+      return "passthru"
     case VEBUS_SYSTEM_STATE.INVERTING:
-      return "inverting";
+      return "inverting"
     case VEBUS_SYSTEM_STATE.ASSISTING:
-      return "assisting";
+      return "assisting"
     case VEBUS_SYSTEM_STATE.POWER_SUPPLY_MODE:
-      return "powerSupplyMode";
+      return "powerSupplyMode"
     case VEBUS_SYSTEM_STATE.DISCHARGING:
-      return "discharging";
+      return "discharging"
     case VEBUS_SYSTEM_STATE.SUSTAIN:
-      return "sustain";
+      return "sustain"
     default:
-      return "emptyBar";
+      return "emptyBar"
   }
-};
+}
 
-export const byteSize = (str) => new Blob([str]).size;
+export const byteSize = (str) => new Blob([str]).size
 
 export const isError = (error) => {
   if (error && error.stack && error.message) {
-    return true;
+    return true
   }
 
-  return false;
-};
+  return false
+}

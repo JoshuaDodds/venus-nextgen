@@ -1,37 +1,33 @@
-import {
-  InverterState,
-  useInverter,
-  InverterInstanceId,
-} from "@elninotech/mfd-modules";
+import { InverterState, useInverter, InverterInstanceId } from "@elninotech/mfd-modules"
 
-import { INVERTER_MODE } from "../../../utils/constants";
+import { INVERTER_MODE } from "../../../utils/constants"
 
-import { ListViewWithTotals, ListRow } from "../ListViewWithTotals";
-import ColumnContainer from "../../components/ColumnContainer";
-import MetricValues from "../MetricValues";
-import NumericValue from "../../../components/NumericValue";
-import SelectorButton from "../SelectorButton";
+import { ListViewWithTotals, ListRow } from "../ListViewWithTotals"
+import ColumnContainer from "../../components/ColumnContainer"
+import MetricValues from "../MetricValues"
+import NumericValue from "../../../components/NumericValue"
+import SelectorButton from "../SelectorButton"
 
-import "./Inverter.scss";
+import "./Inverter.scss"
 
-import MultiplusIcon from "../../images/icons/multiplus.svg";
-import { translate, Translate } from "react-i18nify";
-import { observer } from "mobx-react";
+import MultiplusIcon from "../../images/icons/multiplus.svg"
+import { translate, Translate } from "react-i18nify"
+import { observer } from "mobx-react"
 
 const stateFormatter = (state: number) => {
   switch (state) {
     case 0:
-      return "off";
+      return "off"
     case 1:
-      return "lowPower";
+      return "lowPower"
     case 2:
-      return "fault";
+      return "fault"
     case 9:
-      return "inverting";
+      return "inverting"
     default:
-      return null;
+      return null
   }
-};
+}
 
 const InverterSubtitle = (voltage: number, current: number, power: number) => (
   <MetricValues inflate>
@@ -41,39 +37,28 @@ const InverterSubtitle = (voltage: number, current: number, power: number) => (
       <NumericValue value={power || voltage * current} unit="W" />
     </div>
   </MetricValues>
-);
+)
 
 type InverterProps = {
-  instanceId: InverterInstanceId;
-  isVebusInverter: boolean;
-};
+  instanceId: InverterInstanceId
+  isVebusInverter: boolean
+}
 
 export const Inverter = observer(
-  ({
-    instanceId,
-    isVebusInverter,
-    ...props
-  }: InverterProps & Partial<InverterState>) => {
-    const source = isVebusInverter ? "vebus" : "inverter";
-    let {
-      state,
-      mode,
-      voltage,
-      current,
-      power,
-      customName,
-      productName,
-      nAcInputs,
-      updateMode,
-    } = useInverter(instanceId, source);
-    nAcInputs = props.nAcInputs ?? nAcInputs;
+  ({ instanceId, isVebusInverter, ...props }: InverterProps & Partial<InverterState>) => {
+    const source = isVebusInverter ? "vebus" : "inverter"
+    let { state, mode, voltage, current, power, customName, productName, nAcInputs, updateMode } = useInverter(
+      instanceId,
+      source
+    )
+    nAcInputs = props.nAcInputs ?? nAcInputs
 
     // if nAcInputs === 0 it means it's an inverter, if not it's an inverter/charger => skip
-    const show = !isVebusInverter || nAcInputs === 0;
+    const show = !isVebusInverter || nAcInputs === 0
     // Vebus inverters use mode 3 in stead of 2 for ON.
-    const onMode = isVebusInverter ? INVERTER_MODE.VEBUS_ON : INVERTER_MODE.ON;
+    const onMode = isVebusInverter ? INVERTER_MODE.VEBUS_ON : INVERTER_MODE.ON
 
-    const productNameShort = productName && productName.split(" ")[0];
+    const productNameShort = productName && productName.split(" ")[0]
 
     return (
       <>
@@ -82,36 +67,22 @@ export const Inverter = observer(
             <div className="metric inverter">
               <ListViewWithTotals
                 icon={MultiplusIcon}
-                title={
-                  customName ||
-                  translate("widgets.inverterWithName", { productNameShort })
-                }
+                title={customName || translate("widgets.inverterWithName", { productNameShort })}
                 totals={power || voltage * current}
-                subTitle={
-                  <Translate value={`common.${stateFormatter(state)}`} />
-                }
+                subTitle={<Translate value={`common.${stateFormatter(state)}`} />}
                 child={true}
               >
                 <ListRow>{InverterSubtitle(voltage, current, power)}</ListRow>
               </ListViewWithTotals>
               <div className="inverter__mode-selector">
-                <SelectorButton
-                  active={mode === onMode}
-                  onClick={() => updateMode(onMode)}
-                >
+                <SelectorButton active={mode === onMode} onClick={() => updateMode(onMode)}>
                   <Translate value="common.on" />
                 </SelectorButton>
-                <SelectorButton
-                  active={mode === INVERTER_MODE.OFF}
-                  onClick={() => updateMode(INVERTER_MODE.OFF)}
-                >
+                <SelectorButton active={mode === INVERTER_MODE.OFF} onClick={() => updateMode(INVERTER_MODE.OFF)}>
                   <Translate value="common.off" />
                 </SelectorButton>
                 {!isVebusInverter && (
-                  <SelectorButton
-                    active={mode === INVERTER_MODE.ECO}
-                    onClick={() => updateMode(INVERTER_MODE.ECO)}
-                  >
+                  <SelectorButton active={mode === INVERTER_MODE.ECO} onClick={() => updateMode(INVERTER_MODE.ECO)}>
                     <Translate value="common.eco" />
                   </SelectorButton>
                 )}
@@ -120,8 +91,8 @@ export const Inverter = observer(
           </ColumnContainer>
         )}
       </>
-    );
+    )
   }
-);
+)
 
-export default Inverter;
+export default Inverter

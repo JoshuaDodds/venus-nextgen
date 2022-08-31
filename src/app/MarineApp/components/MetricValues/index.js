@@ -1,1 +1,1 @@
-export { default } from "./MetricValues";
+export { default } from "./MetricValues"

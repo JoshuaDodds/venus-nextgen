@@ -1,28 +1,28 @@
-import { useAcLoads } from "@elninotech/mfd-modules";
+import { useAcLoads } from "@elninotech/mfd-modules"
 
-import HeaderView from "../HeaderView";
-import ColumnContainer from "../ColumnContainer";
-import MetricValues from "../MetricValues";
-import NumericValue from "../../../components/NumericValue";
-import { ListViewWithTotals, ListRow } from "../ListViewWithTotals";
+import HeaderView from "../HeaderView"
+import ColumnContainer from "../ColumnContainer"
+import MetricValues from "../MetricValues"
+import NumericValue from "../../../components/NumericValue"
+import { ListViewWithTotals, ListRow } from "../ListViewWithTotals"
 
-import AcIcon from "../../images/icons/ac.svg";
-import { translate, Translate } from "react-i18nify";
-import { observer } from "mobx-react";
-import { useVisibilityNotifier } from "app/MarineApp/modules";
-import { WIDGET_TYPES } from "app/MarineApp/utils/constants";
+import AcIcon from "../../images/icons/ac.svg"
+import { translate, Translate } from "react-i18nify"
+import { observer } from "mobx-react"
+import { useVisibilityNotifier } from "app/MarineApp/modules"
+import { WIDGET_TYPES } from "app/MarineApp/utils/constants"
 
 const AcLoads = observer(() => {
-  const { current, voltage, power, phases } = useAcLoads();
-  const showAsList = phases > 1;
+  const { current, voltage, power, phases } = useAcLoads()
+  const showAsList = phases > 1
 
-  const isVisible = !!(current && voltage && power && phases);
-  let phaseTotals = power.reduce((a, b) => a + b, 0);
+  const isVisible = !!(current && voltage && power && phases)
+  let phaseTotals = power.reduce((a, b) => a + b, 0)
 
   useVisibilityNotifier({
     widgetName: WIDGET_TYPES.AC_LOADS,
     visible: isVisible,
-  });
+  })
 
   if (isVisible) {
     return showAsList ? (
@@ -54,10 +54,10 @@ const AcLoads = observer(() => {
           </MetricValues>
         </HeaderView>
       </ColumnContainer>
-    );
+    )
   } else {
-    return <div />;
+    return <div />
   }
-});
+})
 
-export default AcLoads;
+export default AcLoads

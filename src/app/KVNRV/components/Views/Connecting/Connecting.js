@@ -1,7 +1,7 @@
-import React from "react";
-import { Translate } from "react-i18nify";
+import React from "react"
+import { Translate } from "react-i18nify"
 
-import "./Connecting.scss";
+import "./Connecting.scss"
 
 const Connecting = () => (
   <main>
@@ -16,6 +16,6 @@ const Connecting = () => (
       </div>
     </div>
   </main>
-);
+)
 
-export default Connecting;
+export default Connecting

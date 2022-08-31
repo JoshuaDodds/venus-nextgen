@@ -1,33 +1,26 @@
-import SelectorButton from "../SelectorButton/SelectorButton";
-import { formatNumber } from "../../../components/NumericValue";
+import SelectorButton from "../SelectorButton/SelectorButton"
+import { formatNumber } from "../../../components/NumericValue"
 
 type CurrentLimitIncrementorProps = {
-  currentLimit: number;
-  onInputLimitChanged: Function;
-};
-const CurrentLimitIncrementor = ({
-  currentLimit,
-  onInputLimitChanged,
-}: CurrentLimitIncrementorProps) => {
+  currentLimit: number
+  onInputLimitChanged: Function
+}
+const CurrentLimitIncrementor = ({ currentLimit, onInputLimitChanged }: CurrentLimitIncrementorProps) => {
   // show the first decimal only if it's necessary
   // since the buttons always adjust in whole integers
-  const precision = currentLimit % 1 ? 1 : 0;
+  const precision = currentLimit % 1 ? 1 : 0
 
   // Magically rounds to the nearest multiple integer of 'amount' when incremented / decremented
   // e.g. adjust(5.3, 1) -> 6.0, adjust(5.7, -1) -> 5.0
   const adjust = (value: number, amount: number) =>
-    value % 1 && amount < 0
-      ? value - (value % amount)
-      : value + amount - (value % amount);
+    value % 1 && amount < 0 ? value - (value % amount) : value + amount - (value % amount)
 
   return (
     <>
       <SelectorButton
         narrow
         className="metric__current-input-limit__decrement selector-button--left"
-        onClick={() =>
-          onInputLimitChanged(currentLimit > 0 && adjust(currentLimit, -1))
-        }
+        onClick={() => onInputLimitChanged(currentLimit > 0 && adjust(currentLimit, -1))}
         disabled={currentLimit <= 0}
       >
         {"−"}
@@ -49,7 +42,7 @@ const CurrentLimitIncrementor = ({
         {"+"}
       </SelectorButton>
     </>
-  );
-};
+  )
+}
 
-export default CurrentLimitIncrementor;
+export default CurrentLimitIncrementor

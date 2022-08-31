@@ -1,41 +1,39 @@
-import { useEffect, useRef } from "react";
-import { useApp, useTheme, useVrmStore } from "@elninotech/mfd-modules";
-import { VIEWS } from "../../utils/constants";
+import { useEffect, useRef } from "react"
+import { useApp, useTheme, useVrmStore } from "@elninotech/mfd-modules"
+import { VIEWS } from "../../utils/constants"
 
-import "./Header.scss";
+import "./Header.scss"
 
-import KVNRVLogo from "../../images/KVNRV-Logo.svg";
-import RemoteConsoleIcon from "../../images/RemoteConsoleIcon.svg";
-import LogOutIcon from "../../images/LogOut.svg";
-import LightThemeIcon from "../../images/LightThemeIcon.svg";
-import DarkThemeIcon from "../../images/DarkThemeIcon.svg";
-import { Translate } from "react-i18nify";
-import { observer } from "mobx-react";
-import { ModalVersionInfo } from "../ModalVersionInfo";
+import KVNRVLogo from "../../images/KVNRV-Logo.svg"
+import RemoteConsoleIcon from "../../images/RemoteConsoleIcon.svg"
+import LogOutIcon from "../../images/LogOut.svg"
+import LightThemeIcon from "../../images/LightThemeIcon.svg"
+import DarkThemeIcon from "../../images/DarkThemeIcon.svg"
+import { Translate } from "react-i18nify"
+import { observer } from "mobx-react"
+import { ModalVersionInfo } from "../ModalVersionInfo"
 
 export const Header = observer(() => {
-  const { darkMode, themeStore } = useTheme();
-  const appStore = useApp();
-  const remote = appStore.remote;
-  const vrmStore = useVrmStore();
-  const { loggedIn, username, siteId } = vrmStore;
-  const modalVersionInfoRef = useRef<any>();
+  const { darkMode, themeStore } = useTheme()
+  const appStore = useApp()
+  const remote = appStore.remote
+  const vrmStore = useVrmStore()
+  const { loggedIn, username, siteId } = vrmStore
+  const modalVersionInfoRef = useRef<any>()
 
   const handleRemoteSwitch = () => {
-    window.location.replace(
-      remote ? `http://venus.local/app` : `https://kvnrv-9ca32.web.app/app`
-    );
-    appStore.toggleRemote();
-  };
+    window.location.replace(remote ? `http://venus.local/app` : `https://kvnrv-9ca32.web.app/app`)
+    appStore.toggleRemote()
+  }
 
   useEffect(() => {
     if (remote && (!loggedIn || !siteId)) {
-      appStore.setPage(VIEWS.LOGIN);
+      appStore.setPage(VIEWS.LOGIN)
     } else {
-      appStore.setPage(VIEWS.METRICS);
+      appStore.setPage(VIEWS.METRICS)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [remote, loggedIn, siteId]);
+  }, [remote, loggedIn, siteId])
 
   return (
     <>
@@ -44,14 +42,10 @@ export const Header = observer(() => {
           <div
             className={"header__logo"}
             onClick={() => {
-              modalVersionInfoRef.current.open();
+              modalVersionInfoRef.current.open()
             }}
           >
-            <img
-              src={KVNRVLogo}
-              alt={"KVNRV logo"}
-              className={"header__logo__image"}
-            />
+            <img src={KVNRVLogo} alt={"KVNRV logo"} className={"header__logo__image"} />
             <span className={"header__logo__text"}>KVNRV</span>
           </div>
 
@@ -59,9 +53,7 @@ export const Header = observer(() => {
             {loggedIn && (
               <>
                 <div>{username && <Translate value="header.loggedIn" />}</div>
-                <div>
-                  {username ?? <Translate value="header.notLoggedIn" />}
-                </div>
+                <div>{username ?? <Translate value="header.notLoggedIn" />}</div>
               </>
             )}
           </div>
@@ -69,15 +61,8 @@ export const Header = observer(() => {
           <div className={"header__buttons"}>
             <>
               {loggedIn && (
-                <button
-                  className={"header__buttons__logout"}
-                  onClick={() => vrmStore.logout()}
-                >
-                  <img
-                    src={LogOutIcon}
-                    className={"header__buttons__icon"}
-                    alt={"Logout icon"}
-                  />
+                <button className={"header__buttons__logout"} onClick={() => vrmStore.logout()}>
+                  <img src={LogOutIcon} className={"header__buttons__icon"} alt={"Logout icon"} />
                 </button>
               )}
             </>
@@ -85,10 +70,7 @@ export const Header = observer(() => {
         </div>
 
         <div className={"header__buttons"}>
-          <div
-            className={"header__buttons__remote-connection"}
-            onClick={() => handleRemoteSwitch()}
-          >
+          <div className={"header__buttons__remote-connection"} onClick={() => handleRemoteSwitch()}>
             <button className={"remote " + (remote ? "active" : "")}>
               <Translate value="header.remote" />
             </button>
@@ -97,10 +79,7 @@ export const Header = observer(() => {
             </button>
           </div>
           <div className={"header__buttons__darkmode"}>
-            <label
-              htmlFor="header__buttons__darkmode__input"
-              className="header__buttons__darkmode__switch"
-            >
+            <label htmlFor="header__buttons__darkmode__input" className="header__buttons__darkmode__switch">
               <input
                 type="checkbox"
                 checked={darkMode ?? true}
@@ -123,11 +102,7 @@ export const Header = observer(() => {
               onClick={() => appStore.setPage(VIEWS.CONSOLE)}
               disabled={remote}
             >
-              <img
-                src={RemoteConsoleIcon}
-                className={"header__buttons__icon"}
-                alt={"Remote Console icon"}
-              />
+              <img src={RemoteConsoleIcon} className={"header__buttons__icon"} alt={"Remote Console icon"} />
               <span className={"header__buttons__text"}>
                 <Translate value="header.remoteConsole" />
               </span>
@@ -137,7 +112,7 @@ export const Header = observer(() => {
       </div>
       <ModalVersionInfo ref={modalVersionInfoRef} />
     </>
-  );
-});
+  )
+})
 
-export default Header;
+export default Header

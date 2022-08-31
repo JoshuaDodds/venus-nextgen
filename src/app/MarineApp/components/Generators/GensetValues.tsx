@@ -1,19 +1,18 @@
-import React from "react";
+import React from "react"
 
-import { useGensetValues } from "@elninotech/mfd-modules";
+import { useGensetValues } from "@elninotech/mfd-modules"
 
-import { ListRow } from "../ListView";
-import NumericValue from "../../../components/NumericValue";
-import { Translate } from "react-i18nify";
-import { observer } from "mobx-react";
+import { ListRow } from "../ListView"
+import NumericValue from "../../../components/NumericValue"
+import { Translate } from "react-i18nify"
+import { observer } from "mobx-react"
 
 type GensetValuesProps = {
-  phases: number;
-};
+  phases: number
+}
 
 export const GensetValues = observer(({ phases }: GensetValuesProps) => {
-  const { voltage, current, power, frequency, coolant, winding, exhaust } =
-    useGensetValues();
+  const { voltage, current, power, frequency, coolant, winding, exhaust } = useGensetValues()
   const temperatures = (
     <ListRow key="temperatures">
       <span className="value value__temperature">
@@ -29,7 +28,7 @@ export const GensetValues = observer(({ phases }: GensetValuesProps) => {
       </span>
       <NumericValue value={exhaust} unit="°C" />
     </ListRow>
-  );
+  )
   if (voltage) {
     return (
       <div>
@@ -56,10 +55,10 @@ export const GensetValues = observer(({ phases }: GensetValuesProps) => {
           </>
         )}
       </div>
-    );
+    )
   } else {
-    return <div />;
+    return <div />
   }
-});
+})
 
-export default GensetValues;
+export default GensetValues

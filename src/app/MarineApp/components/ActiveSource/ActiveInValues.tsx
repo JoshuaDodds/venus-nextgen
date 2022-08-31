@@ -1,17 +1,17 @@
-import React from "react";
+import React from "react"
 
-import { useActiveInValues } from "@elninotech/mfd-modules";
+import { useActiveInValues } from "@elninotech/mfd-modules"
 
-import { ListRow } from "../ListView";
-import NumericValue from "../../../components/NumericValue";
-import { observer } from "mobx-react";
+import { ListRow } from "../ListView"
+import NumericValue from "../../../components/NumericValue"
+import { observer } from "mobx-react"
 
 type ActiveInValuesProps = {
-  phases: number;
-};
+  phases: number
+}
 
 const ActiveInValues = observer(({ phases }: ActiveInValuesProps) => {
-  const { current, voltage, power } = useActiveInValues();
+  const { current, voltage, power } = useActiveInValues()
 
   if (current && voltage && power && phases) {
     return phases > 1 ? (
@@ -31,10 +31,10 @@ const ActiveInValues = observer(({ phases }: ActiveInValuesProps) => {
         <NumericValue value={current[0]} unit="A" precision={1} />
         <NumericValue value={power[0]} unit="W" />
       </div>
-    );
+    )
   } else {
-    return <div />;
+    return <div />
   }
-});
+})
 
-export default ActiveInValues;
+export default ActiveInValues

@@ -133,6 +133,7 @@
     "build": "GENERATE_SOURCEMAP=false node scripts/build.js",
     "test": "node scripts/test.js --transformIgnorePatterns \"node_modules/(?!@elninotech/mfd-modules)/\"",
     "serve": "serve -C -s -l 8000 dist",
+    "lint": "eslint --fix src/**/*.{js,jsx,ts,tsx,css,md}",
     "test:dev": "npm test -- --watchAll=false && npm run cy:run",
     "test:unit": "npm test",
     "test:e2e": "npm run cy:run",

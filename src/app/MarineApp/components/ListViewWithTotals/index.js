@@ -1,1 +1,1 @@
-export { ListViewWithTotals, ListRow } from "./ListViewWithTotals";
+export { ListViewWithTotals, ListRow } from "./ListViewWithTotals"

@@ -1,1 +1,1 @@
-export { default } from "./Chargers";
+export { default } from "./Chargers"

@@ -1,1 +1,1 @@
-export { default } from "./PvCharger";
+export { default } from "./PvCharger"

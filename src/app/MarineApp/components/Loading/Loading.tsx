@@ -1,4 +1,4 @@
-import "./Loading.scss";
+import "./Loading.scss"
 
 const Loading = () => (
   <div className="loading__spinner">
@@ -15,6 +15,6 @@ const Loading = () => (
     <div />
     <div />
   </div>
-);
+)
 
-export default Loading;
+export default Loading

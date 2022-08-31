@@ -1,32 +1,26 @@
-import {
-  PortalId,
-  Topics,
-  useMqtt,
-  useTopicsState,
-  useTopicSubscriptions,
-} from "@elninotech/mfd-modules";
-import { useMemo } from "react";
+import { PortalId, Topics, useMqtt, useTopicsState, useTopicSubscriptions } from "@elninotech/mfd-modules"
+import { useMemo } from "react"
 
 export interface InverterAlarmsState {
-  lowVoltage: number;
-  highVoltage: number;
-  lowTemperature: number;
-  highTemperature: number;
-  overload: number;
-  ripple: number;
-  lowVoltageAcOut: number;
-  highVoltageAcOut: number;
+  lowVoltage: number
+  highVoltage: number
+  lowTemperature: number
+  highTemperature: number
+  overload: number
+  ripple: number
+  lowVoltageAcOut: number
+  highVoltageAcOut: number
 }
 
 export interface InverterAlarmsTopics extends Topics {
-  lowVoltage?: string;
-  highVoltage?: string;
-  lowTemperature?: string;
-  highTemperature?: string;
-  overload?: string;
-  ripple?: string;
-  lowVoltageAcOut?: string;
-  highVoltageAcOut?: string;
+  lowVoltage?: string
+  highVoltage?: string
+  lowTemperature?: string
+  highTemperature?: string
+  overload?: string
+  ripple?: string
+  lowVoltageAcOut?: string
+  highVoltageAcOut?: string
 }
 
 export function useInverterAlarms(): InverterAlarmsState {
@@ -39,12 +33,12 @@ export function useInverterAlarms(): InverterAlarmsState {
     ripple: `N/${portalId}/inverter/Alarms/Ripple`,
     lowVoltageAcOut: `N/${portalId}/inverter/Alarms/LowVoltageAcOut`,
     highVoltageAcOut: `N/${portalId}/inverter/Alarms/HighVoltageAcOut`,
-  });
+  })
 
-  const { portalId } = useMqtt();
-  const topics = useMemo(() => getTopics(portalId), [portalId]);
+  const { portalId } = useMqtt()
+  const topics = useMemo(() => getTopics(portalId), [portalId])
 
-  useTopicSubscriptions(topics);
+  useTopicSubscriptions(topics)
 
-  return useTopicsState<InverterAlarmsState>(topics);
+  return useTopicsState<InverterAlarmsState>(topics)
 }

@@ -1,1 +1,1 @@
-export { default } from "./Solar";
+export { default } from "./Solar"

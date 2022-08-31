@@ -1,5 +1,5 @@
 export type TankProps = {
-  tankId: number;
-};
+  tankId: number
+}
 
-export { SmallTank } from "./SmallTank";
+export { SmallTank } from "./SmallTank"

@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 
 export default class ColumnContainer extends Component {
   render() {
-    return <div className="column-container">{this.props.children}</div>;
+    return <div className="column-container">{this.props.children}</div>
   }
 }

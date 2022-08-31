@@ -1,4 +1,4 @@
-import { parseTopic } from "./util";
+import { parseTopic } from "./util"
 
 describe("parseTopic", () => {
   test("splits topic into its parts", () => {
@@ -8,8 +8,8 @@ describe("parseTopic", () => {
       serviceType: "system",
       deviceInstance: 0,
       dbusPath: "/Serial",
-    });
-  });
+    })
+  })
 
   test("when reading shore power limit, it splits the input id out", () => {
     expect(parseTopic("N/985dadd0c9e4/system/0/Ac/In/1/CurrentLimit")).toEqual({
@@ -18,6 +18,6 @@ describe("parseTopic", () => {
       serviceType: "system",
       deviceInstance: 0,
       dbusPath: "/CurrentLimit",
-    });
-  });
-});
+    })
+  })
+})

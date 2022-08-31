@@ -6,19 +6,19 @@ import {
   useTopicsState,
   useTopicSubscriptions,
   useVebusStore,
-} from "@elninotech/mfd-modules";
-import { useMemo } from "react";
+} from "@elninotech/mfd-modules"
+import { useMemo } from "react"
 
 export interface VebusAlarmsState {
-  voltage: number;
-  power: number;
-  current: number;
+  voltage: number
+  power: number
+  current: number
 }
 
 export interface AlarmsTopics extends Topics {
-  power?: string;
-  voltage?: string;
-  current?: string;
+  power?: string
+  voltage?: string
+  current?: string
 }
 
 export function useVebusAlarms(): VebusAlarmsState {
@@ -48,16 +48,13 @@ export function useVebusAlarms(): VebusAlarmsState {
       `N/${portalId}/vebus/${instanceId}/Alarms/L2/Ripple`,
       `N/${portalId}/vebus/${instanceId}/Alarms/L3/Ripple`,
     ],
-  });
+  })
 
-  const { portalId } = useMqtt();
-  const { instanceId } = useVebusStore();
-  const topics = useMemo(
-    () => getTopics(portalId, instanceId),
-    [portalId, instanceId]
-  );
+  const { portalId } = useMqtt()
+  const { instanceId } = useVebusStore()
+  const topics = useMemo(() => getTopics(portalId, instanceId), [portalId, instanceId])
 
-  useTopicSubscriptions(topics);
+  useTopicSubscriptions(topics)
 
-  return useTopicsState<VebusAlarmsState>(topics);
+  return useTopicsState<VebusAlarmsState>(topics)
 }

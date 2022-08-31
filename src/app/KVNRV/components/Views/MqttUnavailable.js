@@ -1,7 +1,7 @@
-import React from "react";
-import { Translate } from "react-i18nify";
-import Fade from "../../../components/Fade";
-import MqttSettingsGuide from "../../images/mqtt-settings-v2.42.png";
+import React from "react"
+import { Translate } from "react-i18nify"
+import Fade from "../../../components/Fade"
+import MqttSettingsGuide from "../../images/mqtt-settings-v2.42.png"
 
 const MqttUnavailable = () => (
   <main>
@@ -25,6 +25,6 @@ const MqttUnavailable = () => (
       </div>
     </Fade>
   </main>
-);
+)
 
-export default MqttUnavailable;
+export default MqttUnavailable

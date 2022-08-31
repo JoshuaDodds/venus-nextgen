@@ -1,8 +1,8 @@
-import Modal from "../../../components/Modal";
-import { AC_MODE } from "../../utils/constants";
-import { acModeFormatter } from "./AcMode";
-import Logger from "../../../utils/logger";
-import { translate, Translate } from "react-i18nify";
+import Modal from "../../../components/Modal"
+import { AC_MODE } from "../../utils/constants"
+import { acModeFormatter } from "./AcMode"
+import Logger from "../../../utils/logger"
+import { translate, Translate } from "react-i18nify"
 
 /**
  * - Mask the Product id with `0xFF00`
@@ -11,27 +11,25 @@ import { translate, Translate } from "react-i18nify";
  */
 
 const getSuggestedAmperageValuesList = (productId: number) => {
-  const result = productId & 0xff00;
+  const result = productId & 0xff00
   if (result === 0x1900 || result === 0x2600) {
-    return AC_MODE.LIMITS_EU;
+    return AC_MODE.LIMITS_EU
   } else if (result === 0x2000 || result === 0x2700) {
-    return AC_MODE.LIMITS_US;
+    return AC_MODE.LIMITS_US
   } else {
-    Logger.warn(
-      `Could not determine amperage US/EU for product id ${productId}`
-    );
-    return AC_MODE.LIMITS_US;
+    Logger.warn(`Could not determine amperage US/EU for product id ${productId}`)
+    return AC_MODE.LIMITS_US
   }
-};
+}
 
 type AcModeModalProps = {
-  productId: number;
-  mode: number;
-  limit?: number;
-  updateMode: Function;
-  updateLimit?: Function;
-  onClose: Function;
-};
+  productId: number
+  mode: number
+  limit?: number
+  updateMode: Function
+  updateLimit?: Function
+  onClose: Function
+}
 
 export const AcModeModal = (props: AcModeModalProps) => {
   return (
@@ -44,10 +42,7 @@ export const AcModeModal = (props: AcModeModalProps) => {
           {Object.values(AC_MODE.MODES).map((mode) => (
             <button
               key={mode}
-              className={
-                "ac_mode_modal__button" +
-                (props.mode === mode ? " success" : "")
-              }
+              className={"ac_mode_modal__button" + (props.mode === mode ? " success" : "")}
               onClick={() => props.updateMode(mode)}
             >
               <Translate value={`common.${acModeFormatter(mode)}`} />
@@ -61,15 +56,10 @@ export const AcModeModal = (props: AcModeModalProps) => {
               <Translate value="acMode.modal.updateLimit" />
             </div>
             <div className={"ac_mode_modal__group"}>
-              {Object.values(
-                getSuggestedAmperageValuesList(props.productId)
-              ).map((limit) => (
+              {Object.values(getSuggestedAmperageValuesList(props.productId)).map((limit) => (
                 <button
                   key={limit}
-                  className={
-                    "ac_mode_modal__button" +
-                    (props.limit === limit ? " success" : "")
-                  }
+                  className={"ac_mode_modal__button" + (props.limit === limit ? " success" : "")}
                   onClick={() => props.updateLimit!(limit)}
                 >
                   {limit + "A"}
@@ -80,5 +70,5 @@ export const AcModeModal = (props: AcModeModalProps) => {
         )}
       </div>
     </Modal>
-  );
-};
+  )
+}

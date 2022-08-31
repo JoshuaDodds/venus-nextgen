@@ -6,48 +6,48 @@ import {
   useMqtt,
   useTopicsState,
   useTopicSubscriptions,
-} from "@elninotech/mfd-modules";
-import { useMemo } from "react";
+} from "@elninotech/mfd-modules"
+import { useMemo } from "react"
 
 export interface BatteryAlarmsState {
-  lowVoltage: number;
-  highVoltage: number;
-  lowStarterVoltage: number;
-  highStarterVoltage: number;
-  lowSoc: number;
-  highChargeCurrent: number;
-  highDischargeCurrent: number;
-  cellImbalance: number;
-  internalFailure: number;
-  highChargeTemperature: number;
-  lowChargeTemperature: number;
-  lowCellVoltage: number;
-  lowTemperature: number;
-  highTemperature: number;
-  midVoltage: number;
+  lowVoltage: number
+  highVoltage: number
+  lowStarterVoltage: number
+  highStarterVoltage: number
+  lowSoc: number
+  highChargeCurrent: number
+  highDischargeCurrent: number
+  cellImbalance: number
+  internalFailure: number
+  highChargeTemperature: number
+  lowChargeTemperature: number
+  lowCellVoltage: number
+  lowTemperature: number
+  highTemperature: number
+  midVoltage: number
 }
 
 export interface BatteryAlarmsTopics extends Topics {
-  lowVoltage?: string;
-  highVoltage?: string;
-  lowStarterVoltage?: string;
-  highStarterVoltage?: string;
-  lowSoc?: string;
-  highChargeCurrent?: string;
-  highDischargeCurrent?: string;
-  cellImbalance?: string;
-  internalFailure?: string;
-  highChargeTemperature?: string;
-  lowChargeTemperature?: string;
-  lowCellVoltage?: string;
-  lowTemperature?: string;
-  highTemperature?: string;
-  midVoltage?: string;
+  lowVoltage?: string
+  highVoltage?: string
+  lowStarterVoltage?: string
+  highStarterVoltage?: string
+  lowSoc?: string
+  highChargeCurrent?: string
+  highDischargeCurrent?: string
+  cellImbalance?: string
+  internalFailure?: string
+  highChargeTemperature?: string
+  lowChargeTemperature?: string
+  lowCellVoltage?: string
+  lowTemperature?: string
+  highTemperature?: string
+  midVoltage?: string
 }
 
 export function useBatteryAlarms(): BatteryAlarmsState {
   const getTopics = (portalId: PortalId, batteries?: BatteryId[]) => {
-    const batteryInstance = batteries ? batteries[0] : undefined;
+    const batteryInstance = batteries ? batteries[0] : undefined
 
     return {
       lowVoltage: `N/${portalId}/battery/${batteryInstance}/Alarms/LowVoltage`,
@@ -65,17 +65,14 @@ export function useBatteryAlarms(): BatteryAlarmsState {
       lowTemperature: `N/${portalId}/battery/${batteryInstance}/Alarms/LowTemperature`,
       highTemperature: `N/${portalId}/battery/${batteryInstance}/Alarms/HighTemperature`,
       midVoltage: `N/${portalId}/battery/${batteryInstance}/Alarms/MidVoltage`,
-    };
-  };
-  const { batteries } = useBatteries();
+    }
+  }
+  const { batteries } = useBatteries()
 
-  const { portalId } = useMqtt();
-  const topics = useMemo(
-    () => getTopics(portalId, batteries),
-    [portalId, batteries]
-  );
+  const { portalId } = useMqtt()
+  const topics = useMemo(() => getTopics(portalId, batteries), [portalId, batteries])
 
-  useTopicSubscriptions(topics);
+  useTopicSubscriptions(topics)
 
-  return useTopicsState<BatteryAlarmsState>(topics);
+  return useTopicsState<BatteryAlarmsState>(topics)
 }

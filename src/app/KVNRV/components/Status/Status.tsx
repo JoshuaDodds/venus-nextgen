@@ -1,10 +1,10 @@
-import React from "react";
+import React from "react"
 
-import { Card } from "../../../components/Card";
-import IconWarning from "../../../images/IconWarning.svg";
-import "./Status.scss";
-import { STATUS_LEVELS } from "../../utils/constants";
-import { useSystemState } from "@elninotech/mfd-modules";
+import { Card } from "../../../components/Card"
+import IconWarning from "../../../images/IconWarning.svg"
+import "./Status.scss"
+import { STATUS_LEVELS } from "../../utils/constants"
+import { useSystemState } from "@elninotech/mfd-modules"
 import {
   BatteryAlarmsState,
   StatusUpdate,
@@ -12,9 +12,9 @@ import {
   useStatus,
   useVebusAlarms,
   VebusAlarmsState,
-} from "../../modules";
-import { Translate } from "react-i18nify";
-import { observer } from "mobx-react";
+} from "../../modules"
+import { Translate } from "react-i18nify"
+import { observer } from "mobx-react"
 
 const SYSTEM_STATE_MAP = {
   0: "Off",
@@ -30,66 +30,53 @@ const SYSTEM_STATE_MAP = {
   10: "Assisting",
   256: "Discharging",
   257: "Sustain",
-};
+}
 
 const keyToString = (key: string) => {
   return key
     .split(/(?=[A-Z])/)
     .map((s) => s.toLowerCase())
-    .join(" ");
-};
+    .join(" ")
+}
 
-const alarmsToUpdate = (
-  alarms: BatteryAlarmsState | VebusAlarmsState,
-  part?: string
-) => {
-  let updates: StatusUpdate[] = [];
+const alarmsToUpdate = (alarms: BatteryAlarmsState | VebusAlarmsState, part?: string) => {
+  let updates: StatusUpdate[] = []
   Object.keys(alarms).forEach((key) => {
     if (alarms[key as keyof typeof alarms] > 0) {
       updates.push({
         part: part ? `Venus (${part})` : "Venus",
         message: keyToString(key),
-        level:
-          alarms[key as keyof typeof alarms] === 1
-            ? STATUS_LEVELS.WARNING
-            : STATUS_LEVELS.ALARM,
-      } as StatusUpdate);
+        level: alarms[key as keyof typeof alarms] === 1 ? STATUS_LEVELS.WARNING : STATUS_LEVELS.ALARM,
+      } as StatusUpdate)
     }
-  });
-  return updates;
-};
+  })
+  return updates
+}
 
 type StatusProps = {
-  size: string[];
-};
+  size: string[]
+}
 
 export const Status = observer(({ size }: StatusProps) => {
-  const { statuses } = useStatus();
-  const { state } = useSystemState();
+  const { statuses } = useStatus()
+  const { state } = useSystemState()
 
-  const batteryAlarms = useBatteryAlarms();
-  const vebusAlarms = useVebusAlarms();
+  const batteryAlarms = useBatteryAlarms()
+  const vebusAlarms = useVebusAlarms()
 
-  let notifications: StatusUpdate[] = [];
+  let notifications: StatusUpdate[] = []
 
-  notifications = notifications.concat(
-    alarmsToUpdate(batteryAlarms, "Battery")
-  );
-  notifications = notifications.concat(alarmsToUpdate(vebusAlarms));
-  notifications = notifications.concat(statuses?.slice() ?? []);
-  const status =
-    SYSTEM_STATE_MAP[
-      state?.toString() as unknown as keyof typeof SYSTEM_STATE_MAP
-    ];
+  notifications = notifications.concat(alarmsToUpdate(batteryAlarms, "Battery"))
+  notifications = notifications.concat(alarmsToUpdate(vebusAlarms))
+  notifications = notifications.concat(statuses?.slice() ?? [])
+  const status = SYSTEM_STATE_MAP[state?.toString() as unknown as keyof typeof SYSTEM_STATE_MAP]
 
   return (
     <div className="metrics__status">
       <Card title={<Translate value="widgets.status" />} size={size}>
         <div className={"title"}>Penny's House</div>
         <div className={"status"}>
-          <Translate
-            value={status ? "statusWidget." + status : "common.emptyBar"}
-          />
+          <Translate value={status ? "statusWidget." + status : "common.emptyBar"} />
         </div>
         <div className={"subheading"}>
           <div className={"subheading__model"}>Geo Pro Travel Trailer</div>
@@ -98,10 +85,7 @@ export const Status = observer(({ size }: StatusProps) => {
 
         <div className={"status-updates " + size.join(" ")}>
           {notifications.map((update: StatusUpdate) => (
-            <div
-              className={"status-update row " + update.level}
-              key={"status-update-" + update.part}
-            >
+            <div className={"status-update row " + update.level} key={"status-update-" + update.part}>
               <span className={"row items-center"}>
                 <div className={"row items-center status-update__icon"}>
                   <img src={IconWarning} alt={"Status update icon"} />
@@ -113,10 +97,7 @@ export const Status = observer(({ size }: StatusProps) => {
                   ) : (
                     update.part
                   )}
-                  :{" "}
-                  <span className={"status-update__message"}>
-                    {update.message}
-                  </span>
+                  : <span className={"status-update__message"}>{update.message}</span>
                 </span>
               </span>
             </div>
@@ -124,7 +105,7 @@ export const Status = observer(({ size }: StatusProps) => {
         </div>
       </Card>
     </div>
-  );
-});
+  )
+})
 
-export default Status;
+export default Status

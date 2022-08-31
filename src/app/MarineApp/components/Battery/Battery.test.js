@@ -1,6 +1,6 @@
-import { mount } from "enzyme";
-import React from "react";
-import { Batteries } from "./Battery";
+import { mount } from "enzyme"
+import React from "react"
+import { Batteries } from "./Battery"
 
 const batteries = [
   {
@@ -57,42 +57,42 @@ const batteries = [
     active_battery_service: false,
     name: "Skylla-i 24/100 (3) #2",
   },
-];
+]
 
 describe("Battery element", () => {
   describe("with a few batteries", () => {
-    const wrapper = mount(<Batteries batteries={batteries.slice(0, 3)} />);
+    const wrapper = mount(<Batteries batteries={batteries.slice(0, 3)} />)
 
     it("should show batteries", () => {
-      expect(wrapper.find(".battery").length).toBe(3);
-    });
+      expect(wrapper.find(".battery").length).toBe(3)
+    })
 
     it("should not show pagination", () => {
-      expect(wrapper.find(".battery__paginator").exists()).toBe(false);
-    });
-  });
+      expect(wrapper.find(".battery__paginator").exists()).toBe(false)
+    })
+  })
 
   describe("with more than 1 page of batteries", () => {
-    const wrapper = mount(<Batteries batteries={batteries} />);
+    const wrapper = mount(<Batteries batteries={batteries} />)
 
     it("page should show one page of batteries", () => {
-      expect(wrapper.find(".battery").length).toBe(3);
-    });
+      expect(wrapper.find(".battery").length).toBe(3)
+    })
 
     it("should show pagination", () => {
-      expect(wrapper.find(".battery__paginator").exists()).toBe(true);
-    });
+      expect(wrapper.find(".battery__paginator").exists()).toBe(true)
+    })
 
     it("should have 'filler' elements on the last page", () => {
-      const paginatorLabel = wrapper.find(".battery__paginator-page");
-      const nextPage = wrapper.find(".selector-button").last();
+      const paginatorLabel = wrapper.find(".battery__paginator-page")
+      const nextPage = wrapper.find(".selector-button").last()
 
-      expect(paginatorLabel.text()).toBe("1");
-      nextPage.simulate("click");
-      nextPage.simulate("click");
-      expect(paginatorLabel.text()).toBe("3");
+      expect(paginatorLabel.text()).toBe("1")
+      nextPage.simulate("click")
+      nextPage.simulate("click")
+      expect(paginatorLabel.text()).toBe("3")
 
-      expect(wrapper.find(".battery--dummy").length).toBe(2);
-    });
-  });
-});
+      expect(wrapper.find(".battery--dummy").length).toBe(2)
+    })
+  })
+})

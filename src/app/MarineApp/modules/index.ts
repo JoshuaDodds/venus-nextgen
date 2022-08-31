@@ -1,1 +1,1 @@
-export * from "./MetricsWidgets";
+export * from "./MetricsWidgets"

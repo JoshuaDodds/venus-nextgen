@@ -1,2 +1,2 @@
-export * from "./VisibleWidgets.store";
-export * from "./VisibleWidgets.provider";
+export * from "./VisibleWidgets.store"
+export * from "./VisibleWidgets.provider"

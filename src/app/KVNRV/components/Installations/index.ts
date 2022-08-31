@@ -1,2 +1,2 @@
-export * from "./Installations";
-export * from "./NoInstallations";
+export * from "./Installations"
+export * from "./NoInstallations"

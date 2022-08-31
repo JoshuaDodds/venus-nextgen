@@ -1,8 +1,8 @@
-import { useVrmStore } from "@elninotech/mfd-modules";
-import { Translate } from "react-i18nify";
+import { useVrmStore } from "@elninotech/mfd-modules"
+import { Translate } from "react-i18nify"
 
 export const NoInstallations = () => {
-  const vrmStore = useVrmStore();
+  const vrmStore = useVrmStore()
 
   return (
     <div className={"login__form"}>
@@ -14,11 +14,11 @@ export const NoInstallations = () => {
         className={"login__form__button login"}
         type={"submit"}
         onClick={() => {
-          vrmStore.logout();
+          vrmStore.logout()
         }}
       >
         <Translate value="remoteLogin.logOut" />
       </button>
     </div>
-  );
-};
+  )
+}

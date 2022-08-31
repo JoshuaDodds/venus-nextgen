@@ -1,36 +1,32 @@
-import { Translate } from "react-i18nify";
+import { Translate } from "react-i18nify"
 
-import "./Error.scss";
-import IconWarning from "../../../images/icons/warning.svg";
-import SelectorButton from "../../SelectorButton";
-import { byteSize, isError } from "app/utils/util";
-import * as Sentry from "@sentry/react";
+import "./Error.scss"
+import IconWarning from "../../../images/icons/warning.svg"
+import SelectorButton from "../../SelectorButton"
+import { byteSize, isError } from "app/utils/util"
+import * as Sentry from "@sentry/react"
 
 const Error = ({ error, ignoreButton = false, handleIgnore = () => {} }) => {
-  const size = isError(error)
-    ? byteSize(error.stack + error.message)
-    : byteSize(JSON.stringify(error));
+  const size = isError(error) ? byteSize(error.stack + error.message) : byteSize(JSON.stringify(error))
 
   const sendError = () => {
-    const previousUiBreadcrumbs = error.breadcrumbs
-      ? error.breadcrumbs.filter((b) => b.category.includes("ui"))
-      : [];
+    const previousUiBreadcrumbs = error.breadcrumbs ? error.breadcrumbs.filter((b) => b.category.includes("ui")) : []
     previousUiBreadcrumbs.forEach((breadCrumb) =>
       Sentry.addBreadcrumb({
         ...breadCrumb,
         data: { trueTimestamp: breadCrumb.timestamp },
       })
-    );
+    )
     if (isError(error)) {
-      Sentry.captureException(error, "captured");
+      Sentry.captureException(error, "captured")
     } else {
-      Sentry.captureException({ info: JSON.stringify(error) }, "captured");
+      Sentry.captureException({ info: JSON.stringify(error) }, "captured")
     }
     // reload window after all errors have been sent
     Sentry.flush().then(() => {
-      window.location.reload();
-    });
-  };
+      window.location.reload()
+    })
+  }
 
   return (
     <div className="error text--large">
@@ -48,25 +44,15 @@ const Error = ({ error, ignoreButton = false, handleIgnore = () => {} }) => {
       <div className="error-info">
         <div className="error-info-inside">
           <p>
-            <Translate
-              value="error.userAgent"
-              userAgent={navigator.userAgent}
-            />
+            <Translate value="error.userAgent" userAgent={navigator.userAgent} />
           </p>
           <p>
-            <Translate
-              value="error.windowSize"
-              width={window.innerWidth}
-              height={window.innerHeight}
-            />
+            <Translate value="error.windowSize" width={window.innerWidth} height={window.innerHeight} />
           </p>
           <p>
             <Translate
               value="error.queryParams"
-              queryParams={window.location.search
-                .slice(1)
-                .replace(/=/g, "=")
-                .replace(/&/g, ", ")}
+              queryParams={window.location.search.slice(1).replace(/=/g, "=").replace(/&/g, ", ")}
             />
           </p>
         </div>
@@ -93,7 +79,7 @@ const Error = ({ error, ignoreButton = false, handleIgnore = () => {} }) => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Error;
+export default Error

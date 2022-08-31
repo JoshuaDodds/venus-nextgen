@@ -1,1 +1,1 @@
-export { NoWidgets } from "./NoWidgets";
+export { NoWidgets } from "./NoWidgets"

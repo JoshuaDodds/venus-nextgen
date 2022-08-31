@@ -1,32 +1,32 @@
-import { makeAutoObservable } from "mobx";
-import { useMemo } from "react";
-import * as Sentry from "@sentry/react";
+import { makeAutoObservable } from "mobx"
+import { useMemo } from "react"
+import * as Sentry from "@sentry/react"
 
-let store;
+let store
 
 class ErrorHandler {
-  error = null;
+  error = null
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this)
   }
   setError(error) {
     if (!error) {
-      Sentry.configureScope((scope) => scope.clear());
+      Sentry.configureScope((scope) => scope.clear())
     }
-    this.error = error;
+    this.error = error
   }
 }
 
 export function initializeErrorHandlerStore() {
-  const _store = store ?? new ErrorHandler();
+  const _store = store ?? new ErrorHandler()
   // For SSG and SSR always create a new store
-  if (typeof window === "undefined") return _store;
+  if (typeof window === "undefined") return _store
   // Create the store once in the client
-  if (!store) store = _store;
+  if (!store) store = _store
 
-  return _store;
+  return _store
 }
 
 export function useErrorHandlerStore() {
-  return useMemo(() => initializeErrorHandlerStore(), []);
+  return useMemo(() => initializeErrorHandlerStore(), [])
 }

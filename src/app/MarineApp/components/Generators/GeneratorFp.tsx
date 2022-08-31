@@ -1,42 +1,42 @@
-import React from "react";
+import React from "react"
 
-import { useGeneratorFp } from "@elninotech/mfd-modules";
+import { useGeneratorFp } from "@elninotech/mfd-modules"
 
-import GensetValues from "./GensetValues";
-import HeaderView from "../HeaderView/HeaderView";
-import ColumnContainer from "../ColumnContainer";
-import { ListView } from "../ListView";
-import MetricValues from "../MetricValues";
-import SelectorButton from "../SelectorButton";
+import GensetValues from "./GensetValues"
+import HeaderView from "../HeaderView/HeaderView"
+import ColumnContainer from "../ColumnContainer"
+import { ListView } from "../ListView"
+import MetricValues from "../MetricValues"
+import SelectorButton from "../SelectorButton"
 
 import {
   FISCHER_PANDA_GENSET_PRODUCT_ID,
   FISCHER_PANDA_GENSET_AUTOSTART,
   GENERATOR_START_STOP,
-} from "../../../utils/constants";
+} from "../../../utils/constants"
 
-import "./Generator.scss";
+import "./Generator.scss"
 
-import FpGeneratorIcon from "../../images/icons/fp_generator.svg";
-import GeneratorIcon from "../../images/icons/generator.svg";
-import { Translate, translate } from "react-i18nify";
-import { observer } from "mobx-react";
-import { useVisibilityNotifier } from "app/MarineApp/modules";
-import { WIDGET_TYPES } from "app/MarineApp/utils/constants";
+import FpGeneratorIcon from "../../images/icons/fp_generator.svg"
+import GeneratorIcon from "../../images/icons/generator.svg"
+import { Translate, translate } from "react-i18nify"
+import { observer } from "mobx-react"
+import { useVisibilityNotifier } from "app/MarineApp/modules"
+import { WIDGET_TYPES } from "app/MarineApp/utils/constants"
 
 const getIcon = (productId: number) => {
   switch (productId) {
     case FISCHER_PANDA_GENSET_PRODUCT_ID:
-      return FpGeneratorIcon;
+      return FpGeneratorIcon
     default:
-      return GeneratorIcon;
+      return GeneratorIcon
   }
-};
+}
 
 function getGensetState(statusCode: number) {
   switch (statusCode) {
     case 0:
-      return "standby";
+      return "standby"
     case 1:
     case 2:
     case 3:
@@ -44,62 +44,43 @@ function getGensetState(statusCode: number) {
     case 5:
     case 6:
     case 7:
-      return "starting";
+      return "starting"
     case 8:
-      return "running";
+      return "running"
     case 9:
-      return "stopping";
+      return "stopping"
     case 10:
-      return "error";
+      return "error"
     default:
-      return "notAvailable";
+      return "notAvailable"
   }
 }
 
 const GeneratorFp = observer(() => {
-  const {
-    productId,
-    productName,
-    phases,
-    statusCode,
-    gensetAutoStart,
-    autoStart,
-    updateAutoMode,
-    updateManualMode,
-  } = useGeneratorFp();
+  const { productId, productName, phases, statusCode, gensetAutoStart, autoStart, updateAutoMode, updateManualMode } =
+    useGeneratorFp()
 
-  const icon = getIcon(productId);
-  const title = productName || "Genset";
-  const subTitle = getGensetState(statusCode);
-  const translatedSubTitle = translate(`common.${subTitle}`);
-  const isAutoStartDisabled =
-    gensetAutoStart === FISCHER_PANDA_GENSET_AUTOSTART.DISABLED;
+  const icon = getIcon(productId)
+  const title = productName || "Genset"
+  const subTitle = getGensetState(statusCode)
+  const translatedSubTitle = translate(`common.${subTitle}`)
+  const isAutoStartDisabled = gensetAutoStart === FISCHER_PANDA_GENSET_AUTOSTART.DISABLED
 
   useVisibilityNotifier({
     widgetName: WIDGET_TYPES.GENERATOR_FP,
     visible: !!phases,
-  });
+  })
 
   if (phases) {
     return (
       <ColumnContainer key="generator-fp">
         <div className="metric generator">
           {phases > 1 ? (
-            <ListView
-              icon={icon}
-              title={title}
-              subTitle={translatedSubTitle}
-              child={true}
-            >
+            <ListView icon={icon} title={title} subTitle={translatedSubTitle} child={true}>
               <GensetValues phases={phases} />
             </ListView>
           ) : (
-            <HeaderView
-              icon={icon}
-              title={title}
-              subTitle={translatedSubTitle}
-              child
-            >
+            <HeaderView icon={icon} title={title} subTitle={translatedSubTitle} child>
               <MetricValues>
                 <GensetValues phases={phases} />
               </MetricValues>
@@ -110,8 +91,8 @@ const GeneratorFp = observer(() => {
               disabled={isAutoStartDisabled}
               active={statusCode >= 1 && statusCode <= 8 && !autoStart}
               onClick={() => {
-                updateAutoMode(GENERATOR_START_STOP.AUTO_OFF);
-                updateManualMode(GENERATOR_START_STOP.START);
+                updateAutoMode(GENERATOR_START_STOP.AUTO_OFF)
+                updateManualMode(GENERATOR_START_STOP.START)
               }}
             >
               <Translate value="common.on" />
@@ -119,16 +100,13 @@ const GeneratorFp = observer(() => {
             <SelectorButton
               active={(statusCode < 1 || statusCode > 8) && !autoStart}
               onClick={() => {
-                updateAutoMode(GENERATOR_START_STOP.AUTO_OFF);
-                updateManualMode(GENERATOR_START_STOP.STOP);
+                updateAutoMode(GENERATOR_START_STOP.AUTO_OFF)
+                updateManualMode(GENERATOR_START_STOP.STOP)
               }}
             >
               <Translate value="common.off" />
             </SelectorButton>
-            <SelectorButton
-              active={autoStart === 1}
-              onClick={() => updateAutoMode(GENERATOR_START_STOP.AUTO_ON)}
-            >
+            <SelectorButton active={autoStart === 1} onClick={() => updateAutoMode(GENERATOR_START_STOP.AUTO_ON)}>
               <Translate value="common.autoStartStop" />
             </SelectorButton>
           </div>
@@ -139,10 +117,10 @@ const GeneratorFp = observer(() => {
           )}
         </div>
       </ColumnContainer>
-    );
+    )
   } else {
-    return null;
+    return null
   }
-});
+})
 
-export default GeneratorFp;
+export default GeneratorFp

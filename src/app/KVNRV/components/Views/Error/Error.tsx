@@ -1,7 +1,7 @@
-import React from "react";
-import { Translate } from "react-i18nify";
+import React from "react"
+import { Translate } from "react-i18nify"
 
-import "./Error.scss";
+import "./Error.scss"
 
 const Error = ({ error }: { error?: any }) => {
   return (
@@ -17,24 +17,17 @@ const Error = ({ error }: { error?: any }) => {
           <Translate value="error.userAgent" userAgent={navigator.userAgent} />
         </p>
         <p className="text--smaller">
-          <Translate
-            value="error.windowSize"
-            width={window.innerWidth}
-            height={window.innerHeight}
-          />
+          <Translate value="error.windowSize" width={window.innerWidth} height={window.innerHeight} />
         </p>
         <p className="text--smaller">
           <Translate
             value="error.queryParams"
-            queryParams={window.location.search
-              .slice(1)
-              .replace(/=/g, "=")
-              .replace(/&/g, ", ")}
+            queryParams={window.location.search.slice(1).replace(/=/g, "=").replace(/&/g, ", ")}
           />
         </p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Error;
+export default Error

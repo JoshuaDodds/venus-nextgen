@@ -1,22 +1,8 @@
-import { setLocale } from "react-i18nify";
+import { setLocale } from "react-i18nify"
 
-export const LANGUAGES = [
-  "en",
-  "fr",
-  "ar",
-  "cs",
-  "de",
-  "es",
-  "it",
-  "nl",
-  "ro",
-  "ru",
-  "sv",
-  "tr",
-  "zh",
-];
-export const __LOCAL_STORAGE_LANG_KEY__ = "__LOCAL_STORAGE_LANG_KEY__";
-export const DEFAULT_LANGUAGE = "en";
+export const LANGUAGES = ["en", "fr", "ar", "cs", "de", "es", "it", "nl", "ro", "ru", "sv", "tr", "zh"]
+export const __LOCAL_STORAGE_LANG_KEY__ = "__LOCAL_STORAGE_LANG_KEY__"
+export const DEFAULT_LANGUAGE = "en"
 
 export const mfdLanguageOptions = {
   supportedLanguages: LANGUAGES,
@@ -24,13 +10,7 @@ export const mfdLanguageOptions = {
   defaultLanguage: DEFAULT_LANGUAGE,
   onLangChange: (lang: string) => {
     // override the language with the value of the lang URL parameter, if present and enabled
-    const languageOverride = (window.location.search.match(
-      /[?&]lang=([a-zA-Z-_]{2,5})/
-    ) || [])[1];
-    setLocale(
-      (process.env.REACT_APP_ENABLE_LANG_OVERRIDE === "true" &&
-        languageOverride) ||
-        lang
-    );
+    const languageOverride = (window.location.search.match(/[?&]lang=([a-zA-Z-_]{2,5})/) || [])[1]
+    setLocale((process.env.REACT_APP_ENABLE_LANG_OVERRIDE === "true" && languageOverride) || lang)
   },
-};
+}

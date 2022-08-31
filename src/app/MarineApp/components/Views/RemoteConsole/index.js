@@ -1,1 +1,1 @@
-export { default } from "./RemoteConsole";
+export { default } from "./RemoteConsole"

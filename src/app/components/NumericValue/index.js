@@ -1,1 +1,1 @@
-export { default, formatNumber } from "./NumericValue";
+export { default, formatNumber } from "./NumericValue"

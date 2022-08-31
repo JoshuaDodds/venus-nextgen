@@ -1,3 +1,3 @@
-const LANGUAGES_PATH = "src/app/locales/languages";
+const LANGUAGES_PATH = "src/app/locales/languages"
 
-module.exports = { LANGUAGES_PATH };
+module.exports = { LANGUAGES_PATH }

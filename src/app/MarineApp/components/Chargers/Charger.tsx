@@ -1,39 +1,35 @@
-import React from "react";
+import React from "react"
 
-import { useCharger, ChargerInstanceId } from "@elninotech/mfd-modules";
+import { useCharger, ChargerInstanceId } from "@elninotech/mfd-modules"
 
-import CurrentLimitIncrementor from "./CurrentLimitIncrementor";
-import HeaderView from "../HeaderView";
-import ColumnContainer from "../../components/ColumnContainer";
-import MetricValues from "../MetricValues";
-import NumericValue from "../../../components/NumericValue/NumericValue";
-import SelectorButton from "../SelectorButton/SelectorButton";
+import CurrentLimitIncrementor from "./CurrentLimitIncrementor"
+import HeaderView from "../HeaderView"
+import ColumnContainer from "../../components/ColumnContainer"
+import MetricValues from "../MetricValues"
+import NumericValue from "../../../components/NumericValue/NumericValue"
+import SelectorButton from "../SelectorButton/SelectorButton"
 
-import { systemStateFormatter } from "../../../utils/util";
-import { CHARGER_MODE } from "../../../utils/constants";
+import { systemStateFormatter } from "../../../utils/util"
+import { CHARGER_MODE } from "../../../utils/constants"
 
-import "./Charger.scss";
+import "./Charger.scss"
 
-import MultiplusIcon from "../../images/icons/multiplus.svg";
-import { translate, Translate } from "react-i18nify";
-import { observer } from "mobx-react";
+import MultiplusIcon from "../../images/icons/multiplus.svg"
+import { translate, Translate } from "react-i18nify"
+import { observer } from "mobx-react"
 
 const chargerModeFormatter = (value: number) => {
   switch (value) {
     case CHARGER_MODE.OFF:
-      return "off";
+      return "off"
     case CHARGER_MODE.ON:
-      return "on";
+      return "on"
     default:
-      return "emptyBar";
+      return "emptyBar"
   }
-};
+}
 
-const ChargerSubtitle = (
-  current: [number?, number?, number?],
-  state: number,
-  nrOfOutputs: number
-) => (
+const ChargerSubtitle = (current: [number?, number?, number?], state: number, nrOfOutputs: number) => (
   <MetricValues inflate>
     <div className="metrics__left">
       {current.slice(0, nrOfOutputs).map((_, i) => (
@@ -46,11 +42,11 @@ const ChargerSubtitle = (
       </span>
     </div>
   </MetricValues>
-);
+)
 
 type ChargerProps = {
-  chargerId: ChargerInstanceId;
-};
+  chargerId: ChargerInstanceId
+}
 
 const Charger = observer(({ chargerId }: ChargerProps) => {
   let {
@@ -63,16 +59,16 @@ const Charger = observer(({ chargerId }: ChargerProps) => {
     currentLimit,
     updateMode,
     updateCurrentLimit,
-  } = useCharger(chargerId);
+  } = useCharger(chargerId)
   // When a topic is invalid, it returns undefined -> no value means topic is not supported
-  const chargerSupportsMode = mode !== undefined;
-  const chargerSupportsInputLimit = currentLimit !== undefined;
-  const chargerMode = chargerModeFormatter(Number(mode));
+  const chargerSupportsMode = mode !== undefined
+  const chargerSupportsInputLimit = currentLimit !== undefined
+  const chargerMode = chargerModeFormatter(Number(mode))
 
-  const productNameShort = productName && productName.split(" ")[0];
+  const productNameShort = productName && productName.split(" ")[0]
 
   if (!current) {
-    return <ColumnContainer />;
+    return <ColumnContainer />
   }
   return (
     <ColumnContainer>
@@ -80,39 +76,25 @@ const Charger = observer(({ chargerId }: ChargerProps) => {
         <div className="charger__header-wrapper">
           <HeaderView
             icon={MultiplusIcon}
-            title={
-              customName ||
-              translate("widgets.chargerWithName", { productNameShort })
-            }
+            title={customName || translate("widgets.chargerWithName", { productNameShort })}
             children={ChargerSubtitle(current, state, nrOfOutputs)}
             child
           />
         </div>
         {chargerSupportsMode && (
           <div className="charger__mode-selector">
-            <SelectorButton
-              active={chargerMode === "on"}
-              onClick={() => updateMode(CHARGER_MODE.ON)}
-            >
+            <SelectorButton active={chargerMode === "on"} onClick={() => updateMode(CHARGER_MODE.ON)}>
               <Translate value={"common.on"} />
             </SelectorButton>
-            <SelectorButton
-              active={chargerMode === "off"}
-              onClick={() => updateMode(CHARGER_MODE.OFF)}
-            >
+            <SelectorButton active={chargerMode === "off"} onClick={() => updateMode(CHARGER_MODE.OFF)}>
               <Translate value={"common.off"} />
             </SelectorButton>
             {chargerSupportsInputLimit && (
               <>
                 <div className="charger__input-limit-selector">
-                  <div className="charger__input-limit-selector__label text--subtitle">
-                    {"Limit"}
-                  </div>
+                  <div className="charger__input-limit-selector__label text--subtitle">{"Limit"}</div>
                   {currentLimit !== null && currentLimit !== undefined && (
-                    <CurrentLimitIncrementor
-                      currentLimit={currentLimit}
-                      onInputLimitChanged={updateCurrentLimit}
-                    />
+                    <CurrentLimitIncrementor currentLimit={currentLimit} onInputLimitChanged={updateCurrentLimit} />
                   )}
                 </div>
               </>
@@ -121,7 +103,7 @@ const Charger = observer(({ chargerId }: ChargerProps) => {
         )}
       </div>
     </ColumnContainer>
-  );
-});
+  )
+})
 
-export default Charger;
+export default Charger

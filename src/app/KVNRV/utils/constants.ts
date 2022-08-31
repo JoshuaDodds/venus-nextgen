@@ -1,32 +1,32 @@
-const WARNING = "warning";
-const ALARM = "alarm";
+const WARNING = "warning"
+const ALARM = "alarm"
 
 export const STATUS_LEVELS = {
   SUCCESS: "success",
   WARNING: WARNING,
   ALARM: ALARM,
-};
+}
 
 export const STATUS_LEVELS_MSG = {
   [STATUS_LEVELS.SUCCESS]: "Optimal",
   [WARNING]: "Warning",
   [ALARM]: "Critical",
-};
+}
 
-export const CRITICAL_MULTIPLIER = 1.2;
+export const CRITICAL_MULTIPLIER = 1.2
 
 export type MessagesObj = {
-  warning: string;
-  alarm: string;
-};
+  warning: string
+  alarm: string
+}
 
 export type WidgetConfiguration = {
-  MAX: number;
-  THRESHOLDS: Array<number>;
-  MESSAGES: MessagesObj;
-  DEVICE_ID?: number;
-  ZERO_OFFSET?: number;
-};
+  MAX: number
+  THRESHOLDS: Array<number>
+  MESSAGES: MessagesObj
+  DEVICE_ID?: number
+  ZERO_OFFSET?: number
+}
 
 export const BATTERY_CONF: WidgetConfiguration = {
   MAX: 300,
@@ -36,7 +36,7 @@ export const BATTERY_CONF: WidgetConfiguration = {
     [ALARM]: "critically high battery usage",
   },
   ZERO_OFFSET: 2 / 3,
-};
+}
 
 export const DC_CONF: WidgetConfiguration = {
   MAX: 500,
@@ -45,7 +45,7 @@ export const DC_CONF: WidgetConfiguration = {
     [WARNING]: "high power load",
     [ALARM]: "critically high power load",
   },
-};
+}
 
 export const AC_CONF: WidgetConfiguration = {
   MAX: 300,
@@ -54,7 +54,7 @@ export const AC_CONF: WidgetConfiguration = {
     [WARNING]: "high power load",
     [ALARM]: "critically high power load",
   },
-};
+}
 
 export const PV_CONF: WidgetConfiguration = {
   MAX: 30 * 12,
@@ -63,7 +63,7 @@ export const PV_CONF: WidgetConfiguration = {
     [WARNING]: "high power load",
     [ALARM]: "critically high power load",
   },
-};
+}
 
 export const SHORE_POWER_CONF: WidgetConfiguration = {
   MAX: 100,
@@ -72,7 +72,7 @@ export const SHORE_POWER_CONF: WidgetConfiguration = {
     [WARNING]: "high power load",
     [ALARM]: "critically high power load",
   },
-};
+}
 
 export const TANKS_CONF = {
   STANDART_TANK: {
@@ -91,7 +91,7 @@ export const TANKS_CONF = {
       [ALARM]: "levels critically high",
     },
   } as WidgetConfiguration,
-};
+}
 
 export const AC_MODE = {
   MODES: {
@@ -102,21 +102,21 @@ export const AC_MODE = {
   },
   LIMITS_US: [10, 12, 15, 20, 30],
   LIMITS_EU: [3, 6, 10, 13, 16, 25, 32, 63],
-};
+}
 
 export type VolumeUnit = {
-  precision: number;
-  stepSize: number;
-  unit: string;
-  factor: number;
-};
+  precision: number
+  stepSize: number
+  unit: string
+  factor: number
+}
 
 export type VolumeUnits = {
-  1: VolumeUnit;
-  2: VolumeUnit;
-  3: VolumeUnit;
-  default: VolumeUnit;
-};
+  1: VolumeUnit
+  2: VolumeUnit
+  3: VolumeUnit
+  default: VolumeUnit
+}
 
 export const VOLUME_UNITS: VolumeUnits = {
   "1": {
@@ -143,7 +143,7 @@ export const VOLUME_UNITS: VolumeUnits = {
     unit: "m3",
     factor: 1.0,
   },
-};
+}
 
 export const FLUID_TYPES = {
   FUEL: 0,
@@ -152,18 +152,14 @@ export const FLUID_TYPES = {
   LIVE_WELL: 3,
   OIL: 4,
   BLACK_WATER: 5,
-};
+}
 
 export const VIEWS = {
   CONSOLE: "CONSOLE",
   METRICS: "METRICS",
   LOGIN: "LOGIN",
-};
+}
 
-export const VRM_URL = "https://vrm.victronenergy.com/";
+export const VRM_URL = "https://vrm.victronenergy.com/"
 
-export const REVERSE_CONFIG_FLUID_TYPES = [
-  FLUID_TYPES.WASTE_WATER,
-  FLUID_TYPES.BLACK_WATER,
-  FLUID_TYPES.LIVE_WELL,
-];
+export const REVERSE_CONFIG_FLUID_TYPES = [FLUID_TYPES.WASTE_WATER, FLUID_TYPES.BLACK_WATER, FLUID_TYPES.LIVE_WELL]

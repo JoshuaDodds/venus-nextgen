@@ -1,1 +1,1 @@
-export { default } from "./HeaderView";
+export { default } from "./HeaderView"

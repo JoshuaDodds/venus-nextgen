@@ -11,4 +11,4 @@ export const WIDGET_TYPES = {
   SOLAR: "Solar",
   TIBBER: "Tibber",
   VEHICLE: "Vehicle",
-} as const;
+} as const

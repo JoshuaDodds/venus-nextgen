@@ -1,57 +1,57 @@
-import React from "react";
+import React from "react"
 
-import { useActiveInValues, useActiveSource } from "@elninotech/mfd-modules";
+import { useActiveInValues, useActiveSource } from "@elninotech/mfd-modules"
 
-import ActiveInValues from "./ActiveInValues";
-import HeaderView from "../HeaderView/HeaderView";
-import ColumnContainer from "../ColumnContainer";
-import { ListViewWithTotals } from "../ListViewWithTotals";
-import MetricValues from "../MetricValues";
+import ActiveInValues from "./ActiveInValues"
+import HeaderView from "../HeaderView/HeaderView"
+import ColumnContainer from "../ColumnContainer"
+import { ListViewWithTotals } from "../ListViewWithTotals"
+import MetricValues from "../MetricValues"
 
-import { AC_SOURCE_TYPE } from "../../../utils/constants";
+import { AC_SOURCE_TYPE } from "../../../utils/constants"
 
-import "./ActiveSource.scss";
+import "./ActiveSource.scss"
 
-import ShorePowerIcon from "../../images/icons/shore-power.svg";
-import GeneratorIcon from "../../images/icons/generator.svg";
-import { Translate, translate } from "react-i18nify";
-import { observer } from "mobx-react";
-import { useVisibilityNotifier } from "app/MarineApp/modules";
-import { WIDGET_TYPES } from "app/MarineApp/utils/constants";
+import ShorePowerIcon from "../../images/icons/shore-power.svg"
+import GeneratorIcon from "../../images/icons/generator.svg"
+import { Translate, translate } from "react-i18nify"
+import { observer } from "mobx-react"
+import { useVisibilityNotifier } from "app/MarineApp/modules"
+import { WIDGET_TYPES } from "app/MarineApp/utils/constants"
 
 const activeSourceTitle = {
   [AC_SOURCE_TYPE.SHORE]: "shorePower",
   [AC_SOURCE_TYPE.GRID]: "gridInput",
   [AC_SOURCE_TYPE.GENERATOR]: "generatorInput",
   [AC_SOURCE_TYPE.NOT_IN_USE]: "invalidConfig", // You cannot have a source that isn't configured as active!
-};
+}
 
 const activeSourceIcon = {
   [AC_SOURCE_TYPE.SHORE]: ShorePowerIcon,
   [AC_SOURCE_TYPE.GRID]: ShorePowerIcon,
   [AC_SOURCE_TYPE.GENERATOR]: GeneratorIcon,
   [AC_SOURCE_TYPE.NOT_IN_USE]: ShorePowerIcon,
-};
+}
 
 const getSourceSubtitle = (active: boolean, phases: number) => {
   if (active) {
-    return phases > 1 ? translate("common.nrOfPhases", { phases }) : "";
+    return phases > 1 ? translate("common.nrOfPhases", { phases }) : ""
   } else {
-    return translate("common.unplugged");
+    return translate("common.unplugged")
   }
-};
+}
 
 type ActiveSourceProps = {
-  phases: number;
-  source: number;
-  active: boolean;
-  power: number;
-};
+  phases: number
+  source: number
+  active: boolean
+  power: number
+}
 
 const ActiveSource = ({ source, active, phases, power }: ActiveSourceProps) => {
-  const icon = activeSourceIcon[source];
-  const title = activeSourceTitle[source] || "unknown";
-  const subTitle = getSourceSubtitle(active, phases);
+  const icon = activeSourceIcon[source]
+  const title = activeSourceTitle[source] || "unknown"
+  const subTitle = getSourceSubtitle(active, phases)
 
   return (
     <div className="metric metric__active-source">
@@ -69,12 +69,7 @@ const ActiveSource = ({ source, active, phases, power }: ActiveSourceProps) => {
         </ColumnContainer>
       ) : (
         <>
-          <HeaderView
-            icon={icon}
-            title={translate(`widgets.${title}`)}
-            subTitle={subTitle}
-            child={true}
-          >
+          <HeaderView icon={icon} title={translate(`widgets.${title}`)} subTitle={subTitle} child={true}>
             {active && (
               <MetricValues>
                 <ActiveInValues phases={phases} />
@@ -84,19 +79,17 @@ const ActiveSource = ({ source, active, phases, power }: ActiveSourceProps) => {
         </>
       )}
     </div>
-  );
-};
+  )
+}
 
 const ActiveSourceList = observer(() => {
-  const { activeInput, phases, settings } = useActiveSource();
-  const { power } = useActiveInValues();
-  let phaseTotals = power.reduce((a, b) => a + b, 0);
+  const { activeInput, phases, settings } = useActiveSource()
+  const { power } = useActiveInValues()
+  let phaseTotals = power.reduce((a, b) => a + b, 0)
 
-  const visible = !!settings.some((item) =>
-    [AC_SOURCE_TYPE.GRID, AC_SOURCE_TYPE.SHORE].includes(item)
-  );
+  const visible = !!settings.some((item) => [AC_SOURCE_TYPE.GRID, AC_SOURCE_TYPE.SHORE].includes(item))
 
-  useVisibilityNotifier({ widgetName: WIDGET_TYPES.ACTIVE_SOURCE, visible });
+  useVisibilityNotifier({ widgetName: WIDGET_TYPES.ACTIVE_SOURCE, visible })
 
   return (
     <>
@@ -104,17 +97,12 @@ const ActiveSourceList = observer(() => {
         (source, i) =>
           [AC_SOURCE_TYPE.GRID, AC_SOURCE_TYPE.SHORE].includes(source) && (
             <ColumnContainer key={i}>
-              <ActiveSource
-                source={source}
-                phases={phases}
-                active={activeInput === i}
-                power={phaseTotals}
-              />
+              <ActiveSource source={source} phases={phases} active={activeInput === i} power={phaseTotals} />
             </ColumnContainer>
           )
       )}
     </>
-  );
-});
+  )
+})
 
-export default ActiveSourceList;
+export default ActiveSourceList

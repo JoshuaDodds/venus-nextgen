@@ -1,23 +1,23 @@
-import Modal from "app/components/Modal";
-import { forwardRef, useImperativeHandle, useState } from "react";
-import { translate, Translate } from "react-i18nify";
-import "./ModalVersionInfo.scss";
-import KVNRVLogo from "../../images/KVNRV-Logo.svg";
-import { SIZE_EXTRA_WIDE } from "app/components/Card";
-import { useVrmStore, useAppStore } from "@elninotech/mfd-modules";
-import { BUILD_TIMESTAMP } from "app/utils/constants";
-import { observer } from "mobx-react";
-import packageInfo from "../../../../../package.json";
+import Modal from "app/components/Modal"
+import { forwardRef, useImperativeHandle, useState } from "react"
+import { translate, Translate } from "react-i18nify"
+import "./ModalVersionInfo.scss"
+import KVNRVLogo from "../../images/KVNRV-Logo.svg"
+import { SIZE_EXTRA_WIDE } from "app/components/Card"
+import { useVrmStore, useAppStore } from "@elninotech/mfd-modules"
+import { BUILD_TIMESTAMP } from "app/utils/constants"
+import { observer } from "mobx-react"
+import packageInfo from "../../../../../package.json"
 
 export const ModalVersionInfo = observer(
   forwardRef((_, ref) => {
-    const [isOpen, setOpen] = useState(false);
-    const { portalId = "-", siteId = "-" } = useVrmStore();
-    const { humanReadableFirmwareVersion } = useAppStore();
+    const [isOpen, setOpen] = useState(false)
+    const { portalId = "-", siteId = "-" } = useVrmStore()
+    const { humanReadableFirmwareVersion } = useAppStore()
 
     useImperativeHandle(ref, () => ({
       open: () => setOpen(true),
-    }));
+    }))
 
     return (
       <>
@@ -68,6 +68,6 @@ export const ModalVersionInfo = observer(
           </Modal>
         )}
       </>
-    );
+    )
   })
-);
+)

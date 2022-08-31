@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 export const formatNumber = ({
   value,
@@ -9,29 +9,27 @@ export const formatNumber = ({
 }: NumericValueProps) => {
   if (value === null || value === undefined || isNaN(value)) {
     if (defaultValue) {
-      return defaultValue + unit;
+      return defaultValue + unit
     } else {
-      return defaultValue;
+      return defaultValue
     }
   }
-  let numericValue = Number(value) * factor;
+  let numericValue = Number(value) * factor
   if (Math.abs(numericValue) > 1000) {
-    numericValue = numericValue / 1000;
-    unit = "k" + unit;
-    precision = 1;
+    numericValue = numericValue / 1000
+    unit = "k" + unit
+    precision = 1
   }
-  return precision === undefined
-    ? numericValue.toString() + unit
-    : numericValue.toFixed(precision) + unit;
-};
+  return precision === undefined ? numericValue.toString() + unit : numericValue.toFixed(precision) + unit
+}
 
 type NumericValueProps = {
-  value?: number;
-  unit?: string;
-  precision?: number;
-  factor?: number;
-  defaultValue?: string | null;
-};
+  value?: number
+  unit?: string
+  precision?: number
+  factor?: number
+  defaultValue?: string | null
+}
 
 export const NumericValue = ({
   value,
@@ -40,11 +38,7 @@ export const NumericValue = ({
   factor = 1.0,
   defaultValue = " - ",
 }: NumericValueProps) => {
-  return (
-    <span className="value">
-      {formatNumber({ value, unit, precision, factor, defaultValue })}
-    </span>
-  );
-};
+  return <span className="value">{formatNumber({ value, unit, precision, factor, defaultValue })}</span>
+}
 
-export default NumericValue;
+export default NumericValue

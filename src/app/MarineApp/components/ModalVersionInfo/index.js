@@ -1,1 +1,1 @@
-export { ModalVersionInfo } from "./ModalVersionInfo";
+export { ModalVersionInfo } from "./ModalVersionInfo"

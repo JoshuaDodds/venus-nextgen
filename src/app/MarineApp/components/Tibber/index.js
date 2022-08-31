@@ -1,1 +1,1 @@
-export { default } from "./Tibber";
+export { default } from "./Tibber"

@@ -1,21 +1,20 @@
-import "react-app-polyfill/stable";
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./app/App";
-import { getParameterByName } from "./app/utils/util";
-import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
-import * as Sentry from "@sentry/react";
-import { Integrations } from "@sentry/tracing";
+import "react-app-polyfill/stable"
+import React from "react"
+import ReactDOM from "react-dom"
+import App from "./app/App"
+import { getParameterByName } from "./app/utils/util"
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration"
+import * as Sentry from "@sentry/react"
+import { Integrations } from "@sentry/tracing"
 
 // load languages
-import "./app/locales";
-import { initializeErrorHandlerStore } from "app/components/ErrorHandlerModule/ErrorHandler.store";
+import "./app/locales"
+import { initializeErrorHandlerStore } from "app/components/ErrorHandlerModule/ErrorHandler.store"
 
-const host =
-  getParameterByName("host") || window.location.hostname || "localhost";
-const port = parseInt(getParameterByName("port") ?? "9001");
+const host = getParameterByName("host") || window.location.hostname || "localhost"
+const port = parseInt(getParameterByName("port") ?? "9001")
 
-const errorHandlerStore = initializeErrorHandlerStore();
+const errorHandlerStore = initializeErrorHandlerStore()
 
 Sentry.init({
   dsn: "https://1582bd830f4349f1889999f8b3466a2e@o81300.ingest.sentry.io/6331073",
@@ -23,21 +22,21 @@ Sentry.init({
   sampleRate: 1,
   debug: process.env.NODE_ENV === "development",
   beforeSend(event, hint) {
-    const sendError = hint && hint.captureContext === "captured";
+    const sendError = hint && hint.captureContext === "captured"
     if (!sendError) {
-      errorHandlerStore.setError(event);
-      return null;
+      errorHandlerStore.setError(event)
+      return null
     }
-    return event;
+    return event
   },
-});
+})
 
 ReactDOM.render(
   <React.StrictMode>
     <App host={host} port={port} />
   </React.StrictMode>,
   document.getElementById("root")
-);
+)
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
@@ -45,15 +44,15 @@ ReactDOM.render(
 serviceWorkerRegistration.register({
   onUpdate: async (registration) => {
     if (registration && registration.waiting) {
-      await registration.unregister();
+      await registration.unregister()
       // Makes Workbox call skipWaiting()
-      registration.waiting.postMessage({ type: "SKIP_WAITING" });
+      registration.waiting.postMessage({ type: "SKIP_WAITING" })
       // Once the service worker is unregistered, we can reload the page to let
       // the browser download a fresh copy of our app (invalidating the cache)
-      window.location.reload();
+      window.location.reload()
     }
   },
-});
+})
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
