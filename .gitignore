@@ -31,5 +31,5 @@ cypress/videos
 
 .idea
 
-venus-docker/venus-html5-app
-venus-docker/venus-html5-app/venus-docker
+/venus-docker/venus-html5-app
+/venus-docker/venus-html5-app/venus-docker
