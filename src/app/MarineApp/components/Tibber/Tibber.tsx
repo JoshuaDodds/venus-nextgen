@@ -20,7 +20,7 @@ const Tibber = observer(() => {
     reward,
     import_peak,
     export_peak,
-    average_power,
+    // average_power,
     buy_price,
     buy_time,
     sell_price,
@@ -28,7 +28,7 @@ const Tibber = observer(() => {
   } = useTibber()
   const visible = !!(imported || exported || imported === 0)
   const daily_profit = parseFloat((cost - reward).toFixed(2))
-  const loss_or_gain = daily_profit < 0 ? " Net Profit" : " Net Loss"
+  const loss_or_gain = daily_profit < 0 ? " Profit" : " Cost"
   let day_total
   if (daily_profit <= 0) {
     day_total = Math.abs(daily_profit).toFixed(2)
@@ -45,9 +45,7 @@ const Tibber = observer(() => {
         <ListView
           icon={TibberIcon}
           title="Tibber Daily"
-          subTitle={
-            "€ " + day_total + loss_or_gain + " / " + parseFloat(average_power).toFixed(0) + "W (Daily Average)"
-          }
+          subTitle={"€ " + day_total + loss_or_gain + " / " + (exported - imported).toFixed(2) + "kWh Production"}
           child={false}
         >
           <MetricValues inflate>
