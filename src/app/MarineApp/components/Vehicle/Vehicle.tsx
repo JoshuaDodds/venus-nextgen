@@ -9,7 +9,7 @@ import { observer } from "mobx-react"
 import { useVisibilityNotifier } from "app/MarineApp/modules"
 import { WIDGET_TYPES } from "app/MarineApp/utils/constants"
 // import { translate } from "react-i18nify"  todo: uncomment this when i18n files are ready
-import { ListView } from "../ListView"
+import { ListViewWithTotals } from "../ListViewWithTotals"
 import { useTopicsState, useTopicSubscriptions } from "@elninotech/mfd-modules"
 import { useMemo } from "react"
 
@@ -20,6 +20,7 @@ const Vehicle = observer(() => {
       vehicle.charging_status &&
       vehicle.charging_amps &&
       vehicle.battery_soc_setpoint &&
+      vehicle.charging_watts &&
       vehicle.plugged_status) ||
     false
   )
@@ -36,12 +37,18 @@ const Vehicle = observer(() => {
   }
 
   const subtitle = vehicle.charging_status + " / " + vehicle.plugged_status + " " + surplus_deficiency()
-  const eta = vehicle.time_until_full > 0 ? vehicle.time_until_full + " Mins" : "N/A"
+  const eta = vehicle.time_until_full > 0 ? (vehicle.time_until_full / 60).toFixed(1) + " Hr(s)" : "N/A"
 
   if (visible) {
     return (
       <ColumnContainer>
-        <ListView icon={TeslaIcon} title={vehicle_name} subTitle={subtitle} child={false}>
+        <ListViewWithTotals
+          icon={TeslaIcon}
+          title={vehicle_name}
+          totals={parseFloat(vehicle.charging_watts)}
+          subTitle={subtitle}
+          child={false}
+        >
           <table>
             <tr>
               <MetricValues>
@@ -71,14 +78,14 @@ const Vehicle = observer(() => {
                     <NumericValue value={vehicle.surplus_watts} unit="W" defaultValue={null} precision={1} />
                   </td>
                   <td>
-                    <span className="text--very-small text--subtitle-upper">Watts Reserved:&nbsp;</span>
+                    <span className="text--very-small text--subtitle-upper">PV Reserved:&nbsp;</span>
                     <NumericValue value={vehicle.load_reservation} unit="W" defaultValue={null} precision={1} />
                   </td>
                 </div>
               </MetricValues>
             </tr>
           </table>
-        </ListView>
+        </ListViewWithTotals>
       </ColumnContainer>
     )
   } else {
@@ -92,6 +99,7 @@ function useVehicle() {
       vehicle_name: "Tesla/vehicle0/vehicle_name",
       charging_status: "Tesla/vehicle0/charging_status",
       charging_amps: "Tesla/vehicle0/charging_amps",
+      charging_watts: "Tesla/vehicle0/charging_watts",
       battery_soc: "Tesla/vehicle0/battery_soc",
       battery_soc_setpoint: "Tesla/vehicle0/battery_soc_setpoint",
       plugged_status: "Tesla/vehicle0/plugged_status",
