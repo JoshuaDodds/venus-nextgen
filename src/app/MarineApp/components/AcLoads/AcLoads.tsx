@@ -1,4 +1,4 @@
-import { useAcLoads } from "@elninotech/mfd-modules"
+import { useAcLoads, useTopicsState, useTopicSubscriptions } from "@elninotech/mfd-modules"
 
 import HeaderView from "../HeaderView"
 import ColumnContainer from "../ColumnContainer"
@@ -11,11 +11,14 @@ import { translate, Translate } from "react-i18nify"
 import { observer } from "mobx-react"
 import { useVisibilityNotifier } from "app/MarineApp/modules"
 import { WIDGET_TYPES } from "app/MarineApp/utils/constants"
+import { useMemo } from "react"
 
 const AcLoads = observer(() => {
   const { current, voltage, power, phases } = useAcLoads()
+  const { house_load, ev_charger_load } = useAcCustom()
   const showAsList = phases > 1
 
+  const hasEvCharger = !!(house_load && ev_charger_load)
   const isVisible = !!(current && voltage && power && phases)
   let phaseTotals = power.reduce((p, n) => (p && n ? p + n : p))
 
@@ -30,7 +33,7 @@ const AcLoads = observer(() => {
         <ListViewWithTotals
           icon={AcIcon}
           title={<Translate value="widgets.acLoads" />}
-          totals={phaseTotals}
+          totals={hasEvCharger ? parseFloat(house_load) : phaseTotals}
           subTitle={<Translate value="common.nrOfPhases" phases={phases} />}
           child={false}
         >
@@ -62,5 +65,19 @@ const AcLoads = observer(() => {
     return <div />
   }
 })
+
+function useAcCustom() {
+  const getTopics = function () {
+    return {
+      house_load: "Tesla/vehicle0/Ac/ac_loads",
+      ev_charger_load: "Tesla/vehicle0/Ac/tesla_load",
+    }
+  }
+  const topics = useMemo(function () {
+    return getTopics()
+  }, [])
+  useTopicSubscriptions(topics)
+  return useTopicsState(topics)
+}
 
 export default AcLoads
