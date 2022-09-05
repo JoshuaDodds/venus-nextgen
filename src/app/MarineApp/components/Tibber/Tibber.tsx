@@ -1,41 +1,28 @@
-import React, { useMemo } from "react"
-
 import ColumnContainer from "../ColumnContainer"
 import MetricValues from "../MetricValues"
 import NumericValue from "../../../components/NumericValue"
 
 import TibberIcon from "../../images/icons/icon-tibber.svg"
-import { useTopicsState, useTopicSubscriptions } from "@elninotech/mfd-modules"
 import { observer } from "mobx-react"
 import { useVisibilityNotifier } from "app/MarineApp/modules"
 import { WIDGET_TYPES } from "app/MarineApp/utils/constants"
-// import { translate } from "react-i18nify"
 import { ListView } from "../ListView"
+import { ExtraTibberMetrics } from "app/MarineApp/modules/ExtraMetrics"
 
 const Tibber = observer(() => {
-  const {
-    imported,
-    exported,
-    cost,
-    reward,
-    import_peak,
-    export_peak,
-    // average_power,
-    buy_price,
-    buy_time,
-    sell_price,
-    sell_time,
-  } = useTibber()
+  const { imported, exported, cost, reward, import_peak, export_peak, buy_price, buy_time, sell_price, sell_time } =
+    ExtraTibberMetrics()
+
   const visible = !!(imported || exported || imported === 0)
   const daily_profit = parseFloat((cost - reward).toFixed(2))
   const loss_or_gain = daily_profit < 0 ? " Profit" : " Cost"
+
   let day_total
   if (daily_profit <= 0) {
     day_total = Math.abs(daily_profit).toFixed(2)
   } else {
     day_total = daily_profit
   }
-  // let average_power_watts = parseFloat((average_power / 1000).toFixed(0))
 
   useVisibilityNotifier({ widgetName: WIDGET_TYPES.TIBBER, visible })
 
@@ -95,28 +82,5 @@ const Tibber = observer(() => {
     return null
   }
 })
-
-function useTibber() {
-  const getTopics = function () {
-    return {
-      imported: "Tibber/home/energy/day/imported",
-      cost: "Tibber/home/energy/day/cost",
-      exported: "Tibber/home/energy/day/exported",
-      reward: "Tibber/home/energy/day/reward",
-      import_peak: "Tibber/home/energy/day/import_peak",
-      export_peak: "Tibber/home/energy/day/export_peak",
-      average_power: "Tibber/home/energy/day/average_power",
-      buy_price: "Tibber/home/price_info/today/lowest/0/cost",
-      buy_time: "Tibber/home/price_info/today/lowest/0/hour",
-      sell_price: "Tibber/home/price_info/today/highest/0/cost",
-      sell_time: "Tibber/home/price_info/today/highest/0/hour",
-    }
-  }
-  const topics = useMemo(function () {
-    return getTopics()
-  }, [])
-  useTopicSubscriptions(topics)
-  return useTopicsState(topics)
-}
 
 export default Tibber

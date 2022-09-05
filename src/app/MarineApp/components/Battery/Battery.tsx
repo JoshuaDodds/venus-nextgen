@@ -1,6 +1,6 @@
-import React, { Component, useMemo } from "react"
+import React, { Component } from "react"
 
-import { Battery, useBattery, useTopicsState, useTopicSubscriptions } from "@elninotech/mfd-modules"
+import { Battery, useBattery } from "@elninotech/mfd-modules"
 import { BATTERY_STATE } from "../../../utils/constants"
 
 import ColumnContainer from "../ColumnContainer"
@@ -20,6 +20,7 @@ import { translate } from "react-i18nify"
 import { observer } from "mobx-react"
 import { useVisibilityNotifier } from "app/MarineApp/modules"
 import { WIDGET_TYPES } from "app/MarineApp/utils/constants"
+import { ExtraBatteryMetrics } from "app/MarineApp/modules/ExtraMetrics"
 
 type PaginatorProps = {
   setPage: Function
@@ -96,7 +97,7 @@ const BatteryRowAdditionalInfo = (battery: Battery) => {
     capacity_available,
     capacity_installed,
     state_of_health,
-  } = useCustomBatteryMetrics()
+  } = ExtraBatteryMetrics()
   const temperature_min_max = min_cell_temp + "° / " + max_cell_temp + "°"
   const cell_voltage_min_max =
     parseFloat(min_cell_volt).toFixed(2) + "v min " + parseFloat(max_cell_volt).toFixed(2) + "v max"
@@ -291,25 +292,5 @@ export const BatteriesWithData = observer(() => {
     return <div />
   }
 })
-
-function useCustomBatteryMetrics() {
-  const getTopics = function () {
-    return {
-      min_cell_temp: "N/48e7da878d35/battery/512/System/MinCellTemperature",
-      max_cell_temp: "N/48e7da878d35/battery/512/System/MaxCellTemperature",
-      min_cell_volt: "N/48e7da878d35/battery/512/System/MinCellVoltage",
-      max_cell_volt: "N/48e7da878d35/battery/512/System/MaxCellVoltage",
-      modules_online: "N/48e7da878d35/battery/512/System/NrOfModulesOnline",
-      capacity_available: "N/48e7da878d35/battery/512/Capacity",
-      capacity_installed: "N/48e7da878d35/battery/512/InstalledCapacity",
-      state_of_health: "N/48e7da878d35/battery/512/Soh",
-    }
-  }
-  const topics = useMemo(function () {
-    return getTopics()
-  }, [])
-  useTopicSubscriptions(topics)
-  return useTopicsState(topics)
-}
 
 export default BatteriesWithData

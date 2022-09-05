@@ -1,19 +1,22 @@
-import React, { useMemo } from "react"
-
 import ColumnContainer from "../ColumnContainer"
 import MetricValues from "../MetricValues"
 import NumericValue from "../../../components/NumericValue"
 
 import SolarIcon from "../../images/icons/icon_solar.svg"
-import { usePvCharger, useTopicsState, useTopicSubscriptions } from "@elninotech/mfd-modules"
+import { usePvCharger } from "@elninotech/mfd-modules"
 import { observer } from "mobx-react"
 import { useVisibilityNotifier } from "app/MarineApp/modules"
 import { WIDGET_TYPES } from "app/MarineApp/utils/constants"
 import { translate } from "react-i18nify"
 import { ListViewWithTotals } from "../ListViewWithTotals"
+import { ExtraSolarMetrics } from "app/MarineApp/modules/ExtraMetrics"
 
 const Solar = observer(() => {
   const { current, power } = usePvCharger()
+  const visible = !!(current || power || power === 0)
+
+  useVisibilityNotifier({ widgetName: WIDGET_TYPES.SOLAR, visible })
+
   const {
     string_a_volts,
     string_b_volts,
@@ -25,14 +28,10 @@ const Solar = observer(() => {
     string_b_power,
     string_c_power,
     string_d_power,
-  } = usePvDetail()
+  } = ExtraSolarMetrics()
 
-  const visible = !!(current || power || power === 0)
   const extraVisible = !!((string_a_volts && string_b_volts && string_c_volts && string_d_volts) || false)
-
   const daily_yield = c1_daily_yield + c2_daily_yield
-
-  useVisibilityNotifier({ widgetName: WIDGET_TYPES.SOLAR, visible })
 
   if (visible) {
     return (
@@ -93,29 +92,5 @@ const Solar = observer(() => {
     return null
   }
 })
-
-function usePvDetail() {
-  const getTopics = function () {
-    return {
-      string_a_volts: "N/48e7da878d35/solarcharger/279/Pv/0/V",
-      string_a_power: "N/48e7da878d35/solarcharger/279/Pv/0/P",
-      string_d_volts: "N/48e7da878d35/solarcharger/279/Pv/1/V",
-      string_d_power: "N/48e7da878d35/solarcharger/279/Pv/1/P",
-      //
-      string_b_volts: "N/48e7da878d35/solarcharger/280/Pv/1/V",
-      string_b_power: "N/48e7da878d35/solarcharger/280/Pv/1/P",
-      string_c_volts: "N/48e7da878d35/solarcharger/280/Pv/0/V",
-      string_c_power: "N/48e7da878d35/solarcharger/280/Pv/0/P",
-      //
-      c2_daily_yield: "N/48e7da878d35/solarcharger/279/History/Daily/0/Yield",
-      c1_daily_yield: "N/48e7da878d35/solarcharger/280/History/Daily/0/Yield",
-    }
-  }
-  const topics = useMemo(function () {
-    return getTopics()
-  }, [])
-  useTopicSubscriptions(topics)
-  return useTopicsState(topics)
-}
 
 export default Solar

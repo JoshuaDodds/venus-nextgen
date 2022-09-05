@@ -8,13 +8,11 @@ import TeslaIcon from "../../images/icons/icon-tesla.svg"
 import { observer } from "mobx-react"
 import { useVisibilityNotifier } from "app/MarineApp/modules"
 import { WIDGET_TYPES } from "app/MarineApp/utils/constants"
-// import { translate } from "react-i18nify"  todo: uncomment this when i18n files are ready
 import { ListViewWithTotals } from "../ListViewWithTotals"
-import { useTopicsState, useTopicSubscriptions } from "@elninotech/mfd-modules"
-import { useMemo } from "react"
+import { ExtraVehicleMetrics } from "app/MarineApp/modules/ExtraMetrics"
 
 const Vehicle = observer(() => {
-  const vehicle = useVehicle()
+  const vehicle = ExtraVehicleMetrics()
   const visible = !!(
     (vehicle.battery_soc &&
       vehicle.charging_status &&
@@ -92,28 +90,5 @@ const Vehicle = observer(() => {
     return null
   }
 })
-
-function useVehicle() {
-  const getTopics = function () {
-    return {
-      vehicle_name: "Tesla/vehicle0/vehicle_name",
-      charging_status: "Tesla/vehicle0/charging_status",
-      charging_amps: "Tesla/vehicle0/charging_amps",
-      charging_watts: "Tesla/vehicle0/charging_watts",
-      battery_soc: "Tesla/vehicle0/battery_soc",
-      battery_soc_setpoint: "Tesla/vehicle0/battery_soc_setpoint",
-      plugged_status: "Tesla/vehicle0/plugged_status",
-      surplus_watts: "Tesla/vehicle0/solar/surplus_watts",
-      load_reservation: "Tesla/vehicle0/solar/load_reservation",
-      insufficient_surplus: "Tesla/vehicle0/solar/insufficient_surplus",
-      time_until_full: "Tesla/vehicle0/time_until_full",
-    }
-  }
-  const topics = useMemo(function () {
-    return getTopics()
-  }, [])
-  useTopicSubscriptions(topics)
-  return useTopicsState(topics)
-}
 
 export default Vehicle
