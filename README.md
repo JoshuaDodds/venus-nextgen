@@ -9,7 +9,7 @@ to be accepted upstream.  For these reasons, this project is diverging from the 
 
 #### Screenshot of Multi-Phase hybrid grid-tied System with ESS, Tesla vehicle integration, Tibber.com integration, CerbomoticzGX Integration
 
-![screenshot](/victron-webapp-screenshot2.png?raw=true)
+![screenshot](/energy-dashboard-screenshot.png?raw=true)
 
 The "app" is a single page application that communicates to the rest of Venus OS via MQTT over websockets.
 It uses React with ES6 for the UI layer and also includes a wrapper service for the MQTT interface.

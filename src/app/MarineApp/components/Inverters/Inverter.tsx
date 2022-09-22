@@ -10,7 +10,7 @@ import SelectorButton from "../SelectorButton"
 
 import "./Inverter.scss"
 
-import MultiplusIcon from "../../images/icons/multiplus.svg"
+import MultiplusIcon from "../../images/icons/inverter.svg"
 import { translate, Translate } from "react-i18nify"
 import { observer } from "mobx-react"
 
