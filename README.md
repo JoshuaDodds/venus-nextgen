@@ -1,4 +1,4 @@
-# Venus OS React Dashboard
+# Venus OS React Based Energy Dashboard
 
 ## Credits:
 Many thanks to Victron Energy BV for the initial build of this project. This project intends to integrate various other 
