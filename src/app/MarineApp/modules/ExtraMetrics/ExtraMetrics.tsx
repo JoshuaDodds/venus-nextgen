@@ -15,6 +15,7 @@ export function ExtraTibberMetrics() {
       buy_time: "Tibber/home/price_info/today/lowest/0/hour",
       sell_price: "Tibber/home/price_info/today/highest/0/cost",
       sell_time: "Tibber/home/price_info/today/highest/0/hour",
+      current_price: "Tibber/home/price_info/now/total",
     }
   }
   const topics = useMemo(function () {

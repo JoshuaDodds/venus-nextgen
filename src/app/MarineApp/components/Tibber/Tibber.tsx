@@ -10,12 +10,23 @@ import { ListView } from "../ListView"
 import { ExtraTibberMetrics } from "app/MarineApp/modules/ExtraMetrics"
 
 const Tibber = observer(() => {
-  const { imported, exported, cost, reward, import_peak, export_peak, buy_price, buy_time, sell_price, sell_time } =
-    ExtraTibberMetrics()
+  const {
+    imported,
+    exported,
+    cost,
+    reward,
+    import_peak,
+    export_peak,
+    buy_price,
+    buy_time,
+    sell_price,
+    sell_time,
+    current_price,
+  } = ExtraTibberMetrics()
 
   const visible = !!(imported || exported || imported === 0)
   const daily_profit = parseFloat((cost - reward).toFixed(2))
-  const loss_or_gain = daily_profit < 0 ? " Profit" : " Cost"
+  const loss_or_gain = daily_profit < 0 ? " Day Profit" : " Day Cost"
 
   let day_total
   if (daily_profit <= 0) {
@@ -31,8 +42,8 @@ const Tibber = observer(() => {
       <ColumnContainer>
         <ListView
           icon={TibberIcon}
-          title="Tibber Daily"
-          subTitle={"€ " + day_total + loss_or_gain + " / " + (exported - imported).toFixed(2) + "kWh Production"}
+          title={"Tibber Now €" + parseFloat(current_price).toFixed(3) + " / kWh"}
+          subTitle={"€ " + day_total + loss_or_gain + " / " + (exported - imported).toFixed(2) + "kWh Day Production"}
           child={false}
         >
           <MetricValues inflate>

@@ -30,7 +30,7 @@ const Solar = observer(() => {
     string_d_power,
   } = ExtraSolarMetrics()
 
-  const extraVisible = !!((string_a_volts && string_b_volts && string_c_volts && string_d_volts) || false)
+  const extraVisible = !!((c1_daily_yield && c2_daily_yield) || false)
   const daily_yield = c1_daily_yield + c2_daily_yield
 
   if (visible) {
