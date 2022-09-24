@@ -80,6 +80,7 @@ const BatteryRowMainInfo = (battery: Battery) => {
           <NumericValue value={battery.voltage} unit="V" defaultValue={null} precision={1} />
           <NumericValue value={battery.current} unit="A" defaultValue={null} precision={1} />
           <NumericValue value={battery.power} unit="W" defaultValue={null} />
+          <NumericValue value={battery.temperature} unit="°" defaultValue={null} />
           {battery.soc !== undefined && <BatteryLevel battery={battery} />}
         </div>
       </div>
