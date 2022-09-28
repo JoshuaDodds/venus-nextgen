@@ -8,6 +8,7 @@ import { useVisibilityNotifier } from "app/MarineApp/modules"
 import { WIDGET_TYPES } from "app/MarineApp/utils/constants"
 import { ListView } from "../ListView"
 import { ExtraTibberMetrics } from "app/MarineApp/modules/ExtraMetrics"
+import SelectorButton from "../SelectorButton"
 
 const Tibber = observer(() => {
   const {
@@ -21,6 +22,10 @@ const Tibber = observer(() => {
     buy_time,
     sell_price,
     sell_time,
+    buy_price2,
+    buy_time2,
+    sell_price2,
+    sell_time2,
     current_price,
   } = ExtraTibberMetrics()
 
@@ -38,6 +43,8 @@ const Tibber = observer(() => {
   useVisibilityNotifier({ widgetName: WIDGET_TYPES.TIBBER, visible })
 
   if (visible) {
+    let grid_import_enabled = false
+
     return (
       <ColumnContainer>
         <ListView
@@ -56,7 +63,7 @@ const Tibber = observer(() => {
                     <NumericValue value={cost} unit=" EUR" defaultValue={null} precision={2} />
                   </td>
                   <td>
-                    <span className="text--small text--subtitle-upper">Max&nbsp;</span>
+                    <span className="text--small text--subtitle-upper">Peak&nbsp;</span>
                     <NumericValue value={import_peak} unit="W" defaultValue={null} precision={1} />
                   </td>
                 </tr>
@@ -67,25 +74,47 @@ const Tibber = observer(() => {
                     <NumericValue value={reward} unit=" EUR" defaultValue={null} precision={2} />
                   </td>
                   <td>
-                    <span className="text--small text--subtitle-upper">Max&nbsp;</span>
+                    <span className="text--small text--subtitle-upper">Peak&nbsp;</span>
                     <NumericValue value={export_peak} unit="W" defaultValue={null} precision={1} />
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <span className="text--small text--subtitle-upper">Day Low&nbsp;</span>
+                    <span className="text--small text--subtitle-upper">24h Low&nbsp;</span>
                     <span>€ {buy_price}</span>
                     <span className="text--small"> @ {buy_time}</span>
                   </td>
                   <td>
-                    <span className="text--small text--subtitle-upper">Day High&nbsp;</span>
+                    <span className="text--small text--subtitle-upper">24h High&nbsp;</span>
                     <span>€ {sell_price}</span>
                     <span className="text--small"> @ {sell_time}</span>
                   </td>
                 </tr>
+                {buy_price2 !== "not_yet_published" && (
+                  <tr>
+                    <td>
+                      <span className="text--small text--subtitle-upper">48h Low&nbsp;</span>
+                      <span>€ {buy_price2}</span>
+                      <span className="text--small"> @ {buy_time2}</span>
+                    </td>
+                    <td>
+                      <span className="text--small text--subtitle-upper">48h High&nbsp;</span>
+                      <span>€ {sell_price2}</span>
+                      <span className="text--small"> @ {sell_time2}</span>
+                    </td>
+                  </tr>
+                )}
               </table>
             </div>
           </MetricValues>
+          {/*<div className="inverter__mode-selector text--very-small">*/}
+          {/*  <SelectorButton active={!grid_import_enabled} onClick={() => (grid_import_enabled = false)}>*/}
+          {/*    Import Disabled*/}
+          {/*  </SelectorButton>*/}
+          {/*  <SelectorButton active={grid_import_enabled} onClick={() => (grid_import_enabled = true)}>*/}
+          {/*    Import Enabled*/}
+          {/*  </SelectorButton>*/}
+          {/*</div>*/}
         </ListView>
       </ColumnContainer>
     )

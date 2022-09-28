@@ -34,5 +34,5 @@ ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${USERNAME}@${HO
 rsync --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" -r dist/* ${USERNAME}@${HOST}:/data/www/app/
 
 echo "refreshing dashboard displays..."
-ssh pi@solar-monitor "./refresh.sh"
-ssh pi@solar-monitor2 "./refresh.sh"
+ssh pi@energy-db1 "./refresh.sh"
+ssh pi@energy-db2 "./refresh.sh"
