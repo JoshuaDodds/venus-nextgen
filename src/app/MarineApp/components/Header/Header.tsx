@@ -14,6 +14,7 @@ import RIcon from "../../images/icons/R.svg"
 import { Translate } from "react-i18nify"
 import { observer } from "mobx-react"
 import { ModalVersionInfo } from "../ModalVersionInfo"
+import Clock from "../Clock"
 
 type HeaderProps = {
   currentView: string
@@ -44,7 +45,7 @@ export const Header = (props: HeaderProps) => {
         {currentView === VIEWS.METRICS && pages && pages > 1 && (
           <Paginator setPage={setPage!} currentPage={currentPage!} pages={pages} />
         )}
-
+        <Clock />
         <div className="header-button-container">
           <LockButton currentView={currentView} header={true} showLockButton={showLockButton} />
 
