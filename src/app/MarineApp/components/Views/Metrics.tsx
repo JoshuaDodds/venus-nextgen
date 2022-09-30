@@ -7,6 +7,7 @@ import DcLoads from "../DcLoads"
 import Inverters from "../Inverters"
 import { InverterCharger } from "../InverterCharger"
 import Solar from "../Solar"
+import SystemControl from "../SystemControl"
 import Tibber from "../Tibber"
 import Vehicle from "../Vehicle"
 import Generators from "../Generators"
@@ -133,6 +134,7 @@ export const Metrics = observer(
             />
           )}
           <Chargers />
+          <SystemControl />
           <DcLoads />
           <Inverters />
           <Generators />

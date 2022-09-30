@@ -15,6 +15,10 @@ export function ExtraTibberMetrics() {
       buy_time: "Tibber/home/price_info/today/lowest/0/hour",
       sell_price: "Tibber/home/price_info/today/highest/0/cost",
       sell_time: "Tibber/home/price_info/today/highest/0/hour",
+      buy_price2: "Tibber/home/price_info/tomorrow/lowest/0/cost",
+      buy_time2: "Tibber/home/price_info/tomorrow/lowest/0/hour",
+      sell_price2: "Tibber/home/price_info/tomorrow/highest/0/cost",
+      sell_time2: "Tibber/home/price_info/tomorrow/highest/0/hour",
       current_price: "Tibber/home/price_info/now/total",
     }
   }
@@ -53,6 +57,22 @@ export function ExtraAcMetrics() {
     return {
       house_load: "Tesla/vehicle0/Ac/ac_loads",
       ev_charger_load: "Tesla/vehicle0/Ac/tesla_load",
+    }
+  }
+  const topics = useMemo(function () {
+    return getTopics()
+  }, [])
+  useTopicSubscriptions(topics)
+  return useTopicsState(topics)
+}
+
+export function SystemControlTopics() {
+  const getTopics = function () {
+    return {
+      grid_import_enabled: "Tesla/settings/grid_charging_enabled",
+      ac_in_power_setpoint: "N/48e7da878d35/settings/0/Settings/CGwacs/AcPowerSetPoint",
+      battery_min_soc_limit: "N/48e7da878d35/settings/0/Settings/CGwacs/BatteryLife/MinimumSocLimit",
+      max_charge_voltage: "N/48e7da878d35/settings/0/Settings/SystemSetup/MaxChargeVoltage",
     }
   }
   const topics = useMemo(function () {
