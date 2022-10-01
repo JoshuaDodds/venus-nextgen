@@ -74,15 +74,13 @@ const BatteryHeader = ({ amount, paginate, setPage, currentPage, pageSize }: Bat
 
 const BatteryRowMainInfo = (battery: Battery) => {
   return (
-    <MetricValues inflate>
-      <div className="text--title-left">
-        <div className="metrics__left">
-          <NumericValue value={battery.voltage} unit="V" defaultValue={null} precision={1} />
-          <NumericValue value={battery.current} unit="A" defaultValue={null} precision={1} />
-          <NumericValue value={battery.power} unit="W" defaultValue={null} />
-          <NumericValue value={battery.temperature} unit="°" defaultValue={null} />
-          {battery.soc !== undefined && <BatteryLevel battery={battery} />}
-        </div>
+    <MetricValues>
+      <div className="metrics__left">
+        <NumericValue value={battery.voltage} unit="V" defaultValue={null} precision={1} />
+        <NumericValue value={battery.current} unit="A" defaultValue={null} precision={1} />
+        <NumericValue value={battery.power} unit="W" defaultValue={null} />
+        <NumericValue value={battery.temperature} unit="°" defaultValue={null} />
+        {battery.soc !== undefined && <BatteryLevel battery={battery} />}
       </div>
     </MetricValues>
   )
