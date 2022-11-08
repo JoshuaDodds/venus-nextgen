@@ -11,6 +11,7 @@ export function ExtraTibberMetrics() {
       import_peak: "Tibber/home/energy/day/import_peak",
       export_peak: "Tibber/home/energy/day/export_peak",
       average_power: "Tibber/home/energy/day/average_power",
+      last_update: "Tibber/home/energy/day/last_update",
       buy_price: "Tibber/home/price_info/today/lowest/0/cost",
       buy_time: "Tibber/home/price_info/today/lowest/0/hour",
       sell_price: "Tibber/home/price_info/today/highest/0/cost",
@@ -85,6 +86,7 @@ export function SystemControlTopics() {
 export function ExtraBatteryMetrics() {
   const getTopics = function () {
     return {
+      shared_temp_sense: "N/48e7da878d35/system/0/Dc/Battery/Temperature",
       min_cell_temp: "N/48e7da878d35/battery/512/System/MinCellTemperature",
       max_cell_temp: "N/48e7da878d35/battery/512/System/MaxCellTemperature",
       min_cell_volt: "N/48e7da878d35/battery/512/System/MinCellVoltage",
@@ -93,6 +95,7 @@ export function ExtraBatteryMetrics() {
       capacity_available: "N/48e7da878d35/battery/512/Capacity",
       capacity_installed: "N/48e7da878d35/battery/512/InstalledCapacity",
       state_of_health: "N/48e7da878d35/battery/512/Soh",
+      discharged_capacity: "N/48e7da878d35/battery/277/History/DischargedEnergy",
     }
   }
   const topics = useMemo(function () {

@@ -25,7 +25,7 @@ export const ListViewWithTotals: React.FunctionComponent<ListViewWithTotalsProps
       <div className="metric__value-container">
         <div className="text--title text--title--left">{title}</div>
         {subTitle && <span className="text--very-small text--opaque text--subtitle-upper">{subTitle}</span>}
-        <div className="text text--bold">{totals.toFixed()} W</div>
+        <div className="text text--bold">{totals && totals.toFixed()} W</div>
       </div>
     </div>
     {children && <div className="list-view__rows">{children}</div>}

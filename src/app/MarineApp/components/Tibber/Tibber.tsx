@@ -8,6 +8,7 @@ import { useVisibilityNotifier } from "app/MarineApp/modules"
 import { WIDGET_TYPES } from "app/MarineApp/utils/constants"
 import { ListView } from "../ListView"
 import { ExtraTibberMetrics } from "app/MarineApp/modules/ExtraMetrics"
+import React from "react"
 
 const Tibber = observer(() => {
   const {
@@ -26,6 +27,7 @@ const Tibber = observer(() => {
     sell_price2,
     sell_time2,
     current_price,
+    last_update,
   } = ExtraTibberMetrics()
 
   const visible = !!(imported || exported || imported === 0)
@@ -79,12 +81,12 @@ const Tibber = observer(() => {
                   <td>
                     <span className="text--small text--subtitle-upper">24h Low&nbsp;</span>
                     <span>€ {buy_price}</span>
-                    <span className="text--small"> @ {buy_time.substring(0, 5)}</span>
+                    <span className="text--small"> @ {buy_time && buy_time.substring(0, 5)}</span>
                   </td>
                   <td>
                     <span className="text--small text--subtitle-upper">24h High&nbsp;</span>
                     <span>€ {sell_price}</span>
-                    <span className="text--small"> @ {sell_time.substring(0, 5)}</span>
+                    <span className="text--small"> @ {sell_time && sell_time.substring(0, 5)}</span>
                   </td>
                 </tr>
                 {buy_price2 !== "not_yet_published" && (
@@ -92,17 +94,21 @@ const Tibber = observer(() => {
                     <td>
                       <span className="text--small text--subtitle-upper">48h Low&nbsp;</span>
                       <span>€ {buy_price2}</span>
-                      <span className="text--small"> @ {buy_time2.substring(0, 5)}</span>
+                      <span className="text--small"> @ {buy_time2 && buy_time2.substring(0, 5)}</span>
                     </td>
                     <td>
                       <span className="text--small text--subtitle-upper">48h High&nbsp;</span>
                       <span>€ {sell_price2}</span>
-                      <span className="text--small"> @ {sell_time2.substring(0, 5)}</span>
+                      <span className="text--small"> @ {sell_time2 && sell_time2.substring(0, 5)}</span>
                     </td>
                   </tr>
                 )}
               </table>
             </div>
+            <ColumnContainer>
+              <span className="text--opaque text--smaller">Last update: </span>
+              <span className="text--smaller">{last_update}</span>
+            </ColumnContainer>
           </MetricValues>
         </ListView>
       </ColumnContainer>

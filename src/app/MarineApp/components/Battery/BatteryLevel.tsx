@@ -21,16 +21,17 @@ const batteryStateFormatter = (value: number) => {
 const batteryTimeToGoFormatter = (timeToGo: number) => {
   const secs = timeToGo
   if (!isNaN(secs)) {
-    const days = Math.floor(secs / 86400)
-    const hours = Math.floor((secs - days * 86400) / 3600)
-    const minutes = Math.floor((secs - hours * 3600) / 60)
+    // const days = Math.floor(secs / 86400)
+    // const hours = Math.floor((secs - days * 86400) / 3600)
+    // const minutes = Math.floor((secs - hours * 3600) / 60)
     // const seconds = Math.floor(secs - minutes * 60)
 
-    if (days) return `${days} ${translate("common.days")}`
-    else if (hours) return `${hours} ${translate("common.hours")}`
-    else if (minutes) return `${minutes} ${translate("common.minutes")}`
-    // we are not interested in seconds, since it's an
-    // estimate anyway
+    // if (days) return `${days}${translate("common.days")}`
+    // else if (hours) return `${hours}${translate("common.hours")}`
+    // else if (minutes) return `${minutes}${translate("common.minutes")}`
+
+    const hours = (secs / 3600).toFixed(2)
+    return `${hours}${translate("common.hours")}`
   } else {
     return null
   }
@@ -63,7 +64,7 @@ export const BatteryLevel = observer(({ battery }: BatteryLevelProps) => {
         {showTimetoGo && <div className="time-to-go">{timeToGoLabel}</div>}
         {showSoc && (
           <>
-            <span>{formatNumber({ value: battery.soc })}</span>
+            <span>{formatNumber({ value: battery.soc, precision: 1 })}</span>
             <span>%</span>
           </>
         )}

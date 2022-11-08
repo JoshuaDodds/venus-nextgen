@@ -1,5 +1,4 @@
 import ColumnContainer from "../ColumnContainer"
-import MetricValues from "../MetricValues"
 import NumericValue from "../../../components/NumericValue"
 
 import SolarIcon from "../../images/icons/icon_solar.svg"
@@ -43,47 +42,39 @@ const Solar = observer(() => {
           subTitle={false}
           child={false}
         >
-          <MetricValues>
-            {extraVisible && (
-              <span>
-                <span className="text--small text--subtitle-upper">Production Today&nbsp;</span>
-                <NumericValue value={daily_yield} unit="kWh" precision={2} />
-              </span>
-            )}
-            <span className="text--small text--subtitle-upper">Pv Current&nbsp;</span>
-            <NumericValue value={current} unit=" Amps" precision={1} />
-          </MetricValues>
           {extraVisible && (
-            <MetricValues inflate>
-              <div className="text--smaller">
-                <table cellPadding="0" cellSpacing="5">
-                  <tr>
-                    <td>
-                      <span className="text--small text--subtitle-upper">String A&nbsp;</span>
-                      <NumericValue value={string_a_volts} unit="V" defaultValue={null} precision={1} />
-                      <NumericValue value={string_a_power} unit="W" defaultValue={null} precision={1} />
-                    </td>
-                    <td>
-                      <span className="text--small text--subtitle-upper">String B&nbsp;</span>
-                      <NumericValue value={string_b_volts} unit="V" defaultValue={null} precision={1} />
-                      <NumericValue value={string_b_power} unit="W" defaultValue={null} precision={1} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className="text--small text--subtitle-upper">String C&nbsp;</span>
-                      <NumericValue value={string_c_volts} unit="V" defaultValue={null} precision={1} />
-                      <NumericValue value={string_c_power} unit="W" defaultValue={null} precision={1} />
-                    </td>
-                    <td>
-                      <span className="text--small text--subtitle-upper">String D&nbsp;</span>
-                      <NumericValue value={string_d_volts} unit="V" defaultValue={null} precision={1} />
-                      <NumericValue value={string_d_power} unit="W" defaultValue={null} precision={1} />
-                    </td>
-                  </tr>
-                </table>
-              </div>
-            </MetricValues>
+            <div className="text--smaller">
+              <span className="text--small text--subtitle-upper">Pv Current&nbsp;</span>
+              <NumericValue value={current} unit=" Amps" precision={1} />
+              <span className="text--small text--subtitle-upper">Production Today&nbsp;</span>
+              <NumericValue value={daily_yield} unit="kWh" precision={2} />
+              <table cellPadding="0" cellSpacing="5" width="100%">
+                <tr>
+                  <td>
+                    <span className="text--small text--subtitle-upper">String A&nbsp;</span>
+                    <NumericValue value={string_a_volts} unit="V" defaultValue={null} precision={1} />
+                    <NumericValue value={string_a_power} unit="W" defaultValue={null} precision={1} />
+                  </td>
+                  <td>
+                    <span className="text--small text--subtitle-upper">String B&nbsp;</span>
+                    <NumericValue value={string_b_volts} unit="V" defaultValue={null} precision={1} />
+                    <NumericValue value={string_b_power} unit="W" defaultValue={null} precision={1} />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span className="text--small text--subtitle-upper">String C&nbsp;</span>
+                    <NumericValue value={string_c_volts} unit="V" defaultValue={null} precision={1} />
+                    <NumericValue value={string_c_power} unit="W" defaultValue={null} precision={1} />
+                  </td>
+                  <td>
+                    <span className="text--small text--subtitle-upper">String D&nbsp;</span>
+                    <NumericValue value={string_d_volts} unit="V" defaultValue={null} precision={1} />
+                    <NumericValue value={string_d_power} unit="W" defaultValue={null} precision={1} />
+                  </td>
+                </tr>
+              </table>
+            </div>
           )}
         </ListViewWithTotals>
       </ColumnContainer>

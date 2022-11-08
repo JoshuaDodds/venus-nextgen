@@ -28,8 +28,10 @@ const SYSTEM_STATE_MAP = {
   8: "Passthru",
   9: "Inverting",
   10: "Assisting",
+  252: "External Control",
   256: "Discharging",
   257: "Sustain",
+  259: "Scheduled Charging",
 }
 
 const keyToString = (key: string) => {

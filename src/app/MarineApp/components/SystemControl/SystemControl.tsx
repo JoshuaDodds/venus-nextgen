@@ -11,11 +11,6 @@ import React from "react"
 
 const SystemControl = observer(() => {
   const { publish } = useMqtt()
-  const { grid_import_enabled, ac_in_power_setpoint, battery_min_soc_limit, max_charge_voltage } = SystemControlTopics()
-  const visible = !!(grid_import_enabled || ac_in_power_setpoint || battery_min_soc_limit)
-  useVisibilityNotifier({ widgetName: WIDGET_TYPES.SYSTEM_CONTROL, visible })
-
-  const kwhOptions = [-10000.0, -5000.0, 0.0, 5000.0, 10000.0]
 
   const ControlTopics = {
     grid_import_enabled: "Tesla/settings/grid_charging_enabled",
@@ -23,6 +18,12 @@ const SystemControl = observer(() => {
     battery_min_soc_limit: "W/48e7da878d35/settings/0/Settings/CGwacs/BatteryLife/MinimumSocLimit",
     max_charge_voltage: "W/48e7da878d35/settings/0/Settings/SystemSetup/MaxChargeVoltage",
   }
+
+  const { grid_import_enabled, ac_in_power_setpoint, battery_min_soc_limit, max_charge_voltage } = SystemControlTopics()
+  const visible = !!(grid_import_enabled || ac_in_power_setpoint || battery_min_soc_limit)
+  useVisibilityNotifier({ widgetName: WIDGET_TYPES.SYSTEM_CONTROL, visible })
+
+  const kwhOptions = [-10000.0, -6000.0, 0.0, 3000.0, 6000.0, 10000.0, 13000.0]
 
   const firstSelectorButtonNode = React.useRef<HTMLDivElement>(null)
 
@@ -36,7 +37,7 @@ const SystemControl = observer(() => {
                 <span className="text--subtitle-upper">Max Chg V: </span> {max_charge_voltage.toFixed(1)}V
               </td>
               <td>
-                <span className="text--subtitle-upper">Ac-In Limit: </span>
+                <span className="text--subtitle-upper">Grid Setpoint: </span>
                 {ac_in_power_setpoint}W
               </td>
               <td>
@@ -95,10 +96,8 @@ const SystemControl = observer(() => {
   function toggle_grid_input() {
     if (grid_import_enabled === "True") {
       publish(ControlTopics.grid_import_enabled, "False")
-      publish(ControlTopics.ac_in_power_setpoint, "0.0")
     } else {
       publish(ControlTopics.grid_import_enabled, "True")
-      publish(ControlTopics.ac_in_power_setpoint, "12000.0")
     }
   }
 })

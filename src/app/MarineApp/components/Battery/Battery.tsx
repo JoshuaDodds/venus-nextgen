@@ -56,12 +56,15 @@ type BatteryHeaderProps = {
 
 const BatteryHeader = ({ amount, paginate, setPage, currentPage, pageSize }: BatteryHeaderProps) => {
   let primaryBatteryPower = useBattery().batteries[amount - amount].power
+  let secondaryBatteryPower = useBattery().batteries[1].power
+  let totalPower =
+    primaryBatteryPower && secondaryBatteryPower ? primaryBatteryPower + secondaryBatteryPower : primaryBatteryPower
 
   return (
     <ListViewWithTotals
       icon={BatteryIcon}
       title={translate("widgets." + (amount > 1 ? "batteries" : "battery"))}
-      totals={primaryBatteryPower}
+      totals={totalPower && totalPower}
       subTitle={amount + " " + translate("widgets." + (amount > 1 ? "batteries" : "battery"))}
       child={true}
     >
@@ -73,13 +76,14 @@ const BatteryHeader = ({ amount, paginate, setPage, currentPage, pageSize }: Bat
 }
 
 const BatteryRowMainInfo = (battery: Battery) => {
+  const { shared_temp_sense } = ExtraBatteryMetrics()
   return (
     <MetricValues>
       <div className="metrics__left">
-        <NumericValue value={battery.voltage} unit="V" defaultValue={null} precision={1} />
+        <NumericValue value={battery.voltage} unit="V" defaultValue={null} precision={2} />
         <NumericValue value={battery.current} unit="A" defaultValue={null} precision={1} />
-        <NumericValue value={battery.power} unit="W" defaultValue={null} />
-        <NumericValue value={battery.temperature} unit="°" defaultValue={null} />
+        {/*<NumericValue value={battery.power} unit="W" defaultValue={null} />*/}
+        <NumericValue value={battery.temperature || shared_temp_sense} unit="°" defaultValue={null} />
         {battery.soc !== undefined && <BatteryLevel battery={battery} />}
       </div>
     </MetricValues>
@@ -95,11 +99,12 @@ const BatteryRowAdditionalInfo = (battery: Battery) => {
     modules_online,
     capacity_available,
     capacity_installed,
-    state_of_health,
+    // state_of_health,
+    // discharged_capacity,
   } = ExtraBatteryMetrics()
-  const temperature_min_max = min_cell_temp + "° / " + max_cell_temp + "°"
-  const cell_voltage_min_max =
-    parseFloat(min_cell_volt).toFixed(2) + "v min " + parseFloat(max_cell_volt).toFixed(2) + "v max"
+  const temperature_min_max = min_cell_temp + "°/" + max_cell_temp + "°"
+  const cell_voltage_min_max = parseFloat(min_cell_volt).toFixed(2) + "v/" + parseFloat(max_cell_volt).toFixed(2) + "v"
+  // const used_kwh = parseFloat(discharged_capacity).toFixed(2) + "kWh"
 
   const additionalInfo = !!((min_cell_temp && min_cell_volt && capacity_available && modules_online) || false)
 
@@ -107,20 +112,16 @@ const BatteryRowAdditionalInfo = (battery: Battery) => {
     <MetricValues inflate>
       {additionalInfo && (
         <div className="metrics__left text--subtitle-upper">
-          <ColumnContainer>
-            <span>
-              &nbsp;{temperature_min_max}
-              <br /> min / max
-            </span>
-          </ColumnContainer>
-          <ColumnContainer>
-            <span>{cell_voltage_min_max}</span>
-          </ColumnContainer>
-          <ColumnContainer>
-            {capacity_available} / {capacity_installed} Ah <br />
-            SoH: {state_of_health}%
-          </ColumnContainer>
-          <ColumnContainer>{modules_online} Modules Online</ColumnContainer>
+          <table width="100%">
+            <tr>
+              <td>{cell_voltage_min_max}</td>
+              <td>
+                {capacity_available}/{capacity_installed} Ah
+              </td>
+              <td>{temperature_min_max}</td>
+              <td>{modules_online} Online</td>
+            </tr>
+          </table>
         </div>
       )}
     </MetricValues>
@@ -135,12 +136,12 @@ const SingleBattery = (battery: Battery) => (
     subTitle={battery.name}
     child={false}
   >
-    <ListRow>
+    <div className="battery">
       <BatteryRowMainInfo {...battery} />
-    </ListRow>
-    <ListRow>
+    </div>
+    <div>
       <BatteryRowAdditionalInfo {...battery} />
-    </ListRow>
+    </div>
   </ListViewWithTotals>
 )
 
@@ -170,15 +171,17 @@ class BatteryList extends Component<BatteryListProps> {
               key={i}
             >
               {!battery.dummy && (
-                <div className="battery__data">
-                  <div className="battery__title-row text--subtitle-upper">{battery.name}</div>
+                // <div className="battery__data">
+                <div className="">
+                  {/*<div className="battery__title-row text--subtitle-upper">{battery.name}</div>*/}
                   <BatteryRowMainInfo {...(battery as Battery)} />
-                  <BatteryRowAdditionalInfo {...(battery as Battery)} />
+                  {/*<BatteryRowAdditionalInfo {...(battery as Battery)} />*/}
                 </div>
               )}
             </div>
           )
         })}
+        <BatteryRowAdditionalInfo {...batteries[0]} />
       </div>
     )
   }
