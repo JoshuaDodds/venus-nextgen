@@ -96,6 +96,7 @@ export function ExtraBatteryMetrics() {
       capacity_installed: "N/48e7da878d35/battery/512/InstalledCapacity",
       state_of_health: "N/48e7da878d35/battery/512/Soh",
       discharged_capacity: "N/48e7da878d35/battery/277/History/DischargedEnergy",
+      lfp_voltage: "N/48e7da878d35/battery/512/Dc/0/Voltage",
     }
   }
   const topics = useMemo(function () {

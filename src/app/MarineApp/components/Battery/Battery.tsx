@@ -76,11 +76,11 @@ const BatteryHeader = ({ amount, paginate, setPage, currentPage, pageSize }: Bat
 }
 
 const BatteryRowMainInfo = (battery: Battery) => {
-  const { shared_temp_sense } = ExtraBatteryMetrics()
+  const { shared_temp_sense, lfp_voltage } = ExtraBatteryMetrics()
   return (
     <MetricValues>
       <div className="metrics__left">
-        <NumericValue value={battery.voltage} unit="V" defaultValue={null} precision={2} />
+        <NumericValue value={lfp_voltage} unit="V" defaultValue={null} precision={2} />
         <NumericValue value={battery.current} unit="A" defaultValue={null} precision={1} />
         {/*<NumericValue value={battery.power} unit="W" defaultValue={null} />*/}
         <NumericValue value={battery.temperature || shared_temp_sense} unit="°" defaultValue={null} />

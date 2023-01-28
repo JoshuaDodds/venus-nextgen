@@ -29,8 +29,8 @@ const Solar = observer(() => {
     string_d_power,
   } = ExtraSolarMetrics()
 
-  const extraVisible = !!((c1_daily_yield && c2_daily_yield) || false)
-  const daily_yield = c1_daily_yield + c2_daily_yield
+  const extraVisible = !!(c1_daily_yield || c2_daily_yield || false)
+  const daily_yield = (c1_daily_yield || 0) + (c2_daily_yield || 0)
 
   if (visible) {
     return (
@@ -52,25 +52,25 @@ const Solar = observer(() => {
                 <tr>
                   <td>
                     <span className="text--small text--subtitle-upper">String A&nbsp;</span>
-                    <NumericValue value={string_a_volts} unit="V" defaultValue={null} precision={1} />
-                    <NumericValue value={string_a_power} unit="W" defaultValue={null} precision={1} />
+                    <NumericValue value={string_a_volts || 0} unit="V" defaultValue={null} precision={1} />
+                    <NumericValue value={string_a_power || 0} unit="W" defaultValue={null} precision={1} />
                   </td>
                   <td>
                     <span className="text--small text--subtitle-upper">String B&nbsp;</span>
-                    <NumericValue value={string_b_volts} unit="V" defaultValue={null} precision={1} />
-                    <NumericValue value={string_b_power} unit="W" defaultValue={null} precision={1} />
+                    <NumericValue value={string_b_volts || 0} unit="V" defaultValue={null} precision={1} />
+                    <NumericValue value={string_b_power || 0} unit="W" defaultValue={null} precision={1} />
                   </td>
                 </tr>
                 <tr>
                   <td>
                     <span className="text--small text--subtitle-upper">String C&nbsp;</span>
-                    <NumericValue value={string_c_volts} unit="V" defaultValue={null} precision={1} />
-                    <NumericValue value={string_c_power} unit="W" defaultValue={null} precision={1} />
+                    <NumericValue value={string_c_volts || 0} unit="V" defaultValue={null} precision={1} />
+                    <NumericValue value={string_c_power || 0} unit="W" defaultValue={null} precision={1} />
                   </td>
                   <td>
                     <span className="text--small text--subtitle-upper">String D&nbsp;</span>
-                    <NumericValue value={string_d_volts} unit="V" defaultValue={null} precision={1} />
-                    <NumericValue value={string_d_power} unit="W" defaultValue={null} precision={1} />
+                    <NumericValue value={string_d_volts || 0} unit="V" defaultValue={null} precision={1} />
+                    <NumericValue value={string_d_power || 0} unit="W" defaultValue={null} precision={1} />
                   </td>
                 </tr>
               </table>
