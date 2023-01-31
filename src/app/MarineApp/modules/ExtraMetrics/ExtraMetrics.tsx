@@ -114,13 +114,13 @@ export function ExtraSolarMetrics() {
       string_d_volts: "N/48e7da878d35/solarcharger/279/Pv/1/V",
       string_d_power: "N/48e7da878d35/solarcharger/279/Pv/1/P",
       //
-      string_b_volts: "N/48e7da878d35/solarcharger/280/Pv/1/V",
-      string_b_power: "N/48e7da878d35/solarcharger/280/Pv/1/P",
-      string_c_volts: "N/48e7da878d35/solarcharger/280/Pv/0/V",
-      string_c_power: "N/48e7da878d35/solarcharger/280/Pv/0/P",
+      string_b_volts: "N/48e7da878d35/solarcharger/281/Pv/1/V",
+      string_b_power: "N/48e7da878d35/solarcharger/281/Pv/1/P",
+      string_c_volts: "N/48e7da878d35/solarcharger/281/Pv/0/V",
+      string_c_power: "N/48e7da878d35/solarcharger/281/Pv/0/P",
       //
       c2_daily_yield: "N/48e7da878d35/solarcharger/279/History/Daily/0/Yield",
-      c1_daily_yield: "N/48e7da878d35/solarcharger/280/History/Daily/0/Yield",
+      c1_daily_yield: "N/48e7da878d35/solarcharger/281/History/Daily/0/Yield",
     }
   }
   const topics = useMemo(function () {
