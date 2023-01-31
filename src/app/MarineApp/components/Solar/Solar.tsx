@@ -31,6 +31,7 @@ const Solar = observer(() => {
 
   const extraVisible = !!(c1_daily_yield || c2_daily_yield || false)
   const daily_yield = (c1_daily_yield || 0) + (c2_daily_yield || 0)
+  const total_power = (string_a_power || 0) + (string_b_power || 0) + (string_c_power || 0) + (string_d_power || 0)
 
   if (visible) {
     return (
@@ -38,7 +39,7 @@ const Solar = observer(() => {
         <ListViewWithTotals
           icon={SolarIcon}
           title={translate("widgets.solar")}
-          totals={power}
+          totals={total_power}
           subTitle={false}
           child={false}
         >
