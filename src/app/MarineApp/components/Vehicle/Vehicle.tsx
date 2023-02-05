@@ -35,7 +35,7 @@ const Vehicle = observer(() => {
   }
 
   const subtitle = vehicle.charging_status + " / " + vehicle.plugged_status + " " + surplus_deficiency()
-  const eta = vehicle.time_until_full > 0 ? (vehicle.time_until_full / 60).toFixed(1) + " Hr(s)" : "N/A"
+  const eta = vehicle.time_until_full
 
   if (visible) {
     return (
