@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import WeatherWidget from "../WeatherWidget"
 
 function Clock() {
   const [date, setDate] = useState(new Date())
@@ -12,6 +13,12 @@ function Clock() {
       clearInterval(timerId)
     }
   }, [])
-  return <span className="text--clock">{date.toLocaleTimeString()}</span>
+  return (
+    <span className="text--clock">
+      {date.toLocaleTimeString()}
+      &nbsp;
+      <WeatherWidget />
+    </span>
+  )
 }
 export default Clock
