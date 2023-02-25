@@ -4,7 +4,7 @@ import Fade, { viewChangeDelay } from "../components/Fade"
 import Header, { HeaderWithoutMQTTData } from "./components/Header/Header"
 import { InverterChargerInputLimitSelector } from "./components/InverterCharger"
 
-import { Connecting, Error, Metrics, MqttUnavailable, RemoteConsole } from "./components/Views"
+import { Connecting, Error, Metrics, MqttUnavailable, RemoteConsole, TibberGraph } from "./components/Views"
 
 import { useLanguage, useMqtt, STATUS } from "@elninotech/mfd-modules"
 import { VIEWS } from "../utils/constants"
@@ -79,6 +79,12 @@ export const MarineApp = observer((props: AppProps) => {
     } else setView(VIEWS.METRICS)
   }
 
+  const toggleTibberGraph = () => {
+    if (currentView !== VIEWS.TIBBER_GRAPH) {
+      setView(VIEWS.TIBBER_GRAPH)
+    } else setView(VIEWS.METRICS)
+  }
+
   if (error && isError(error) && status !== STATUS.CONNECTING) {
     return (
       <Fade key={VIEWS.ERROR} unmount={viewUnmounting} fullWidth>
@@ -90,7 +96,11 @@ export const MarineApp = observer((props: AppProps) => {
   if (error) {
     return (
       <>
-        <HeaderWithoutMQTTData handleRemoteConsoleButtonClicked={toggleRemoteConsole} currentView={currentView} />
+        <HeaderWithoutMQTTData
+          handleRemoteConsoleButtonClicked={toggleRemoteConsole}
+          handleTibberButtonClicked={toggleTibberGraph}
+          currentView={currentView}
+        />
         {(() => {
           switch (currentView) {
             case VIEWS.REMOTE_CONSOLE:
@@ -117,6 +127,7 @@ export const MarineApp = observer((props: AppProps) => {
     <>
       <Header
         handleRemoteConsoleButtonClicked={toggleRemoteConsole}
+        handleTibberButtonClicked={toggleTibberGraph}
         currentView={currentView}
         setPage={setPage}
         currentPage={currentPage}
@@ -135,6 +146,12 @@ export const MarineApp = observer((props: AppProps) => {
               return (
                 <Fade key={VIEWS.REMOTE_CONSOLE} unmount={viewUnmounting} fullWidth>
                   <RemoteConsole host={host} onClickOutsideContainer={() => setView(VIEWS.METRICS)} />
+                </Fade>
+              )
+            case VIEWS.TIBBER_GRAPH:
+              return (
+                <Fade key={VIEWS.TIBBER_GRAPH} unmount={viewUnmounting} fullWidth>
+                  <TibberGraph onClickOutsideContainer={() => setView(VIEWS.METRICS)} />
                 </Fade>
               )
             case VIEWS.METRICS:

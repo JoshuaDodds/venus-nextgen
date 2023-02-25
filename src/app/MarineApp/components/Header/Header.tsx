@@ -19,6 +19,7 @@ import Clock from "../Clock"
 type HeaderProps = {
   currentView: string
   handleRemoteConsoleButtonClicked: Function
+  handleTibberButtonClicked: Function
   setPage?: Function
   currentPage?: number
   pages?: number
@@ -31,6 +32,7 @@ export const Header = (props: HeaderProps) => {
     showRemoteConsoleSetting,
     currentView,
     handleRemoteConsoleButtonClicked,
+    handleTibberButtonClicked,
     showLockButton,
     setPage,
     currentPage,
@@ -48,7 +50,14 @@ export const Header = (props: HeaderProps) => {
         <Clock />
         <div className="header-button-container">
           <LockButton currentView={currentView} header={true} showLockButton={showLockButton} />
-
+          <button className="tibber-graph-button" onClick={() => handleTibberButtonClicked()}>
+            {currentView !== VIEWS.TIBBER_GRAPH ? (
+              <Translate value="tibberGraphButton.openGraph" />
+            ) : (
+              <Translate value="tibberGraphButton.closeGraph" />
+            )}
+          </button>
+          &nbsp; &nbsp;
           {showRemoteConsoleSetting && (
             <button className="remote-console-button" onClick={() => handleRemoteConsoleButtonClicked()}>
               {currentView !== VIEWS.REMOTE_CONSOLE ? (
@@ -98,13 +107,21 @@ const Paginator = ({ setPage, currentPage, pages }: PaginatorProps) => {
 }
 
 const HeaderWithData = observer(
-  ({ currentView, handleRemoteConsoleButtonClicked, setPage, currentPage, pages }: HeaderProps) => {
+  ({
+    currentView,
+    handleRemoteConsoleButtonClicked,
+    handleTibberButtonClicked,
+    setPage,
+    currentPage,
+    pages,
+  }: HeaderProps) => {
     const { showRemoteConsoleSetting } = useHeader()
 
     return (
       <Header
         showRemoteConsoleSetting={showRemoteConsoleSetting}
         handleRemoteConsoleButtonClicked={handleRemoteConsoleButtonClicked}
+        handleTibberButtonClicked={handleTibberButtonClicked}
         currentView={currentView}
         setPage={setPage}
         currentPage={currentPage}
@@ -114,11 +131,16 @@ const HeaderWithData = observer(
   }
 )
 
-const HeaderWithoutMQTTData = ({ currentView, handleRemoteConsoleButtonClicked }: HeaderProps) => {
+const HeaderWithoutMQTTData = ({
+  currentView,
+  handleRemoteConsoleButtonClicked,
+  handleTibberButtonClicked,
+}: HeaderProps) => {
   return (
     <Header
       showRemoteConsoleSetting={true}
       handleRemoteConsoleButtonClicked={handleRemoteConsoleButtonClicked}
+      handleTibberButtonClicked={handleTibberButtonClicked}
       currentView={currentView}
       showLockButton={false}
     />

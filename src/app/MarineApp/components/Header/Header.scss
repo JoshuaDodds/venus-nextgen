@@ -87,3 +87,11 @@ header {
     display: none;
   }
 }
+
+.tibber-graph-button {
+  @extend .header-button;
+
+  @media #{$hide-remote-console-breakpoint} {
+    display: none;
+  }
+}

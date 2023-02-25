@@ -1,0 +1,46 @@
+@import "../../../css/variables.scss";
+
+.tibber-graph__container {
+  width: 700px;
+  height: 420px;
+  padding: 0;
+  overflow: hidden;
+  border-style: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //flex-grow: 1;
+}
+
+.tibber-graph {
+  width: 75% !important;
+  height: 80% !important;
+  display: block;
+  border-style: none;
+  overflow: hidden;
+  //margin: 0 auto;
+  position: absolute;
+  //height: 420px;
+  //width: 700px;
+  //top: 12%;
+  left: 7%;
+  //transform: translate(-25%, -25%) scale(1.15);
+  transform: scale(1.15);
+  transform-origin: 0 0;
+
+
+  @media #{$hide-tibber-graph-breakpoint} {
+    display: none;
+  }
+}
+
+.tibber-graph__small_screen_info {
+  display: none;
+
+  padding: 1rem;
+  text-align: center;
+
+  @media #{$hide-tibber-graph-breakpoint} {
+    display: inline;
+  }
+}

@@ -98,14 +98,15 @@
         "remote": "Remote",
         "remoteConsole": "Remote console",
         "remoteMessage": "Open in a larger screen to view remote console",
+        "tibberGraph": "Upcoming Tibber energy spot prices",
         "versionInfo": "Version Information"
     },
     "installations": {
         "title": "Choose an installation"
     },
     "locker": {
-        "lockMessage": "Lock to prevent changes",
-        "unlockMessage": "Unlock to make changes"
+        "lockMessage": "Lock",
+        "unlockMessage": "Unlock"
     },
     "noWidgets": {
         "subtitle": "Make sure your devices are properly connected",
@@ -154,6 +155,10 @@
             "Tank sensor": "Tank sensor",
             "Waste water": "Waste water"
         }
+    },
+    "tibberGraphButton": {
+        "openGraph": "Show Prices",
+        "closeGraph": "Close Prices"
     },
     "tankWidget": {
         "Black water": "Black water",

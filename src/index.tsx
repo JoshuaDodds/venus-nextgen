@@ -4,32 +4,32 @@ import ReactDOM from "react-dom"
 import App from "./app/App"
 import { getParameterByName } from "./app/utils/util"
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration"
-import * as Sentry from "@sentry/react"
-import { Integrations } from "@sentry/tracing"
+// import * as Sentry from "@sentry/react"
+// import { Integrations } from "@sentry/tracing"
 
 // load languages
 import "./app/locales"
-import { initializeErrorHandlerStore } from "app/components/ErrorHandlerModule/ErrorHandler.store"
+// import { initializeErrorHandlerStore } from "app/components/ErrorHandlerModule/ErrorHandler.store"
 
 const host = getParameterByName("host") || window.location.hostname || "localhost"
 const port = parseInt(getParameterByName("port") ?? "9001")
 
-const errorHandlerStore = initializeErrorHandlerStore()
+// const errorHandlerStore = initializeErrorHandlerStore()
 
-Sentry.init({
-  dsn: "https://1582bd830f4349f1889999f8b3466a2e@o81300.ingest.sentry.io/6331073",
-  integrations: [new Integrations.BrowserTracing()],
-  sampleRate: 1,
-  debug: process.env.NODE_ENV === "development",
-  beforeSend(event, hint) {
-    const sendError = hint && hint.captureContext === "captured"
-    if (!sendError) {
-      errorHandlerStore.setError(event)
-      return null
-    }
-    return event
-  },
-})
+// Sentry.init({
+//   dsn: "https://1582bd830f4349f1889999f8b3466a2e@o81300.ingest.sentry.io/6331073",
+//   integrations: [new Integrations.BrowserTracing()],
+//   sampleRate: 1,
+//   debug: process.env.NODE_ENV === "development",
+//   beforeSend(event, hint) {
+//     const sendError = hint && hint.captureContext === "captured"
+//     if (!sendError) {
+//       errorHandlerStore.setError(event)
+//       return null
+//     }
+//     return event
+//   },
+// })
 
 ReactDOM.render(
   <React.StrictMode>
