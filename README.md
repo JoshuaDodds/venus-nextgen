@@ -19,7 +19,7 @@ which feeds additional data into the dashboard of this project.  You can read mo
 ## Credits:
 Victron Energy BV for the work on which the project is based. This project intends to integrate various other 
 non-victron based third party services and equipment and because many/most of these changes will not be merged upstream for 
-various reasons, this project is diverging from the original Victron projectwhich is located here:
+various reasons, this project is diverging from the original Victron project which is located here:
 - [Venus HTML5 App](https://github.com/victronenergy/venus-html5-app)
 
 
