@@ -1,5 +1,20 @@
 # Venus OS React Based Energy Dashboard
 
+## Introduction 
+Do you have one or more of the following devices in your home?
+
+- [x] Solar panels (the more the better)
+- [x] A Tesla vehicle (optional)
+- [x] Victron Energy Equipment (Cerbo GX compatible Inverters/Chargers, MPPT charge controllers, etc.)
+- [x] Home Energy Storage System with canbus or serial control and working well with your Victron system
+- [x] an ABB B21/23/24 Kilowatt meter (optional)
+- [x] a Domoticz based Home Automation system (optional)
+
+If so, this project might be something you will find interesting. Have a look at what this project offers by 
+reading more below.  To get the most out of this project, you will also need to configure and setup the backend service
+which feeds additional data into the dashboard of this project.  You can read more about the backend service here:
+[CerbomoticzGX](https://github.com/JoshuaDodds/cerbomoticzgx) or contact me for more information. 
+
 ## Credits:
 Many thanks to Victron Energy BV for the initial build of this project. This project intends to integrate various other 
 non-victron based third party services and equipment and many of these changes will not be able to merged upstream for 
