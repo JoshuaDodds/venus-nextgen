@@ -96,7 +96,7 @@ const SystemControl = observer(() => {
                 disabled={system_shutdown === "True"}
                 onClick={() => send_system_shutdown_message()}
               >
-                Force Restart CerbomoticzGX Service
+                Restart CerbomoticzGX Service
               </SelectorButton>
             </div>
           </ListRow>

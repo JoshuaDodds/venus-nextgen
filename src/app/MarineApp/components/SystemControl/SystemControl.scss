@@ -3,7 +3,7 @@
 .gridassist__mode-selector {
   margin-top: $metricHeaderMarginBottom;
   height: 40px;
-  width: 50%;
+  width: 49%;
   display: flex;
   justify-content: space-between;
 }
@@ -13,7 +13,7 @@
   max-width: 60px;
   min-width: 58px;
   height: 40px;
-  margin: 5px;
+  //margin: 5px;
   line-height: 40px;
 
   @media all and (max-width: 729px) {
@@ -32,7 +32,7 @@
 
   @media all and (max-width: 400px) {
     max-width: 60px;
-    min-width: 55px;
+    min-width: 43px;
     height: 40px;
     margin: 4px;
   }
