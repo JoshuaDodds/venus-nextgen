@@ -17,10 +17,9 @@ which feeds additional data into the dashboard of this project.  You can read mo
 [CerbomoticzGX](https://github.com/JoshuaDodds/cerbomoticzgx) or contact me for more information. 
 
 ## Credits:
-Many thanks to Victron Energy BV for the initial build of this project. This project intends to integrate various other 
-non-victron based third party services and equipment and many of these changes will not be able to merged upstream for 
-various reasons. For these reasons, this project is diverging from the original Victron project but you can still check 
-that out here:
+Victron Energy BV for the work on which the project is based. This project intends to integrate various other 
+non-victron based third party services and equipment and because many/most of these changes will not be merged upstream for 
+various reasons, this project is diverging from the original Victron projectwhich is located here:
 - [Venus HTML5 App](https://github.com/victronenergy/venus-html5-app)
 
 
