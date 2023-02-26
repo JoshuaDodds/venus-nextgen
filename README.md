@@ -34,7 +34,7 @@ that out here:
 The "app" is a single page application that communicates to the rest of Venus OS via MQTT over websockets.
 It uses React with ES6 for the UI layer and also includes a wrapper service for the MQTT interface.
 
-Its primary purpose is to be a simple-to-use and nice looking UI for a Victron system which running a number 
+Its primary purpose is to be a simple-to-use and nice looking UI for a Victron system that is running a number 
 of the components mentioned in the introduction above. It also intends to give a central dashboard for observability
 and control of inter-related components. 
 
