@@ -17,9 +17,12 @@ const SystemControl = observer(() => {
     ac_in_power_setpoint: "W/48e7da878d35/settings/0/Settings/CGwacs/AcPowerSetPoint",
     battery_min_soc_limit: "W/48e7da878d35/settings/0/Settings/CGwacs/BatteryLife/MinimumSocLimit",
     max_charge_voltage: "W/48e7da878d35/settings/0/Settings/SystemSetup/MaxChargeVoltage",
+    system_shutdown: "Cerbomoticzgx/system/shutdown",
   }
 
-  const { grid_import_enabled, ac_in_power_setpoint, battery_min_soc_limit, max_charge_voltage } = SystemControlTopics()
+  const { grid_import_enabled, ac_in_power_setpoint, battery_min_soc_limit, max_charge_voltage, system_shutdown } =
+    SystemControlTopics()
+
   const visible = !!(grid_import_enabled || ac_in_power_setpoint || battery_min_soc_limit)
   useVisibilityNotifier({ widgetName: WIDGET_TYPES.SYSTEM_CONTROL, visible })
 
@@ -30,7 +33,7 @@ const SystemControl = observer(() => {
   if (visible) {
     return (
       <ColumnContainer>
-        <ListView icon={Icon} title={"AC In & ESS Control"} subTitle={""} child={false}>
+        <ListView icon={Icon} title={"Manual System Control"} subTitle={""} child={false}>
           <table cellPadding="5px">
             <tr>
               <td>
@@ -71,14 +74,25 @@ const SystemControl = observer(() => {
                 disabled={grid_import_enabled === "False"}
                 onClick={() => toggle_grid_input()}
               >
-                GridAssist Charge Off
+                Disable GridAssist Charge
               </SelectorButton>
               <SelectorButton
                 active={grid_import_enabled === "False"}
                 disabled={grid_import_enabled === "True"}
                 onClick={() => toggle_grid_input()}
               >
-                GridAssist Charge On
+                Activate GridAssist Charge
+              </SelectorButton>
+            </div>
+          </ListRow>
+          <ListRow>
+            <div className="inverter__mode-selector">
+              <SelectorButton
+                active={system_shutdown === "False"}
+                disabled={system_shutdown === "True"}
+                onClick={() => send_system_shutdown_message()}
+              >
+                Force Restart CerbomoticzGX Service
               </SelectorButton>
             </div>
           </ListRow>
@@ -95,10 +109,14 @@ const SystemControl = observer(() => {
 
   function toggle_grid_input() {
     if (grid_import_enabled === "True") {
-      publish(ControlTopics.grid_import_enabled, "False")
+      publish(ControlTopics.grid_import_enabled, "False", { retain: true })
     } else {
-      publish(ControlTopics.grid_import_enabled, "True")
+      publish(ControlTopics.grid_import_enabled, "True", { retain: true })
     }
+  }
+
+  function send_system_shutdown_message() {
+    publish(ControlTopics.system_shutdown, "True")
   }
 })
 

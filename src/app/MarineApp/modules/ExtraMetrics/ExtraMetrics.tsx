@@ -74,6 +74,7 @@ export function SystemControlTopics() {
       ac_in_power_setpoint: "N/48e7da878d35/settings/0/Settings/CGwacs/AcPowerSetPoint",
       battery_min_soc_limit: "N/48e7da878d35/settings/0/Settings/CGwacs/BatteryLife/MinimumSocLimit",
       max_charge_voltage: "N/48e7da878d35/settings/0/Settings/SystemSetup/MaxChargeVoltage",
+      system_shutdown: "Cerbomoticzgx/system/shutdown",
     }
   }
   const topics = useMemo(function () {
