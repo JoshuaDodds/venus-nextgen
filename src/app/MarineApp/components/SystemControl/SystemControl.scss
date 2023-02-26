@@ -1,0 +1,39 @@
+@import "../../css/variables.scss";
+
+.gridassist__mode-selector {
+  margin-top: $metricHeaderMarginBottom;
+  height: 40px;
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.selector-button__gridsetpoint {
+  margin: 5px;
+  max-width: 60px;
+  min-width: 58px;
+  height: 40px;
+  margin: 5px;
+  line-height: 40px;
+
+  @media all and (max-width: 729px) {
+    max-width: 60px;
+    min-width: 60px;
+    height: 40px;
+    margin: 5px;
+  }
+
+  @media all and (max-width: 579px) {
+    max-width: 60px;
+    min-width: 60px;
+    height: 40px;
+    margin: 4px;
+  }
+
+  @media all and (max-width: 400px) {
+    max-width: 60px;
+    min-width: 55px;
+    height: 40px;
+    margin: 4px;
+  }
+}

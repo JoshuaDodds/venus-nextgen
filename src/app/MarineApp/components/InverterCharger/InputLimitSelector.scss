@@ -78,32 +78,3 @@
     margin: 4px;
   }
 }
-
-.selector-button__gridsetpoint {
-  margin: 5px;
-  max-width: 60px;
-  min-width: 60px;
-  height: 40px;
-  line-height: 40px;
-
-  @media all and (max-width: 729px) {
-    max-width: 60px;
-    min-width: 60px;
-    height: 40px;
-    margin: 5px;
-  }
-
-  @media all and (max-width: 579px) {
-    max-width: 60px;
-    min-width: 60px;
-    height: 40px;
-    margin: 5px;
-  }
-
-  @media all and (max-width: 400px) {
-    max-width: 60px;
-    min-width: 60px;
-    height: 40px;
-    margin: 5px;
-  }
-}

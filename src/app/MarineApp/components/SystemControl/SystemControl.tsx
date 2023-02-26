@@ -9,6 +9,8 @@ import { useMqtt } from "@elninotech/mfd-modules"
 import { ListRow, ListView } from "../ListView"
 import React from "react"
 
+import "./SystemControl.scss"
+
 const SystemControl = observer(() => {
   const { publish } = useMqtt()
 
@@ -68,7 +70,7 @@ const SystemControl = observer(() => {
             })}
           </ListRow>
           <ListRow>
-            <div className="inverter__mode-selector">
+            <div className="gridassist__mode-selector">
               <SelectorButton
                 active={grid_import_enabled === "True"}
                 disabled={grid_import_enabled === "False"}
@@ -76,6 +78,8 @@ const SystemControl = observer(() => {
               >
                 Disable GridAssist Charge
               </SelectorButton>
+            </div>
+            <div className="gridassist__mode-selector">
               <SelectorButton
                 active={grid_import_enabled === "False"}
                 disabled={grid_import_enabled === "True"}
@@ -86,7 +90,7 @@ const SystemControl = observer(() => {
             </div>
           </ListRow>
           <ListRow>
-            <div className="inverter__mode-selector">
+            <div className="gridassist__mode-selector">
               <SelectorButton
                 active={system_shutdown === "False"}
                 disabled={system_shutdown === "True"}

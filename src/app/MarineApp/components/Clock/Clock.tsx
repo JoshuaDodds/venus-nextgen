@@ -14,11 +14,12 @@ function Clock() {
     }
   }, [])
   return (
-    <span className="text--clock">
-      {date.toLocaleTimeString()}
-      &nbsp;
-      <WeatherWidget />
-    </span>
+    <div>
+      <span className="text--clock">{date.toLocaleTimeString()}</span>
+      <span style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <WeatherWidget />
+      </span>
+    </div>
   )
 }
 export default Clock
