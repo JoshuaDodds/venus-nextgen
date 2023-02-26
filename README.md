@@ -34,12 +34,12 @@ that out here:
 The "app" is a single page application that communicates to the rest of Venus OS via MQTT over websockets.
 It uses React with ES6 for the UI layer and also includes a wrapper service for the MQTT interface.
 
-Its primary purpose is to be a simple-to-use and nice looking UI for a Victron system on
-marine Multi Functional Displays, such as the ones from Garmin, Simrad and others. This
-removes the need for a Victron panel at the helm: less clutter on the dashboard.
+Its primary purpose is to be a simple-to-use and nice looking UI for a Victron system which running a number 
+of the components mentioned in the introduction above. It also intends to give a central dashboard for observability
+and control of inter-related components. 
 
-The secondary purpose is to help OEMs, boat builders and motorhome builders for example,
-make their own custom UI.
+The secondary purpose is to serve as a platform for others to easily add their own integrations and components
+and have a central dashboard to manage important and inter-related devices and components. 
 
 ## 0. Contents
 
