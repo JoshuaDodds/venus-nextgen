@@ -24,9 +24,12 @@ that out here:
 - [Venus HTML5 App](https://github.com/victronenergy/venus-html5-app)
 
 
-#### Screenshot of Multi-Phase hybrid grid-tied System with ESS, Tesla vehicle integration, Tibber.com integration, CerbomoticzGX Integration
-
+#### Screenshots of Multi-Phase hybrid grid-tied System with ESS, Tesla vehicle integration, Tibber.com integrationand CerbomoticzGX Integration
 ![screenshot](/energy-dashboard-screenshot.png?raw=true)
+
+![screenshot](/energy-dashboard-screenshot2.png?raw=true)
+
+![screenshot](/energy-dashboard-screenshot3.png?raw=true)
 
 The "app" is a single page application that communicates to the rest of Venus OS via MQTT over websockets.
 It uses React with ES6 for the UI layer and also includes a wrapper service for the MQTT interface.
