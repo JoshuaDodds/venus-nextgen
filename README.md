@@ -25,7 +25,7 @@ that out here:
 
 
 #### Screenshots of Multi-Phase hybrid grid-tied System with ESS, Tesla vehicle integration, Tibber.com integrationand CerbomoticzGX Integration
-![screenshot](/energy-dashboard-screenshot.png?raw=true)
+![screenshot](/energy-dashboard-screenshot1.png?raw=true)
 
 ![screenshot](/energy-dashboard-screenshot2.png?raw=true)
 
