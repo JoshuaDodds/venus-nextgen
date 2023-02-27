@@ -69,18 +69,10 @@ const Vehicle = observer(() => {
               </MetricValues>
             </tr>
             <tr>
-              <MetricValues>
-                <div className="text--small">
-                  <td>
-                    <span className="text--very-small text--subtitle-upper">PV Surplus:&nbsp;</span>
-                    <NumericValue value={vehicle.surplus_watts} unit="W" defaultValue={null} precision={1} />
-                  </td>
-                  <td>
-                    <span className="text--very-small text--subtitle-upper">PV Reserved:&nbsp;</span>
-                    <NumericValue value={vehicle.load_reservation} unit="W" defaultValue={null} precision={1} />
-                  </td>
-                </div>
-              </MetricValues>
+              <span className="text--opaque text--smaller">Last update: </span>
+              <span className="text--smaller">
+                {(vehicle.last_update_at = 0 ? "Pending..." : vehicle.last_update_at)}
+              </span>
             </tr>
           </table>
         </ListViewWithTotals>

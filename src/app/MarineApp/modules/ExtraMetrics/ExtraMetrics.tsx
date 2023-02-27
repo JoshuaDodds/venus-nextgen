@@ -44,6 +44,7 @@ export function ExtraVehicleMetrics() {
       load_reservation: "Tesla/vehicle0/solar/load_reservation",
       insufficient_surplus: "Tesla/vehicle0/solar/insufficient_surplus",
       time_until_full: "Tesla/vehicle0/time_until_full",
+      last_update_at: "Tesla/vehicle0/last_update_at",
     }
   }
   const topics = useMemo(function () {
