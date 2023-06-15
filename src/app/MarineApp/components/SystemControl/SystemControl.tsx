@@ -12,18 +12,25 @@ import React from "react"
 import "./SystemControl.scss"
 
 const SystemControl = observer(() => {
-  const { publish } = useMqtt()
+  const { publish, portalId } = useMqtt()
 
   const ControlTopics = {
     grid_import_enabled: "Tesla/settings/grid_charging_enabled",
-    ac_in_power_setpoint: "W/48e7da878d35/settings/0/Settings/CGwacs/AcPowerSetPoint",
-    battery_min_soc_limit: "W/48e7da878d35/settings/0/Settings/CGwacs/BatteryLife/MinimumSocLimit",
-    max_charge_voltage: "W/48e7da878d35/settings/0/Settings/SystemSetup/MaxChargeVoltage",
+    ac_in_power_setpoint: `W/${portalId}/settings/0/Settings/CGwacs/AcPowerSetPoint`,
+    battery_min_soc_limit: `W/${portalId}/settings/0/Settings/CGwacs/BatteryLife/MinimumSocLimit`,
+    max_charge_voltage: `W/${portalId}/settings/0/Settings/SystemSetup/MaxChargeVoltage`,
     system_shutdown: "Cerbomoticzgx/system/shutdown",
+    ess_net_metering_enabled: "Cerbomoticzgx/system/EssNetMeteringEnabled",
   }
 
-  const { grid_import_enabled, ac_in_power_setpoint, battery_min_soc_limit, max_charge_voltage, system_shutdown } =
-    SystemControlTopics()
+  const {
+    grid_import_enabled,
+    ac_in_power_setpoint,
+    battery_min_soc_limit,
+    max_charge_voltage,
+    system_shutdown,
+    ess_net_metering_enabled,
+  } = SystemControlTopics()
 
   const visible = !!(grid_import_enabled || ac_in_power_setpoint || battery_min_soc_limit)
   useVisibilityNotifier({ widgetName: WIDGET_TYPES.SYSTEM_CONTROL, visible })
@@ -39,7 +46,8 @@ const SystemControl = observer(() => {
           <table cellPadding="5px">
             <tr>
               <td>
-                <span className="text--subtitle-upper">Max Chg V: </span> {max_charge_voltage.toFixed(1)}V
+                <span className="text--subtitle-upper">Max Chg V: </span>
+                {max_charge_voltage ? max_charge_voltage.toFixed(1) + "V" : "N/A"}
               </td>
               <td>
                 <span className="text--subtitle-upper">Grid Setpoint: </span>
@@ -99,6 +107,15 @@ const SystemControl = observer(() => {
                 Restart CerbomoticzGX Service
               </SelectorButton>
             </div>
+            <div className="gridassist__mode-selector">
+              <SelectorButton
+                active={ess_net_metering_enabled === "True"}
+                // disabled={ess_net_metering_enabled === "False"}
+                onClick={() => toggle_ess_net_metering()}
+              >
+                {ess_net_metering_enabled === "True" ? "Disable ESS Net Metering" : "Enable ESS Net Metering"}
+              </SelectorButton>
+            </div>
           </ListRow>
         </ListView>
       </ColumnContainer>
@@ -121,6 +138,14 @@ const SystemControl = observer(() => {
 
   function send_system_shutdown_message() {
     publish(ControlTopics.system_shutdown, "True")
+  }
+
+  function toggle_ess_net_metering() {
+    if (ess_net_metering_enabled === "True") {
+      publish(ControlTopics.ess_net_metering_enabled, "False", { retain: true })
+    } else {
+      publish(ControlTopics.ess_net_metering_enabled, "True", { retain: true })
+    }
   }
 })
 

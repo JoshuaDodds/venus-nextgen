@@ -27,7 +27,7 @@ const Vehicle = observer(() => {
 
   const vehicle_name = "Vehicle: " + vehicle.vehicle_name || "My Tesla Vehicle"
   const surplus_deficiency = function () {
-    if (vehicle.insufficient_surplus === "true") {
+    if (vehicle.insufficient_surplus === "True" && vehicle.charging_status !== "Charging") {
       return " / (Insufficient surplus)"
     } else {
       return ""
@@ -56,11 +56,11 @@ const Vehicle = observer(() => {
                 </td>
                 <td>
                   <span className="text--very-small text--subtitle-upper">SoC:&nbsp;</span>
-                  <NumericValue value={vehicle.battery_soc} unit="%" defaultValue={null} precision={1} />
+                  <NumericValue value={vehicle.battery_soc} unit="%" defaultValue={null} precision={0} />
                 </td>
                 <td>
                   <span className="text--very-small text--subtitle-upper">Limit:&nbsp;</span>
-                  <NumericValue value={vehicle.battery_soc_setpoint} unit="%" defaultValue={null} precision={1} />
+                  <NumericValue value={vehicle.battery_soc_setpoint} unit="%" defaultValue={null} precision={0} />
                 </td>
                 <td>
                   <span className="text--very-small text--subtitle-upper">ETA:&nbsp;</span>

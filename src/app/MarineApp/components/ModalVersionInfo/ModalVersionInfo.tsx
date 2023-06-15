@@ -1,9 +1,9 @@
-import Modal from "app/components/Modal"
+import Modal from "../../../../app/components/Modal"
 import { forwardRef, useImperativeHandle, useState } from "react"
 import { translate, Translate } from "react-i18nify"
 import "./ModalVersionInfo.scss"
 import Logo from "../../images/icons/logo.png"
-import { SIZE_EXTRA_WIDE } from "app/components/Card"
+import { SIZE_EXTRA_WIDE } from "../../../../app/components/Card"
 
 import packageInfo from "../../../../../package.json"
 import { BUILD_TIMESTAMP } from "app/utils/constants"

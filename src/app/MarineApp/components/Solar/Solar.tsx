@@ -31,7 +31,7 @@ const Solar = observer(() => {
 
   const { surplus_watts, load_reservation } = ExtraVehicleMetrics()
 
-  const extraVisible = !!(c1_daily_yield || c2_daily_yield || false)
+  const extraVisible = !!(c1_daily_yield || c2_daily_yield || current || false)
   const daily_yield = (c1_daily_yield || 0) + (c2_daily_yield || 0)
   const total_power = (string_a_power || 0) + (string_b_power || 0) + (string_c_power || 0) + (string_d_power || 0)
 
@@ -41,7 +41,7 @@ const Solar = observer(() => {
         <ListViewWithTotals
           icon={SolarIcon}
           title={translate("widgets.solar")}
-          totals={total_power}
+          totals={total_power || power}
           subTitle={false}
           child={false}
         >
@@ -49,8 +49,8 @@ const Solar = observer(() => {
             <div className="text--smaller">
               <span className="text--small text--subtitle-upper">Pv Current&nbsp;</span>
               <NumericValue value={current} unit=" Amps" precision={1} />
-              <span className="text--small text--subtitle-upper">Production Today&nbsp;</span>
-              <NumericValue value={daily_yield} unit="kWh" precision={2} />
+              {daily_yield ? <span className="text--small text--subtitle-upper">Production Today&nbsp;</span> : null}
+              {daily_yield ? <NumericValue value={daily_yield} unit="kWh" precision={2} /> : null}
               <table cellPadding="0" cellSpacing="5" width="100%">
                 <tr>
                   {string_a_volts && string_a_power ? (
@@ -85,22 +85,24 @@ const Solar = observer(() => {
                   ) : null}
                 </tr>
               </table>
-              <table>
-                <tr>
-                  <MetricValues>
-                    <div className="text--small">
-                      <td>
-                        <span className="text--very-small text--subtitle-upper">Surplus:&nbsp;</span>
-                        <NumericValue value={surplus_watts} unit="W" defaultValue={null} precision={1} />
-                      </td>
-                      <td>
-                        <span className="text--very-small text--subtitle-upper">Reserved:&nbsp;</span>
-                        <NumericValue value={load_reservation} unit="W" defaultValue={null} precision={1} />
-                      </td>
-                    </div>
-                  </MetricValues>
-                </tr>
-              </table>
+              {surplus_watts && load_reservation ? (
+                <table>
+                  <tr>
+                    <MetricValues>
+                      <div className="text--small">
+                        <td>
+                          <span className="text--very-small text--subtitle-upper">Surplus:&nbsp;</span>
+                          <NumericValue value={surplus_watts} unit="W" defaultValue={null} precision={1} />
+                        </td>
+                        <td>
+                          <span className="text--very-small text--subtitle-upper">Reserved:&nbsp;</span>
+                          <NumericValue value={load_reservation} unit="W" defaultValue={null} precision={1} />
+                        </td>
+                      </div>
+                    </MetricValues>
+                  </tr>
+                </table>
+              ) : null}
             </div>
           )}
         </ListViewWithTotals>

@@ -1,5 +1,5 @@
 import { useMemo } from "react"
-import { useTopicsState, useTopicSubscriptions } from "@elninotech/mfd-modules"
+import { PortalId, useMqtt, useTopicsState, useTopicSubscriptions } from "@elninotech/mfd-modules"
 
 export function ExtraTibberMetrics() {
   const getTopics = function () {
@@ -69,65 +69,63 @@ export function ExtraAcMetrics() {
 }
 
 export function SystemControlTopics() {
-  const getTopics = function () {
+  const getTopics = (portalId: PortalId) => {
     return {
       grid_import_enabled: "Tesla/settings/grid_charging_enabled",
-      ac_in_power_setpoint: "N/48e7da878d35/settings/0/Settings/CGwacs/AcPowerSetPoint",
-      battery_min_soc_limit: "N/48e7da878d35/settings/0/Settings/CGwacs/BatteryLife/MinimumSocLimit",
-      max_charge_voltage: "N/48e7da878d35/settings/0/Settings/SystemSetup/MaxChargeVoltage",
+      ac_in_power_setpoint: `N/${portalId}/settings/0/Settings/CGwacs/AcPowerSetPoint`,
+      battery_min_soc_limit: `N/${portalId}/settings/0/Settings/CGwacs/BatteryLife/MinimumSocLimit`,
+      max_charge_voltage: `N/${portalId}/settings/0/Settings/SystemSetup/MaxChargeVoltage`,
       system_shutdown: "Cerbomoticzgx/system/shutdown",
+      ess_net_metering_enabled: "Cerbomoticzgx/system/EssNetMeteringEnabled",
     }
   }
-  const topics = useMemo(function () {
-    return getTopics()
-  }, [])
+  const { portalId } = useMqtt()
+  const topics = useMemo(() => getTopics(portalId), [portalId])
   useTopicSubscriptions(topics)
   return useTopicsState(topics)
 }
 
 export function ExtraBatteryMetrics() {
-  const getTopics = function () {
+  const getTopics = (portalId: PortalId) => {
     return {
-      shared_temp_sense: "N/48e7da878d35/system/0/Dc/Battery/Temperature",
-      min_cell_temp: "N/48e7da878d35/battery/512/System/MinCellTemperature",
-      max_cell_temp: "N/48e7da878d35/battery/512/System/MaxCellTemperature",
-      min_cell_volt: "N/48e7da878d35/battery/512/System/MinCellVoltage",
-      max_cell_volt: "N/48e7da878d35/battery/512/System/MaxCellVoltage",
-      modules_online: "N/48e7da878d35/battery/512/System/NrOfModulesOnline",
-      capacity_available: "N/48e7da878d35/battery/512/Capacity",
-      capacity_installed: "N/48e7da878d35/battery/512/InstalledCapacity",
-      state_of_health: "N/48e7da878d35/battery/512/Soh",
-      discharged_capacity: "N/48e7da878d35/battery/277/History/DischargedEnergy",
-      lfp_voltage: "N/48e7da878d35/battery/512/Dc/0/Voltage",
+      shared_temp_sense: `N/${portalId}/system/0/Dc/Battery/Temperature`,
+      min_cell_temp: `N/${portalId}/battery/512/System/MinCellTemperature`,
+      max_cell_temp: `N/${portalId}/battery/512/System/MaxCellTemperature`,
+      min_cell_volt: `N/${portalId}/battery/512/System/MinCellVoltage`,
+      max_cell_volt: `N/${portalId}/battery/512/System/MaxCellVoltage`,
+      modules_online: `N/${portalId}/battery/512/System/NrOfModulesOnline`,
+      capacity_available: `N/${portalId}/battery/512/Capacity`,
+      capacity_installed: `N/${portalId}/battery/512/InstalledCapacity`,
+      state_of_health: `N/${portalId}/battery/512/Soh`,
+      discharged_capacity: `N/${portalId}/battery/277/History/DischargedEnergy`,
+      lfp_voltage: `N/${portalId}/battery/512/Dc/0/Voltage`,
     }
   }
-  const topics = useMemo(function () {
-    return getTopics()
-  }, [])
+  const { portalId } = useMqtt()
+  const topics = useMemo(() => getTopics(portalId), [portalId])
   useTopicSubscriptions(topics)
   return useTopicsState(topics)
 }
 
 export function ExtraSolarMetrics() {
-  const getTopics = function () {
+  const getTopics = (portalId: PortalId) => {
     return {
-      string_a_volts: "N/48e7da878d35/solarcharger/279/Pv/0/V",
-      string_a_power: "N/48e7da878d35/solarcharger/279/Pv/0/P",
-      string_d_volts: "N/48e7da878d35/solarcharger/279/Pv/1/V",
-      string_d_power: "N/48e7da878d35/solarcharger/279/Pv/1/P",
+      string_a_volts: `N/${portalId}/solarcharger/279/Pv/0/V`,
+      string_a_power: `N/${portalId}/solarcharger/279/Pv/0/P`,
+      string_d_volts: `N/${portalId}/solarcharger/279/Pv/1/V`,
+      string_d_power: `N/${portalId}/solarcharger/279/Pv/1/P`,
       //
-      string_b_volts: "N/48e7da878d35/solarcharger/281/Pv/1/V",
-      string_b_power: "N/48e7da878d35/solarcharger/281/Pv/1/P",
-      string_c_volts: "N/48e7da878d35/solarcharger/281/Pv/0/V",
-      string_c_power: "N/48e7da878d35/solarcharger/281/Pv/0/P",
+      string_b_volts: `N/${portalId}/solarcharger/281/Pv/1/V`,
+      string_b_power: `N/${portalId}/solarcharger/281/Pv/1/P`,
+      string_c_volts: `N/${portalId}/solarcharger/281/Pv/0/V`,
+      string_c_power: `N/${portalId}/solarcharger/281/Pv/0/P`,
       //
-      c2_daily_yield: "N/48e7da878d35/solarcharger/279/History/Daily/0/Yield",
-      c1_daily_yield: "N/48e7da878d35/solarcharger/281/History/Daily/0/Yield",
+      c2_daily_yield: `N/${portalId}/solarcharger/279/History/Daily/0/Yield`,
+      c1_daily_yield: `N/${portalId}/solarcharger/281/History/Daily/0/Yield`,
     }
   }
-  const topics = useMemo(function () {
-    return getTopics()
-  }, [])
+  const { portalId } = useMqtt()
+  const topics = useMemo(() => getTopics(portalId), [portalId])
   useTopicSubscriptions(topics)
   return useTopicsState(topics)
 }
