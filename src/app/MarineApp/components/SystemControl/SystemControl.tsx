@@ -17,10 +17,12 @@ const SystemControl = observer(() => {
   const ControlTopics = {
     grid_import_enabled: "Tesla/settings/grid_charging_enabled",
     ac_in_power_setpoint: `W/${portalId}/settings/0/Settings/CGwacs/AcPowerSetPoint`,
+    n_ac_in_power_setpoint: `N/${portalId}/settings/0/Settings/CGwacs/AcPowerSetPoint`,
     battery_min_soc_limit: `W/${portalId}/settings/0/Settings/CGwacs/BatteryLife/MinimumSocLimit`,
     max_charge_voltage: `W/${portalId}/settings/0/Settings/SystemSetup/MaxChargeVoltage`,
     system_shutdown: "Cerbomoticzgx/system/shutdown",
     ess_net_metering_enabled: "Cerbomoticzgx/system/EssNetMeteringEnabled",
+    ess_net_metering_overridden: "Cerbomoticzgx/system/EssNetMeteringOverridden",
   }
 
   const {
@@ -125,14 +127,21 @@ const SystemControl = observer(() => {
   }
 
   function set_ac_in_setpoint(watts: any) {
+    watts = watts.toString() + ".0"
     publish(ControlTopics.ac_in_power_setpoint, watts)
+    publish(ControlTopics.n_ac_in_power_setpoint, watts)
+    watts === "0.0"
+      ? publish(ControlTopics.ess_net_metering_overridden, "False", { retain: true })
+      : publish(ControlTopics.ess_net_metering_overridden, "True", { retain: true })
   }
 
   function toggle_grid_input() {
     if (grid_import_enabled === "True") {
       publish(ControlTopics.grid_import_enabled, "False", { retain: true })
+      publish(ControlTopics.ess_net_metering_overridden, "False", { retain: true })
     } else {
       publish(ControlTopics.grid_import_enabled, "True", { retain: true })
+      publish(ControlTopics.ess_net_metering_overridden, "True", { retain: true })
     }
   }
 
