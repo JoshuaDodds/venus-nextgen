@@ -28,6 +28,7 @@ const Tibber = observer(() => {
     sell_time2,
     current_price,
     last_update,
+    tibber_export_schedule_status,
   } = ExtraTibberMetrics()
 
   const visible = !!(imported || exported || imported === 0)
@@ -105,10 +106,17 @@ const Tibber = observer(() => {
                 )}
               </table>
             </div>
+
             <ColumnContainer>
               <span className="text--opaque text--smaller">Last update: </span>
               <span className="text--smaller">{last_update}</span>
             </ColumnContainer>
+
+            <span className="text--subtitle">
+              <em>
+                <span style={{ fontSize: "0.8rem" }}>{tibber_export_schedule_status}</span>
+              </em>
+            </span>
           </MetricValues>
         </ListView>
       </ColumnContainer>

@@ -21,6 +21,7 @@ export function ExtraTibberMetrics() {
       sell_price2: "Tibber/home/price_info/tomorrow/highest/0/cost",
       sell_time2: "Tibber/home/price_info/tomorrow/highest/0/hour",
       current_price: "Tibber/home/price_info/now/total",
+      tibber_export_schedule_status: "Tibber/home/price_info/today/tibber_export_schedule_status",
     }
   }
   const topics = useMemo(function () {
@@ -77,6 +78,7 @@ export function SystemControlTopics() {
       max_charge_voltage: `N/${portalId}/settings/0/Settings/SystemSetup/MaxChargeVoltage`,
       system_shutdown: "Cerbomoticzgx/system/shutdown",
       ess_net_metering_enabled: "Cerbomoticzgx/system/EssNetMeteringEnabled",
+      ess_net_metering_batt_min_soc: "Cerbomoticzgx/GlobalState/ess_net_metering_batt_min_soc",
     }
   }
   const { portalId } = useMqtt()
@@ -98,7 +100,7 @@ export function ExtraBatteryMetrics() {
       capacity_installed: `N/${portalId}/battery/512/InstalledCapacity`,
       state_of_health: `N/${portalId}/battery/512/Soh`,
       discharged_capacity: `N/${portalId}/battery/277/History/DischargedEnergy`,
-      lfp_voltage: `N/${portalId}/battery/512/Dc/0/Voltage`,
+      lfp_voltage: `Cerbomoticzgx/GlobalState/batt_voltage`,
     }
   }
   const { portalId } = useMqtt()

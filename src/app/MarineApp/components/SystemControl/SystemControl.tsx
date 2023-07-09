@@ -23,6 +23,7 @@ const SystemControl = observer(() => {
     system_shutdown: "Cerbomoticzgx/system/shutdown",
     ess_net_metering_enabled: "Cerbomoticzgx/system/EssNetMeteringEnabled",
     ess_net_metering_overridden: "Cerbomoticzgx/system/EssNetMeteringOverridden",
+    ess_net_metering_batt_min_soc: "Cerbomoticzgx/system/EssNetMeteringBattMinSoc",
   }
 
   const {
@@ -32,12 +33,14 @@ const SystemControl = observer(() => {
     max_charge_voltage,
     system_shutdown,
     ess_net_metering_enabled,
+    ess_net_metering_batt_min_soc,
   } = SystemControlTopics()
 
   const visible = !!(grid_import_enabled || ac_in_power_setpoint || battery_min_soc_limit)
   useVisibilityNotifier({ widgetName: WIDGET_TYPES.SYSTEM_CONTROL, visible })
 
-  const kwhOptions = [-10000.0, -6000.0, 0.0, 3000.0, 6000.0, 10000.0, 13000.0]
+  const kwhOptions = [-13000.0, -10000.0, -6000.0, 0.0, 3000.0, 10000.0, 13000.0]
+  const dischargeOptions = [20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0]
 
   const firstSelectorButtonNode = React.useRef<HTMLDivElement>(null)
 
@@ -60,6 +63,12 @@ const SystemControl = observer(() => {
                 {battery_min_soc_limit}%
               </td>
             </tr>
+            <tr>
+              <td>
+                <span className="text--subtitle-upper">Dynamic ESS SoC Limit: </span>
+                {ess_net_metering_batt_min_soc}%
+              </td>
+            </tr>
           </table>
           <ListRow>
             {kwhOptions.map((currentValue, index) => {
@@ -74,6 +83,24 @@ const SystemControl = observer(() => {
                     large
                   >
                     {currentValue / 1000}kW
+                  </SelectorButton>
+                </div>
+              )
+            })}
+          </ListRow>
+          <ListRow>
+            {dischargeOptions.map((currentValue, index) => {
+              const ref = index === 0 ? firstSelectorButtonNode : null
+              return (
+                <div ref={ref}>
+                  <SelectorButton
+                    key={currentValue.toFixed(1)}
+                    className={"selector-button__gridsetpoint text--small"}
+                    active={ess_net_metering_batt_min_soc === currentValue.toFixed(1)}
+                    onClick={() => set_ess_net_metering_batt_min_soc(currentValue.toFixed(1))}
+                    large
+                  >
+                    {currentValue}%
                   </SelectorButton>
                 </div>
               )
@@ -124,6 +151,11 @@ const SystemControl = observer(() => {
     )
   } else {
     return null
+  }
+
+  function set_ess_net_metering_batt_min_soc(percent: any) {
+    percent = percent.toString()
+    publish(ControlTopics.ess_net_metering_batt_min_soc, percent, { retain: true })
   }
 
   function set_ac_in_setpoint(watts: any) {
