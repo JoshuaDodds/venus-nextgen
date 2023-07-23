@@ -107,16 +107,19 @@ const Tibber = observer(() => {
               </table>
             </div>
 
-            <ColumnContainer>
-              <span className="text--opaque text--smaller">Last update: </span>
-              <span className="text--smaller">{last_update}</span>
-            </ColumnContainer>
-
-            <span className="text--subtitle">
-              <em>
-                <span style={{ fontSize: "0.8rem" }}>{tibber_export_schedule_status}</span>
-              </em>
-            </span>
+            <table cellPadding="0" cellSpacing="0" width="100%">
+              <tr>
+                <td width="50%">
+                  <span className="text--opaque text--smaller">Last update: </span>
+                  <span className="text--smaller">{last_update}</span>
+                </td>
+                <td width="50%">
+                  <span className="text--opaque" style={{ fontSize: "0.8rem" }}>
+                    {tibber_export_schedule_status}
+                  </span>
+                </td>
+              </tr>
+            </table>
           </MetricValues>
         </ListView>
       </ColumnContainer>

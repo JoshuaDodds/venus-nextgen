@@ -41,14 +41,31 @@ type BatteryLevelProps = {
   battery: Battery
 }
 
+function calculateChargeTime(batteryCapacity_kWh: number, currentCharge_watts: number): number {
+  const batteryCapacity_wh: number = batteryCapacity_kWh * 1000
+  const chargeTime_seconds: number = (batteryCapacity_wh / currentCharge_watts) * 3600
+  return Math.floor(chargeTime_seconds)
+}
+
+function calculateSoCLeftToCharge(currentSoC: number, capacity_kWh: number, targetSoC: number): number {
+  currentSoC = Math.max(0, Math.min(100, currentSoC))
+  targetSoC = Math.max(0, Math.min(100, targetSoC))
+  capacity_kWh = Math.abs(capacity_kWh)
+  const remainingSoC = targetSoC - currentSoC
+
+  if (remainingSoC <= 0) {
+    return 0
+  }
+
+  return (remainingSoC / 100) * capacity_kWh
+}
+
 export const BatteryLevel = observer(({ battery }: BatteryLevelProps) => {
-  // listen for language change to re-render component
-  // since we are using translate func and need to rerun it again
   useLanguage(mfdLanguageOptions)
 
   const batteryStateLabel = batteryStateFormatter(battery.state!)
-  const timeToGoLabel = batteryTimeToGoFormatter(battery.timetogo!) + " "
-  const showTimetoGo = battery.state === BATTERY_STATE.DISCHARGING && battery.timetogo
+  const leftToCCharge = calculateSoCLeftToCharge(battery.soc, 40, 100)
+  const chargeTimeToGoLabel = batteryTimeToGoFormatter(calculateChargeTime(leftToCCharge!, battery.power!)) + " "
   const showSoc = battery.soc !== undefined && battery.soc !== null
 
   let batteryLabelClass = typeof batteryStateLabel === "string" ? "-" + batteryStateLabel.toLowerCase() : "idle"
@@ -61,12 +78,18 @@ export const BatteryLevel = observer(({ battery }: BatteryLevelProps) => {
         </span>
       )}
       <div className="charge-indicator">
-        {showTimetoGo && <div className="time-to-go">{timeToGoLabel}</div>}
         {showSoc && (
           <>
             <span>{formatNumber({ value: battery.soc, precision: 1 })}</span>
             <span>%</span>
           </>
+        )}
+        {(battery.state === BATTERY_STATE.DISCHARGING || battery.state === BATTERY_STATE.CHARGING) && (
+          <div className="time-to-go">
+            {battery.state === BATTERY_STATE.DISCHARGING
+              ? batteryTimeToGoFormatter(battery.timetogo!) + " "
+              : chargeTimeToGoLabel}
+          </div>
         )}
       </div>
     </div>
