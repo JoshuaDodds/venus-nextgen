@@ -27,6 +27,7 @@ const Solar = observer(() => {
     string_b_power,
     string_c_power,
     string_d_power,
+    pv_projected_today,
   } = ExtraSolarMetrics()
 
   const { surplus_watts, load_reservation } = ExtraVehicleMetrics()
@@ -47,10 +48,13 @@ const Solar = observer(() => {
         >
           {extraVisible && (
             <div className="text--smaller">
-              <span className="text--small text--subtitle-upper">Pv Current&nbsp;</span>
-              <NumericValue value={current} unit=" Amps" precision={1} />
-              {daily_yield ? <span className="text--small text--subtitle-upper">Production Today&nbsp;</span> : null}
+              <span className="text--smaller text--opaque">AMPS&nbsp;</span>
+              <NumericValue value={current} unit="A" precision={1} />
+              {daily_yield ? <span className="text--smaller text--opaque">PRODUCED&nbsp;</span> : null}
               {daily_yield ? <NumericValue value={daily_yield} unit="kWh" precision={2} /> : null}
+
+              {pv_projected_today ? <span className="text--smaller text--opaque">FORECASTED&nbsp;</span> : null}
+              {pv_projected_today ? <NumericValue value={pv_projected_today} unit="Wh" precision={2} /> : null}
               <table cellPadding="0" cellSpacing="5" width="100%">
                 <tr>
                   {string_a_volts && string_a_power ? (

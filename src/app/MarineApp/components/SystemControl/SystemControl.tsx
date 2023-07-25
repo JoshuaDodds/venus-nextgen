@@ -171,9 +171,11 @@ const SystemControl = observer(() => {
     if (grid_import_enabled === "True") {
       publish(ControlTopics.grid_import_enabled, "False", { retain: true })
       publish(ControlTopics.ess_net_metering_overridden, "False", { retain: true })
+      publish(grid_import_enabled, "False", { retain: true })
     } else {
       publish(ControlTopics.grid_import_enabled, "True", { retain: true })
       publish(ControlTopics.ess_net_metering_overridden, "True", { retain: true })
+      publish(grid_import_enabled, "True", { retain: true })
     }
   }
 

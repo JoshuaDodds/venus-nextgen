@@ -124,6 +124,7 @@ export function ExtraSolarMetrics() {
       //
       c2_daily_yield: `N/${portalId}/solarcharger/279/History/Daily/0/Yield`,
       c1_daily_yield: `N/${portalId}/solarcharger/281/History/Daily/0/Yield`,
+      pv_projected_today: `Cerbomoticzgx/GlobalState/pv_projected_today`,
     }
   }
   const { portalId } = useMqtt()
