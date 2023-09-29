@@ -112,18 +112,18 @@ export function ExtraBatteryMetrics() {
 export function ExtraSolarMetrics() {
   const getTopics = (portalId: PortalId) => {
     return {
-      string_a_volts: `N/${portalId}/solarcharger/279/Pv/0/V`,
-      string_a_power: `N/${portalId}/solarcharger/279/Pv/0/P`,
-      string_d_volts: `N/${portalId}/solarcharger/279/Pv/1/V`,
-      string_d_power: `N/${portalId}/solarcharger/279/Pv/1/P`,
+      string_a_volts: `N/${portalId}/solarcharger/283/Pv/0/V`,
+      string_a_power: `N/${portalId}/solarcharger/283/Pv/0/P`,
+      string_d_volts: `N/${portalId}/solarcharger/283/Pv/1/V`,
+      string_d_power: `N/${portalId}/solarcharger/283/Pv/1/P`,
       //
-      string_b_volts: `N/${portalId}/solarcharger/281/Pv/1/V`,
-      string_b_power: `N/${portalId}/solarcharger/281/Pv/1/P`,
-      string_c_volts: `N/${portalId}/solarcharger/281/Pv/0/V`,
-      string_c_power: `N/${portalId}/solarcharger/281/Pv/0/P`,
+      string_b_volts: `N/${portalId}/solarcharger/282/Pv/1/V`,
+      string_b_power: `N/${portalId}/solarcharger/282/Pv/1/P`,
+      string_c_volts: `N/${portalId}/solarcharger/282/Pv/0/V`,
+      string_c_power: `N/${portalId}/solarcharger/282/Pv/0/P`,
       //
-      c2_daily_yield: `N/${portalId}/solarcharger/279/History/Daily/0/Yield`,
-      c1_daily_yield: `N/${portalId}/solarcharger/281/History/Daily/0/Yield`,
+      c2_daily_yield: `N/${portalId}/solarcharger/283/History/Daily/0/Yield`,
+      c1_daily_yield: `N/${portalId}/solarcharger/282/History/Daily/0/Yield`,
       pv_projected_today: `Cerbomoticzgx/GlobalState/pv_projected_today`,
     }
   }
