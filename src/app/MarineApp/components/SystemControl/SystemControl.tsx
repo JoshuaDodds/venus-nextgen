@@ -36,7 +36,7 @@ const SystemControl = observer(() => {
     ess_net_metering_batt_min_soc,
   } = SystemControlTopics()
 
-  const visible = !!(grid_import_enabled || ac_in_power_setpoint || battery_min_soc_limit)
+  const visible = !!(ac_in_power_setpoint || battery_min_soc_limit)
   useVisibilityNotifier({ widgetName: WIDGET_TYPES.SYSTEM_CONTROL, visible })
 
   const kwhOptions = [-13000.0, -10000.0, -6000.0, 0.0, 3000.0, 10000.0, 13000.0]

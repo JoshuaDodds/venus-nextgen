@@ -106,7 +106,7 @@ const BatteryRowAdditionalInfo = (battery: Battery) => {
   const cell_voltage_min_max = parseFloat(min_cell_volt).toFixed(2) + "v/" + parseFloat(max_cell_volt).toFixed(2) + "v"
   // const used_kwh = parseFloat(discharged_capacity).toFixed(2) + "kWh"
 
-  const additionalInfo = !!((min_cell_temp && min_cell_volt && capacity_available && modules_online) || false)
+  const additionalInfo = !!(capacity_available || modules_online || false)
 
   return (
     <MetricValues inflate>

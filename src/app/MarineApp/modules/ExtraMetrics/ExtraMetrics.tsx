@@ -100,7 +100,7 @@ export function ExtraBatteryMetrics() {
       capacity_installed: `N/${portalId}/battery/512/InstalledCapacity`,
       state_of_health: `N/${portalId}/battery/512/Soh`,
       discharged_capacity: `N/${portalId}/battery/277/History/DischargedEnergy`,
-      lfp_voltage: `Cerbomoticzgx/GlobalState/batt_voltage`,
+      lfp_voltage: `N/${portalId}/battery/512/Dc/0/Voltage`,
     }
   }
   const { portalId } = useMqtt()
