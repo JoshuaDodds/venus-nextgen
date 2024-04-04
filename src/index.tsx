@@ -11,8 +11,11 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration"
 import "./app/locales"
 // import { initializeErrorHandlerStore } from "app/components/ErrorHandlerModule/ErrorHandler.store"
 
-const host = getParameterByName("host") || window.location.hostname || "localhost"
-const port = parseInt(getParameterByName("port") ?? "9001")
+// const host = getParameterByName("host") || window.location.hostname || "localhost"
+// const port = parseInt(getParameterByName("port") ?? "9001")
+
+const host = process.env.REACT_APP_BROKER_HOST || getParameterByName("host") || window.location.hostname || "localhost"
+const port = parseInt(process.env.REACT_APP_BROKER_PORT ?? getParameterByName("port") ?? "9001")
 
 // const errorHandlerStore = initializeErrorHandlerStore()
 
