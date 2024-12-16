@@ -3,6 +3,8 @@
 
 .modal-marine-card {
   background-color: #202534;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); // Add subtle shadow for more focus
+  z-index: 1050; // Ensure modal appears above the backdrop
   .card__header .card__header__icon.close {
     background-color: transparent;
     border: 0;
@@ -58,5 +60,32 @@
     .second-column {
       margin-left: 2rem;
     }
+  }
+}
+
+// Add backdrop dimming effect
+body.modal-open {
+  background-color: rgba(0, 0, 0, 1);
+}
+
+.modal-action-buttons {
+  margin-top: $metricHeaderMarginBottom;
+  height: 40px;
+  width: 30%;
+  display: flex;
+  padding-left: 10px;
+  justify-content: space-between;
+}
+
+.action-button {
+  margin: 5px;
+  max-width: 60px;
+  min-width: 58px;
+  height: 40px;
+  //margin: 5px;
+  line-height: 40px;
+
+  &:hover {
+    background-color: #0056b3; /* Darker color on hover */
   }
 }

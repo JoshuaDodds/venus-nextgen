@@ -44,114 +44,110 @@ const SystemControl = observer(() => {
 
   const firstSelectorButtonNode = React.useRef<HTMLDivElement>(null)
 
-  if (visible) {
-    return (
-      <ColumnContainer>
-        <ListView icon={Icon} title={"Manual System Control"} subTitle={""} child={false}>
-          <table cellPadding="5px">
-            <tr>
-              <td>
-                <span className="text--subtitle-upper">Max Chg V: </span>
-                {max_charge_voltage ? max_charge_voltage.toFixed(1) + "V" : "N/A"}
-              </td>
-              <td>
-                <span className="text--subtitle-upper">Grid Setpoint: </span>
-                {ac_in_power_setpoint}W
-              </td>
-              <td>
-                <span className="text--subtitle-upper">Min SoC: </span>
-                {battery_min_soc_limit}%
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <span className="text--subtitle-upper">Dynamic ESS SoC Limit: </span>
-                {ess_net_metering_batt_min_soc}%
-              </td>
-            </tr>
-          </table>
-          <ListRow>
-            {kwhOptions.map((currentValue, index) => {
-              const ref = index === 0 ? firstSelectorButtonNode : null
-              return (
-                <div ref={ref}>
-                  <SelectorButton
-                    key={currentValue}
-                    className={"selector-button__gridsetpoint text--small"}
-                    active={ac_in_power_setpoint === currentValue}
-                    onClick={() => set_ac_in_setpoint(currentValue)}
-                    large
-                  >
-                    {currentValue / 1000}kW
-                  </SelectorButton>
-                </div>
-              )
-            })}
-          </ListRow>
-          <ListRow>
-            {dischargeOptions.map((currentValue, index) => {
-              const ref = index === 0 ? firstSelectorButtonNode : null
-              return (
-                <div ref={ref}>
-                  <SelectorButton
-                    key={currentValue.toFixed(1)}
-                    className={"selector-button__gridsetpoint text--small"}
-                    active={ess_net_metering_batt_min_soc === currentValue.toFixed(1)}
-                    onClick={() => set_ess_net_metering_batt_min_soc(currentValue.toFixed(1))}
-                    large
-                  >
-                    {currentValue}%
-                  </SelectorButton>
-                </div>
-              )
-            })}
-          </ListRow>
-          <ListRow>
-            <div className="gridassist__mode-selector">
-              <SelectorButton
-                active={grid_import_enabled === "True"}
-                disabled={grid_import_enabled === "False"}
-                onClick={() => toggle_grid_input()}
-              >
-                Disable GridAssist Charge
-              </SelectorButton>
-            </div>
-            <div className="gridassist__mode-selector">
-              <SelectorButton
-                active={grid_import_enabled === "False"}
-                disabled={grid_import_enabled === "True"}
-                onClick={() => toggle_grid_input()}
-              >
-                Activate GridAssist Charge
-              </SelectorButton>
-            </div>
-          </ListRow>
-          <ListRow>
-            <div className="gridassist__mode-selector">
-              <SelectorButton
-                active={system_shutdown === "False"}
-                disabled={system_shutdown === "True"}
-                onClick={() => send_system_shutdown_message()}
-              >
-                Restart CerbomoticzGX Service
-              </SelectorButton>
-            </div>
-            <div className="gridassist__mode-selector">
-              <SelectorButton
-                active={ess_net_metering_enabled === "True"}
-                // disabled={ess_net_metering_enabled === "False"}
-                onClick={() => toggle_ess_net_metering()}
-              >
-                {ess_net_metering_enabled === "True" ? "Disable ESS Net Metering" : "Enable ESS Net Metering"}
-              </SelectorButton>
-            </div>
-          </ListRow>
-        </ListView>
-      </ColumnContainer>
-    )
-  } else {
-    return null
-  }
+  return (
+    <ColumnContainer>
+      <ListView icon={Icon} title={"Manual System Control"} subTitle={""} child={false}>
+        <table cellPadding="5px">
+          <tr>
+            <td>
+              <span className="text--subtitle-upper">Max Chg V: </span>
+              {max_charge_voltage ? max_charge_voltage.toFixed(1) + "V" : "N/A"}
+            </td>
+            <td>
+              <span className="text--subtitle-upper">Grid Setpoint: </span>
+              {ac_in_power_setpoint}W
+            </td>
+            <td>
+              <span className="text--subtitle-upper">Min SoC: </span>
+              {battery_min_soc_limit}%
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span className="text--subtitle-upper">Dynamic ESS SoC Limit: </span>
+              {ess_net_metering_batt_min_soc}%
+            </td>
+          </tr>
+        </table>
+        <ListRow>
+          {kwhOptions.map((currentValue, index) => {
+            const ref = index === 0 ? firstSelectorButtonNode : null
+            return (
+              <div ref={ref}>
+                <SelectorButton
+                  key={currentValue}
+                  className={"selector-button__gridsetpoint text--small"}
+                  active={ac_in_power_setpoint === currentValue}
+                  onClick={() => set_ac_in_setpoint(currentValue)}
+                  large
+                >
+                  {currentValue / 1000}kW
+                </SelectorButton>
+              </div>
+            )
+          })}
+        </ListRow>
+        <ListRow>
+          {dischargeOptions.map((currentValue, index) => {
+            const ref = index === 0 ? firstSelectorButtonNode : null
+            return (
+              <div ref={ref}>
+                <SelectorButton
+                  key={currentValue.toFixed(1)}
+                  className={"selector-button__gridsetpoint text--small"}
+                  active={ess_net_metering_batt_min_soc === currentValue.toFixed(1)}
+                  onClick={() => set_ess_net_metering_batt_min_soc(currentValue.toFixed(1))}
+                  large
+                >
+                  {currentValue}%
+                </SelectorButton>
+              </div>
+            )
+          })}
+        </ListRow>
+        <ListRow>
+          <div className="gridassist__mode-selector">
+            <SelectorButton
+              active={grid_import_enabled === "True"}
+              disabled={grid_import_enabled === "False"}
+              onClick={() => toggle_grid_input()}
+            >
+              Disable GridAssist
+            </SelectorButton>
+          </div>
+          <div className="gridassist__mode-selector">
+            <SelectorButton
+              active={grid_import_enabled === "False"}
+              disabled={grid_import_enabled === "True"}
+              onClick={() => toggle_grid_input()}
+            >
+              Activate GridAssist
+            </SelectorButton>
+          </div>
+        </ListRow>
+        <ListRow>
+          <div className="gridassist__mode-selector">
+            <SelectorButton
+              active={system_shutdown === "False"}
+              disabled={system_shutdown === "True"}
+              onClick={() => send_system_shutdown_message()}
+            >
+              Restart CerbomoticzGX Service
+            </SelectorButton>
+          </div>
+          <div className="gridassist__mode-selector">
+            <SelectorButton
+              active={ess_net_metering_enabled === "True"}
+              // disabled={ess_net_metering_enabled === "False"}
+              onClick={() => toggle_ess_net_metering()}
+            >
+              {ess_net_metering_enabled === "True" ? "Disable Dynamic ESS" : "Enable Dynamic ESS"}
+            </SelectorButton>
+          </div>
+        </ListRow>
+      </ListView>
+    </ColumnContainer>
+  )
 
   function set_ess_net_metering_batt_min_soc(percent: any) {
     percent = percent.toString()

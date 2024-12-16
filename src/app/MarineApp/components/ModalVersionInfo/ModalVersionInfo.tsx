@@ -1,20 +1,27 @@
 import Modal from "../../../../app/components/Modal"
-import { forwardRef, useImperativeHandle, useState } from "react"
+import React, { forwardRef, useImperativeHandle, useState } from "react"
 import { translate, Translate } from "react-i18nify"
 import "./ModalVersionInfo.scss"
 import Logo from "../../images/icons/logo.png"
 import { SIZE_EXTRA_WIDE } from "../../../../app/components/Card"
-
 import packageInfo from "../../../../../package.json"
 import { BUILD_TIMESTAMP } from "app/utils/constants"
 import { useVrmStore, useAppStore } from "@elninotech/mfd-modules"
 import { observer } from "mobx-react"
+import { useMqtt } from "@elninotech/mfd-modules"
+import SelectorButton from "../SelectorButton"
 
 export const ModalVersionInfo = observer(
   forwardRef((_, ref) => {
     const [isOpen, setOpen] = useState(false)
     const { portalId = "-", siteId = "-" } = useVrmStore()
     const { humanReadableFirmwareVersion } = useAppStore()
+    const { publish } = useMqtt()
+    const [isInactive, setIsInactive] = useState(false)
+
+    const handleRunChargeScheduling = () => {
+      publish("Cerbomoticzgx/EnergyBroker/RunTrigger", "True", { retain: true })
+    }
 
     useImperativeHandle(ref, () => ({
       open: () => setOpen(true),
@@ -34,7 +41,7 @@ export const ModalVersionInfo = observer(
             <div className="modal-ver-container">
               <div className="left-info">
                 <div className="left-info-content">
-                  <img src={Logo} alt={"Marine logo"} />
+                  <img src={Logo} alt="Marine logo" />
                   <div className="version-item">
                     <Translate
                       value="versionInfo.version"
@@ -65,6 +72,20 @@ export const ModalVersionInfo = observer(
                   <p>{siteId}</p>
                 </div>
               </div>
+            </div>
+
+            {/* New Button Section */}
+            <div className="modal-action-buttons">
+              <SelectorButton
+                active={!isInactive}
+                onClick={() => {
+                  setIsInactive(true)
+                  handleRunChargeScheduling()
+                  setTimeout(() => setIsInactive(false), 750)
+                }}
+              >
+                Run Charge Scheduling
+              </SelectorButton>
             </div>
           </Modal>
         )}
