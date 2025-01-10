@@ -20,7 +20,7 @@ export const ModalVersionInfo = observer(
     const [isInactive, setIsInactive] = useState(false)
 
     const handleRunChargeScheduling = () => {
-      publish("Cerbomoticzgx/EnergyBroker/RunTrigger", "True", { retain: true })
+      publish("Cerbomoticzgx/EnergyBroker/RunTrigger", "True", { retain: false })
     }
 
     useImperativeHandle(ref, () => ({

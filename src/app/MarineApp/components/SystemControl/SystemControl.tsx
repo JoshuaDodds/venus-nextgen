@@ -21,9 +21,9 @@ const SystemControl = observer(() => {
     battery_min_soc_limit: `W/${portalId}/settings/0/Settings/CGwacs/BatteryLife/MinimumSocLimit`,
     max_charge_voltage: `W/${portalId}/settings/0/Settings/SystemSetup/MaxChargeVoltage`,
     system_shutdown: "Cerbomoticzgx/system/shutdown",
-    ess_net_metering_enabled: "Cerbomoticzgx/system/EssNetMeteringEnabled",
-    ess_net_metering_overridden: "Cerbomoticzgx/system/EssNetMeteringOverridden",
-    ess_net_metering_batt_min_soc: "Cerbomoticzgx/system/EssNetMeteringBattMinSoc",
+    ess_net_metering_enabled: "Cerbomoticzgx/system/ess_net_metering_enabled",
+    ess_net_metering_overridden: "Cerbomoticzgx/system/ess_net_metering_overridden",
+    ess_net_metering_batt_min_soc: "Cerbomoticzgx/system/ess_net_metering_batt_min_soc",
   }
 
   const {

@@ -77,7 +77,7 @@ export function SystemControlTopics() {
       battery_min_soc_limit: `N/${portalId}/settings/0/Settings/CGwacs/BatteryLife/MinimumSocLimit`,
       max_charge_voltage: `N/${portalId}/settings/0/Settings/SystemSetup/MaxChargeVoltage`,
       system_shutdown: "Cerbomoticzgx/system/shutdown",
-      ess_net_metering_enabled: "Cerbomoticzgx/system/EssNetMeteringEnabled",
+      ess_net_metering_enabled: "Cerbomoticzgx/system/ess_net_metering_enabled",
       ess_net_metering_batt_min_soc: "Cerbomoticzgx/GlobalState/ess_net_metering_batt_min_soc",
       run_trigger: "Cerbomoticzgx/EnergyBroker/RunTrigger",
     }
