@@ -17,10 +17,14 @@ export const ModalVersionInfo = observer(
     const { portalId = "-", siteId = "-" } = useVrmStore()
     const { humanReadableFirmwareVersion } = useAppStore()
     const { publish } = useMqtt()
-    const [isInactive, setIsInactive] = useState(false)
+    const [inactiveButton, setInactiveButton] = useState<null | "run" | "clear">(null)
 
     const handleRunChargeScheduling = () => {
       publish("Cerbomoticzgx/EnergyBroker/RunTrigger", "True", { retain: false })
+    }
+
+    const handleClearChargeSchedule = () => {
+      publish("Cerbomoticzgx/EnergyBroker/ClearSchedule", "True", { retain: false })
     }
 
     useImperativeHandle(ref, () => ({
@@ -77,14 +81,24 @@ export const ModalVersionInfo = observer(
             {/* New Button Section */}
             <div className="modal-action-buttons">
               <SelectorButton
-                active={!isInactive}
+                active={inactiveButton !== "run"}
                 onClick={() => {
-                  setIsInactive(true)
+                  setInactiveButton("run")
                   handleRunChargeScheduling()
-                  setTimeout(() => setIsInactive(false), 750)
+                  setTimeout(() => setInactiveButton(null), 750)
                 }}
               >
                 Run Charge Scheduling
+              </SelectorButton>
+              <SelectorButton
+                active={inactiveButton !== "clear"}
+                onClick={() => {
+                  setInactiveButton("clear")
+                  handleClearChargeSchedule()
+                  setTimeout(() => setInactiveButton(null), 750)
+                }}
+              >
+                Clear Charge Schedule
               </SelectorButton>
             </div>
           </Modal>

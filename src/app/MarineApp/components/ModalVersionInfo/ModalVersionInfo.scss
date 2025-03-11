@@ -71,10 +71,11 @@ body.modal-open {
 .modal-action-buttons {
   margin-top: $metricHeaderMarginBottom;
   height: 40px;
-  width: 30%;
+  width: 60%;
   display: flex;
   padding-left: 10px;
   justify-content: space-between;
+  gap: 10px;
 }
 
 .action-button {
